@@ -3,7 +3,7 @@ using JLPlugin;
 
 namespace ATS_JSONLoader;
 
-public class Logging
+internal class Logging
 {
     internal static void VerboseLog(string s)
     {
