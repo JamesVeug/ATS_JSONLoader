@@ -1,0 +1,7 @@
+*.zip
+
+bin/
+obj/
+lib/
+.idea/
+/.vs
