@@ -1,0 +1,10 @@
+{
+	"name": "[Food Raw] Meat",
+	"icon": "meat_example.png",
+	"eatable": true,
+	"eatingFullness": 100,
+	"tradingBuyValue": 0.5,
+	"allTradersSellingThisGood": true,
+	"tradingSellValue": 200.25,
+	"allTradersBuyThisGood": true
+}

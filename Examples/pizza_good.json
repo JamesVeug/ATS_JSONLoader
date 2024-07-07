@@ -1,0 +1,14 @@
+{
+	"name": "Pizza",
+	"icon": "pizza_example.png",
+	"displayName": "Pizza",
+	"description": "Yummy Deep dish pizza",
+	"eatable": true,
+	"eatingFullness": 1,
+	"canBeBurned": false,
+	"showStorageAmount": true,
+	"tradingBuyValue": 10,
+	"tradingSellValue": 10,
+	"allTradersSellingThisGood": true,
+	"allTradersBuyThisGood": true
+}
