@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <AssemblyName>JSONLoader</AssemblyName>
         <Description>Adds new content to Against the Storm using files instead of code</Description>
-        <Version>1.0.0</Version>
+        <Version>0.1.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <StormPath>C:\Program Files (x86)\Steam\steamapps\common\Against the Storm</StormPath>
@@ -44,10 +44,7 @@
     </ItemGroup>
       
     <ItemGroup>
-        <None Include="assets\*.*">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="WIKI\*.*">
+        <None Include="Examples\*.*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
@@ -57,19 +54,22 @@
     </ItemGroup>
       
     <ItemGroup>
-      <None Remove="Scripts\WIKI\EnumTemplate.txt" />
+      <Folder Include="Examples\" />
     </ItemGroup>
     
     <Target Name="Deploy" AfterTargets="Build">
         <ItemGroup>
             <Assembly Include="$(OutputPath)\$(AssemblyName).dll" />
+            <Examples Include="$(OutputPath)\Examples\*.*" />
         </ItemGroup>
          
         <!-- Create a folder with all the .dlls and files to easily uplaod to thunderstore -->
         <Copy SourceFiles="@(Assembly)" DestinationFolder="$(OutputPath)\ThunderStore\" />
+        <Copy SourceFiles="@(Examples)" DestinationFolder="$(OutputPath)\ThunderStore\plugins\Examples" />
         <Copy SourceFiles="CHANGELOG.md" DestinationFolder="$(OutputPath)\ThunderStore\" />
         <Copy SourceFiles="README.md" DestinationFolder="$(OutputPath)\ThunderStore\" />
         <Copy SourceFiles="manifest.json" DestinationFolder="$(OutputPath)\ThunderStore\" />
+        <Copy SourceFiles="icon.png" DestinationFolder="$(OutputPath)\ThunderStore\" />
         <Copy SourceFiles="icon.png" DestinationFolder="$(OutputPath)\ThunderStore\" />
 
         <ItemGroup>
