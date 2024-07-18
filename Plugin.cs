@@ -101,20 +101,7 @@ public class Plugin : BaseUnityPlugin
         List<string> files = GetAllJLDRFiles();
 
         GoodsLoader.LoadAll(files);
-
-        // string exampleFilePath = Path.Combine(JSONLoaderDirectory, "example_good.jlf");
-        // if (!File.Exists(exampleFilePath))
-        // {
-        //     GoodsData goodsData = new GoodsData();
-        //     string json = JSONParser.ToJSON(goodsData);
-        //     Logger.LogInfo(json);
-        //     File.WriteAllText(exampleFilePath, json);
-        //     Logger.LogInfo($"Wrote example.jlf to {exampleFilePath}");
-        // }
-        // else
-        // {
-        //     Logger.LogInfo($"example.jlf already exists at {exampleFilePath}");
-        // }
+        RaceLoader.LoadAll(files);
     }
 
     private static void ExportAllFiles()
@@ -125,5 +112,6 @@ public class Plugin : BaseUnityPlugin
         }
 
         GoodsLoader.ExportAll();
+        RaceLoader.ExportAll();
     }
 }
