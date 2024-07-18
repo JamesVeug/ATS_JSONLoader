@@ -8,13 +8,15 @@ using System.Reflection;
 using ATS_API.Helpers;
 using ATS_API.Localization;
 using ATS_JSONLoader;
+using ATS_JSONLoader.Sounds;
 using Eremite;
 using Eremite.Model;
+using Eremite.Model.Sound;
 using TinyJson;
 using UnityEngine;
 using Plugin = ATS_JSONLoader.Plugin;
 
-public static class ImportExportUtils
+public static partial class ImportExportUtils
 {
     private static string ID;
     private static string DebugPath;
@@ -114,12 +116,20 @@ public static class ImportExportUtils
             {
                 ConvertValue(ref b, ref a, category, suffix);
             }
+            else
+            {
+                VerboseLog($"Skipping {category}.{suffix} as it is null");
+            }
         }
         else
         {
             if ((object)a != GetDefault(typeof(T)))
             {
                 ConvertValue(ref a, ref b, category, suffix);
+            }
+            else
+            {
+                VerboseLog($"Skipping {category}.{suffix} as it is null");
             }
         }
     }
@@ -145,6 +155,7 @@ public static class ImportExportUtils
                 {
                     to = (ToType)fromValue;
                 }
+
                 return;
             }
             else if (fromType.IsGenericType && fromType.GetGenericTypeDefinition() == typeof(List<>) &&
@@ -165,6 +176,7 @@ public static class ImportExportUtils
                         toList.Add(converted);
                     }
                 }
+
                 //Plugin.Log.LogInfo($"List to List done with {to}");
                 return;
             }
@@ -184,7 +196,8 @@ public static class ImportExportUtils
                         var o2 = GetDefault(toType.GetElementType());
 
                         object[] parameters = { o1, o2, category, $"{suffix}_{i + 1}" };
-                        var m = typeof(ImportExportUtils).GetMethod(nameof(ConvertValue), BindingFlags.NonPublic | BindingFlags.Static)
+                        var m = typeof(ImportExportUtils).GetMethod(nameof(ConvertValue),
+                                BindingFlags.NonPublic | BindingFlags.Static)
                             .MakeGenericMethod(fromType.GetGenericArguments().Single(), toType.GetElementType());
 
                         m.Invoke(null, parameters);
@@ -210,7 +223,8 @@ public static class ImportExportUtils
                         var o2 = GetDefault(toType.GetGenericArguments().Single());
 
                         object[] parameters = { o1, o2, category, $"{suffix}_{i + 1}" };
-                        var m = typeof(ImportExportUtils).GetMethod(nameof(ConvertValue), BindingFlags.NonPublic | BindingFlags.Static)
+                        var m = typeof(ImportExportUtils).GetMethod(nameof(ConvertValue),
+                                BindingFlags.NonPublic | BindingFlags.Static)
                             .MakeGenericMethod(fromType.GetElementType(), toType.GetGenericArguments().Single());
 
                         m.Invoke(null, parameters);
@@ -221,7 +235,7 @@ public static class ImportExportUtils
 
                 return;
             }
-            
+
             else if (fromType.IsArray && toType.IsArray)
             {
                 // Array to Array
@@ -237,7 +251,8 @@ public static class ImportExportUtils
                         var o2 = GetDefault(toType.GetElementType());
 
                         object[] parameters = { o1, o2, category, $"{suffix}_{i + 1}" };
-                        var m = typeof(ImportExportUtils).GetMethod(nameof(ConvertValue), BindingFlags.NonPublic | BindingFlags.Static)
+                        var m = typeof(ImportExportUtils).GetMethod(nameof(ConvertValue),
+                                BindingFlags.NonPublic | BindingFlags.Static)
                             .MakeGenericMethod(fromType.GetGenericArguments().Single(), toType.GetElementType());
 
                         m.Invoke(null, parameters);
@@ -258,7 +273,7 @@ public static class ImportExportUtils
                         to = (ToType)(object)oType;
                         return;
                     }
-                    
+
                     // NOTE: This is for exporting which we do not support atm
                     // // Custom type
                     // object[] parameters = { value, "guid", "name" };
@@ -352,7 +367,8 @@ public static class ImportExportUtils
 
                 return;
             }
-            else if ((fromType == typeof(Texture) || fromType.IsSubclassOf(typeof(Texture))) && toType == typeof(string))
+            else if ((fromType == typeof(Texture) || fromType.IsSubclassOf(typeof(Texture))) &&
+                     toType == typeof(string))
             {
                 Texture texture = (Texture)(object)from;
                 if (texture != null)
@@ -388,7 +404,8 @@ public static class ImportExportUtils
 
                 return;
             }
-            else if (fromType.GetInterfaces().Contains(typeof(IConvertible)) && toType.GetInterfaces().Contains(typeof(IConvertible)))
+            else if (fromType.GetInterfaces().Contains(typeof(IConvertible)) &&
+                     toType.GetInterfaces().Contains(typeof(IConvertible)))
             {
                 IConvertible a = from as IConvertible;
                 IConvertible b = to as IConvertible;
@@ -396,6 +413,7 @@ public static class ImportExportUtils
                 {
                     to = (ToType)Convert.ChangeType(a, toType);
                 }
+
                 return;
             }
             else if (fromType == typeof(string) && toType == typeof(Color))
@@ -411,25 +429,28 @@ public static class ImportExportUtils
                 }
                 else
                 {
-                    int[] split = value.Split(',').Select((a)=>int.Parse(a.Trim())).ToArray();
+                    int[] split = value.Split(',').Select((a) => int.Parse(a.Trim())).ToArray();
                     if (split.Length > 0)
                     {
                         color.r = split[0] / 255f;
                     }
+
                     if (split.Length > 1)
                     {
                         color.g = split[1] / 255f;
                     }
+
                     if (split.Length > 2)
                     {
                         color.b = split[2] / 255f;
                     }
+
                     if (split.Length > 3)
                     {
                         color.a = split[3] / 255f;
                     }
                 }
-                
+
                 to = (ToType)(object)color;
                 return;
             }
@@ -451,6 +472,7 @@ public static class ImportExportUtils
                 {
                     Error($"Could not convert {value} to Vector2!");
                 }
+
                 return;
             }
             else if (fromType == typeof(Vector2) && toType == typeof(string))
@@ -465,10 +487,22 @@ public static class ImportExportUtils
                 to = (ToType)(object)so.name;
                 return;
             }
-            else if (fromType.IsSubclassOf(typeof(ScriptableObject)) && toType == typeof(string))
+            else if (fromType == typeof(AudioClip) && toType == typeof(string))
             {
-                ScriptableObject so = (ScriptableObject)(object)from;
-                to = (ToType)(object)so.name;
+                AudioClip clip = (AudioClip)(object)from;
+                if (clip != null)
+                {
+                    string path = Path.Combine(Plugin.ExportDirectory, category, "Audio", $"{ID}_{suffix}.wav");
+                    to = (ToType)(object)AudioHelpers.ExportAudioClip(clip, path);
+                }
+                to = (ToType)(object)clip.name;
+                return;
+            }
+            else if (fromType == typeof(string) && toType == typeof(AudioClip))
+            {
+                string path = (string)(object)from;
+                AudioClip audioClip = AudioHelpers.LoadAudioClip(path);
+                to = (ToType)(object)audioClip;
                 return;
             }
             else if (fromType == typeof(LocalizableField) && toType == typeof(string))
@@ -478,6 +512,70 @@ public static class ImportExportUtils
             else if (fromType == typeof(string) && toType == typeof(LocalizableField))
             {
                 Error("Use ApplyLocaleField when converted from string to LocalizableField!");
+            }
+            else if (fromType == typeof(RacialSound) && toType == typeof(RacialSounds))
+            {
+                RacialSound fromSounds = (RacialSound)(object)from;
+                RacialSounds toSounds = new RacialSounds();
+                ApplyValue(ref fromSounds.positiveSound, ref toSounds.PositiveSounds, false, category, suffix+"_PositiveSounds");
+                ApplyValue(ref fromSounds.neutralSound, ref toSounds.NeutralSounds, false, category, suffix+"_NeutralSounds");
+                ApplyValue(ref fromSounds.negativeSound, ref toSounds.NegativeSounds, false, category, suffix+"_NegativeSounds");
+                to = (ToType)(object)toSounds;
+                return;
+            }
+            else if (fromType == typeof(RacialSounds) && toType == typeof(RacialSound))
+            {
+                RacialSounds fromSounds = (RacialSounds)(object)from;
+                RacialSound toSounds = ScriptableObject.CreateInstance<RacialSound>();
+                ApplyValue(ref fromSounds.PositiveSounds, ref toSounds.positiveSound, false, category, suffix+"_PositiveSounds");
+                ApplyValue(ref fromSounds.NeutralSounds, ref toSounds.neutralSound, false, category, suffix+"_NeutralSounds");
+                ApplyValue(ref fromSounds.NegativeSounds, ref toSounds.negativeSound, false, category, suffix+"_NegativeSounds");
+                to = (ToType)(object)toSounds;
+                return;
+            }
+            else if (fromType == typeof(SoundRef) && toType == typeof(SoundCollection))
+            {
+                SoundRef soundRef = (SoundRef)(object)from;
+                SoundCollection soundCollection = new SoundCollection();
+                soundCollection.Initialize();
+                if (soundRef != null && soundRef.sounds != null)
+                {
+                    foreach (SoundModel model in soundRef.sounds)
+                    {
+                        if (model == null || model.audioClip == null)
+                        {
+                            continue;
+                        }
+                        
+                        Sound sound = new Sound();
+                        ApplyValue(ref sound.soundPath, ref model.audioClip, true, category, suffix + "_audioClip");
+                        ApplyValue(ref sound.volume, ref model.volume, true, category, suffix + "_volume");
+                        soundCollection.sounds.Add(sound);
+                    }
+                }
+
+                to = (ToType)(object)soundCollection;
+                return;
+            }
+            else if (fromType == typeof(SoundCollection) && toType == typeof(SoundRef))
+            {
+                SoundCollection soundCollection = (SoundCollection)(object)from;
+                SoundRef soundRef = ScriptableObject.CreateInstance<SoundRef>();
+                if (soundRef != null)
+                {
+                    soundRef.sounds = new SoundModel[soundCollection.sounds.Count];
+                    for (int i = 0; i < soundCollection.sounds.Count; i++)
+                    {
+                        SoundModel model = new SoundModel();
+                        Sound sound = soundCollection.sounds[i];
+                        ApplyValue(ref sound.soundPath, ref model.audioClip, false, suffix, suffix + "_audioClip");
+                        ApplyValue(ref sound.volume, ref model.volume, false, suffix, suffix + "_volume");
+                        soundRef.sounds[i] = model;
+                    }
+                }
+
+                to = (ToType)(object)soundRef;
+                return;
             }
         }
         catch (Exception e)
@@ -513,7 +611,7 @@ public static class ImportExportUtils
 
         return TextureHelper.GetImageAsTexture(path);
     }
-    
+
     /// <summary>
     /// Finds similar cards with the same name
     /// </summary>
