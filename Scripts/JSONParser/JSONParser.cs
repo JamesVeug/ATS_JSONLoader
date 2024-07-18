@@ -55,7 +55,7 @@ namespace TinyJson
             }
             else
             {
-                Plugin.Log.LogInfo($"Loading JSON from {filePath}\n{json}");
+                Logging.VerboseLog($"Loading JSON from {filePath}\n{json}");
             }
             return FromJsonInternal<T>(json);
         }
