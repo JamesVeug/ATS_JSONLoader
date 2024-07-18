@@ -90,9 +90,7 @@ public class GoodsLoader
         ApplyTraderSellingFields(builder, data, toModel, modelName);
         ApplyTraderBuyingFields(builder, data, toModel, modelName);
 
-
         ImportExportUtils.ApplyValueNoNull(ref model.eatable, ref data.eatable, toModel, "goods", "eatable");
-        ImportExportUtils.ApplyValueNoNull(ref model.icon, ref data.icon, toModel, "goods", "icon");
         ImportExportUtils.ApplyValueNoNull(ref model.order, ref data.order, toModel, "goods", "order");
         ImportExportUtils.ApplyValueNoNull(ref model.burningTime, ref data.burningTime, toModel, "goods", "burningTime");
         ImportExportUtils.ApplyValueNoNull(ref model.eatingFullness, ref data.eatingFullness, toModel, "goods", "eatingFullness");
@@ -103,10 +101,12 @@ public class GoodsLoader
         ImportExportUtils.ApplyValueNoNull(ref model.isOnHUD, ref data.isOnHUD, toModel, "goods", "isOnHUD");
         ImportExportUtils.ApplyValueNoNull(ref model.consoleId, ref data.consoleId, toModel, "goods", "consoleId");
         ImportExportUtils.ApplyValueNoNull(ref model.tags, ref data.tags, toModel, "goods", "tags");
-
-        if (toModel && !isNewGood)
+        
+        
+        if (!toModel || !isNewGood)
         {
-            TextMeshProManager.Replace(model.icon.texture, model.name);
+            ImportExportUtils.ApplyProperty(() => { return model.icon; }, (a) => { builder.SetIcon(a); }, ref data.icon,
+                toModel, "goods", "icon");
         }
     }
 
