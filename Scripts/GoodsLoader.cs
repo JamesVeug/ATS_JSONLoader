@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ATS_API;
 using ATS_API.Goods;
 using ATS_API.Helpers;
 using ATS_JSONLoader;
 using Eremite;
 using Eremite.Model;
-using Eremite.Model.Effects;
 using TinyJson;
+using PluginInfo = ATS_JSONLoader.PluginInfo;
 
 public class GoodsLoader
 {
@@ -41,7 +42,8 @@ public class GoodsLoader
                 
                 string guidPrefix = !string.IsNullOrEmpty(data.guid) ? data.guid + "_" : "";
                 string fullName = guidPrefix + data.name;
-                
+
+                bool isNewGood = false;
                 GoodModel model = null;
                 if (MB.Settings.ContainsGood(fullName))
                 {
@@ -50,12 +52,13 @@ public class GoodsLoader
                 }
                 else
                 {
-                    Logging.VerboseLog($"Creating good {fullName}");
+                    Logging.VerboseLog($"Creating new good {fullName}");
                     model = GoodsManager.New(data.guid, data.name, data.icon).goodModel;
+                    isNewGood = true;
                 }
                 
                 Logging.VerboseLog($"Applying JSON (goods) {file} to good {fullName}");
-                Apply(model, data, true, fullName);
+                Apply(model, data, true, fullName, isNewGood);
 
                 Logging.VerboseLog($"Loaded JSON good {fullName}");
             }
@@ -66,7 +69,7 @@ public class GoodsLoader
         }
     }
 
-    public static void Apply(GoodModel model, GoodsData data, bool toModel, string modelName)
+    public static void Apply(GoodModel model, GoodsData data, bool toModel, string modelName, bool isNewGood)
     {
         ImportExportUtils.SetID(modelName);
 
@@ -100,6 +103,11 @@ public class GoodsLoader
         ImportExportUtils.ApplyValueNoNull(ref model.isOnHUD, ref data.isOnHUD, toModel, "goods", "isOnHUD");
         ImportExportUtils.ApplyValueNoNull(ref model.consoleId, ref data.consoleId, toModel, "goods", "consoleId");
         ImportExportUtils.ApplyValueNoNull(ref model.tags, ref data.tags, toModel, "goods", "tags");
+
+        if (toModel && !isNewGood)
+        {
+            TextMeshProManager.Replace(model.icon.texture, model.name);
+        }
     }
 
     private static void ApplyTraderBuyingFields(GoodsBuilder builder, GoodsData data, bool toModel, string modelName)
@@ -192,7 +200,7 @@ public class GoodsLoader
     {
         foreach (GoodModel goodModel in MB.Settings.Goods)
         {
-            GoodsTypes goodsTypes = goodModel.name.ToGoodsType();
+            GoodsTypes goodsTypes = goodModel.name.ToGoodsTypes();
             GoodsData data = new GoodsData();
             data.Initialize();
             
@@ -206,7 +214,7 @@ public class GoodsLoader
                 data.name = goodModel.name;
             }
             
-            Apply(goodModel, data, false, goodModel.name);
+            Apply(goodModel, data, false, goodModel.name, false);
             
             string file = Path.Combine(Plugin.ExportDirectory, "goods", goodModel.name + "_good.json");
             string json = JSONParser.ToJSON(data);
