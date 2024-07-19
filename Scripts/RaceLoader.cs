@@ -70,6 +70,7 @@ public class RaceLoader
 
         ImportExportUtils.ApplyValueNoNull(ref model.icon, ref data.icon, toModel, "races", "icon");
         ImportExportUtils.ApplyValueNoNull(ref model.roundIcon, ref data.roundIcon, toModel, "races", "roundIcon");
+        ImportExportUtils.ApplyValueNoNull(ref model.widePortrait, ref data.widePortrait, toModel, "races", "widePortrait");
 
 
         ImportExportUtils.ApplyValueNoNull(ref model.avatarClickSound, ref data.avatarClickSounds, toModel, "races", "avatarClickSounds");
@@ -111,6 +112,7 @@ public class RaceLoader
         public string name;
         public string icon;
         public string roundIcon;
+        public string widePortrait;
 
         public RacialSounds avatarClickSounds = new RacialSounds();
         public RacialSounds femalePickSounds = new RacialSounds();
