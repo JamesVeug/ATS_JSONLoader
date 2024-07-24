@@ -253,7 +253,7 @@ public static partial class ImportExportUtils
                         object[] parameters = { o1, o2, category, $"{suffix}_{i + 1}" };
                         var m = typeof(ImportExportUtils).GetMethod(nameof(ConvertValue),
                                 BindingFlags.NonPublic | BindingFlags.Static)
-                            .MakeGenericMethod(fromType.GetGenericArguments().Single(), toType.GetElementType());
+                            .MakeGenericMethod(fromType.GetElementType(), toType.GetElementType());
 
                         m.Invoke(null, parameters);
 
