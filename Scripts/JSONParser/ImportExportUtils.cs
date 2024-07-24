@@ -107,6 +107,20 @@ public static partial class ImportExportUtils
             ConvertValue(ref a, ref b, category, suffix);
         }
     }
+    
+    public static void ApplyVector2<T>(ref Vector2 a, ref T bX, ref T bY, bool toA, string category, string suffix)
+    {
+        if (toA)
+        {
+            ConvertValue(ref bX, ref a.x, category, suffix);
+            ConvertValue(ref bY, ref a.y, category, suffix);
+        }
+        else
+        {
+            ConvertValue(ref a.x, ref bX, category, suffix);
+            ConvertValue(ref a.y, ref bY, category, suffix);
+        }
+    }
 
     public static void ApplyValueNoNull<T, Y>(ref T a, ref Y b, bool toA, string category, string suffix)
     {
@@ -503,6 +517,20 @@ public static partial class ImportExportUtils
                 string path = (string)(object)from;
                 AudioClip audioClip = AudioHelpers.LoadAudioClip(path);
                 to = (ToType)(object)audioClip;
+                return;
+            }
+            else if (fromType == typeof(string) && toType == typeof(NeedModel))
+            {
+                string path = (string)(object)from;
+                NeedModel need = path.ToNeedModel();
+                to = (ToType)(object)need;
+                return;
+            }
+            else if (fromType == typeof(string) && toType == typeof(ModelTag))
+            {
+                string path = (string)(object)from;
+                ModelTag tag = path.ToModelTag();
+                to = (ToType)(object)tag;
                 return;
             }
             else if (fromType == typeof(LocalizableField) && toType == typeof(string))
@@ -925,6 +953,11 @@ public static partial class ImportExportUtils
     {
         if (Configs.VerboseLogging)
             Logging.VerboseError($"[{DebugPath}][{ID}][{LoggingSuffix}] {message}");
+    }
+    
+    private static void Log(string message)
+    {
+        Plugin.Log.LogInfo($"[{ID}][{LoggingSuffix}] {message}");
     }
 
     private static void Warning(string message)
