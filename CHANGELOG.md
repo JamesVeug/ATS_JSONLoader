@@ -1,3 +1,10 @@
+# 0.3.0
+- Added lots more fields to change races
+  - Resolve
+  - Characteristics
+  - Needs
+  - +More
+
 # 0.2.0
 - Added support to modify existing races
 - Added support to load/export audio

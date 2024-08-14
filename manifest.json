@@ -1,11 +1,11 @@
 ﻿{
   "name": "JSONLoader",
-  "version_number": "0.2.0",
+  "version_number": "0.3.0",
   "website_url": "https://github.com/JamesVeug/ATS_JSONLoader",
   "description": "Add/Change ATS without code. Use json files instead.",
   "dependencies": [
     "BepInEx-BepInExPack-5.4.2100", 
-    "ATS_API_Devs-API-1.2.2"
+    "ATS_API_Devs-API-1.2.3"
   ]
 }
 

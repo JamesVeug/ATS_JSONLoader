@@ -82,6 +82,57 @@ The sounds are optional. Remove them if you don't want them.
   "icon": "Beaver.png",
   "roundIcon": "BeaverRound.png",
   "widePortrait": "BeaverWide.png",
+  "tag": "[Tag] Beaver",
+  "isEssential": true,
+  "order": 1,
+  "baseSpeed": 1.8,
+  "initialResolve": 10,
+  "minResolve": 0,
+  "maxResolve": 50,
+  "resolvePositveChangePerSec": 0.15,
+  "resolveNegativeChangePerSec": 0.12,
+  "resolveNegativeChangeDiffFactor": 0.1,
+  "reputationPerSec": 0.00013,
+  "minPopulationToGainReputation": 1,
+  "maxReputationFromResolvePerSec": 0.025,
+  "minResolveForReputationTreshold": 30,
+  "maxResolveForReputationTreshold": 50,
+  "reputationTresholdIncreasePerReputation": 2,
+  "resolveToReputationRatio": 0.1,
+  "populationToReputationRatio": 0.7,
+  "hungerTolerance": 6,
+  "racialHousingNeed": "Beaver Housing",
+  "needsInterval": 120,
+  "needs": [
+    "Any Housing",
+    "Beaver Housing",
+    "Biscuits",
+    "Pickled Goods",
+    "Clothes",
+    "Leasiure",
+    "Education",
+    "Luxury"
+  ],
+  "characteristics": [
+    {
+      "buildingTag": "Wood",
+      "villagerPerkEffect": "Proficiency",
+      "globalEffect": "",
+      "buildingPerk": ""
+    },
+    {
+      "buildingTag": "Tech",
+      "villagerPerkEffect": "Comfortable Job",
+      "globalEffect": "",
+      "buildingPerk": ""
+    },
+    {
+      "buildingTag": "Hearth_Beavers",
+      "villagerPerkEffect": "",
+      "globalEffect": "FuelConsumption_HearthEffect_Beaver",
+      "buildingPerk": ""
+    }
+  ],
   "avatarClickSounds": {
     "PositiveSounds": {
       "sounds": [
@@ -105,97 +156,17 @@ The sounds are optional. Remove them if you don't want them.
       ]
     }
   },
-  "femalePickSounds": {
-    "PositiveSounds": {
-      "sounds": [
-        {
-          "soundPath": "PeasantReady1.wav"
-        }
-      ]
-    },
-    "NegativeSounds": {
-      "sounds": [
-        {
-          "soundPath": "PeasantReady1.wav"
-        }
-      ]
-    },
-    "NeutralSounds": {
-      "sounds": [
-        {
-          "soundPath": "PeasantReady1.wav"
-        }
-      ]
-    }
-  },
-  "malePickSounds": {
-    "PositiveSounds": {
-      "sounds": [
-        {
-          "soundPath": "PeasantReady1.wav"
-        }
-      ]
-    },
-    "NegativeSounds": {
-      "sounds": [
-        {
-          "soundPath": "PeasantReady1.wav"
-        }
-      ]
-    },
-    "NeutralSounds": {
-      "sounds": [
-        {
-          "soundPath": "PeasantReady1.wav"
-        }
-      ]
-    }
-  },
-  "femaleChangeProfessionSounds": {
-    "PositiveSounds": {
-      "sounds": [
-        {
-          "soundPath": "PeasantYes1.wav"
-        }
-      ]
-    },
-    "NegativeSounds": {
-      "sounds": [
-        {
-          "soundPath": "PeasantYesAttack1.wav"
-        }
-      ]
-    },
-    "NeutralSounds": {
-      "sounds": [
-        {
-          "soundPath": "PeasantYesAttack3.wav"
-        }
-      ]
-    }
-  },
-  "maleChangeProfessionSounds": {
-    "PositiveSounds": {
-      "sounds": [
-        {
-          "soundPath": "PeasantYes1.wav"
-        }
-      ]
-    },
-    "NegativeSounds": {
-      "sounds": [
-        {
-          "soundPath": "PeasantYesAttack1.wav"
-        }
-      ]
-    },
-    "NeutralSounds": {
-      "sounds": [
-        {
-          "soundPath": "PeasantYesAttack3.wav"
-        }
-      ]
-    }
-  }
+  "femalePickSounds": {},
+  "malePickSounds": {},
+  "femaleChangeProfessionSounds": {},
+  "maleChangeProfessionSounds": {},
+  "maleNames": [
+    "Sir James",
+    "Dr James"
+  ],
+  "femaleNames": [
+    "Lady Jane",
+    "Dr Jane"
+  ]
 }
 ```
