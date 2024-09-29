@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ATS_API;
 using BepInEx;
 using BepInEx.Logging;
 using Eremite;
@@ -24,7 +25,7 @@ public class Plugin : BaseUnityPlugin
     
     public static string JSONLoaderDirectory = "";
     public static string BepInExDirectory = "";
-    public static string ExportDirectory => Path.Combine(JSONLoaderDirectory, "Exported");
+    public static string ExportDirectory => Path.Combine(Application.dataPath, "JSONLoader", "Exported");
 
     private Harmony harmony;
     
@@ -61,7 +62,7 @@ public class Plugin : BaseUnityPlugin
         
         Configs.InitializeConfigs(Config);
         
-        Hotkeys.RegisterKey("Reload JSONLoader", KeyCode.F5, () =>
+        Hotkeys.RegisterKey(PluginInfo.PLUGIN_GUID, "reload", "Reload all JSON Files", [KeyCode.F5], () =>
         {
             Logger.LogInfo($"Reloading JSONLoader!");
             LoadAllFiles();
