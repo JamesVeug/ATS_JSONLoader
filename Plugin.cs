@@ -62,7 +62,7 @@ public class Plugin : BaseUnityPlugin
         
         Configs.InitializeConfigs(Config);
         
-        Hotkeys.RegisterKey(PluginInfo.PLUGIN_GUID, "reload", "Reload all JSON Files", [KeyCode.F5], () =>
+        Hotkeys.RegisterKey(PluginInfo.PLUGIN_NAME, "reload", "Reload all JSON Files", [KeyCode.F5], () =>
         {
             Logger.LogInfo($"Reloading JSONLoader!");
             LoadAllFiles();
