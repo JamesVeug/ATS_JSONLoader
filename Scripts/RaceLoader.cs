@@ -201,22 +201,18 @@ public class RaceLoader
         public string[] needs;
         public RaceCharacteristicData[] characteristics;
 
-        public RacialSounds avatarClickSounds = new RacialSounds();
-        public RacialSounds femalePickSounds = new RacialSounds();
-        public RacialSounds malePickSounds = new RacialSounds();
-        public RacialSounds femaleChangeProfessionSounds = new RacialSounds();
-        public RacialSounds maleChangeProfessionSounds = new RacialSounds();
+        public RacialSounds avatarClickSounds;
+        public RacialSounds femalePickSounds;
+        public RacialSounds malePickSounds;
+        public RacialSounds femaleChangeProfessionSounds;
+        public RacialSounds maleChangeProfessionSounds;
 
         public string[] maleNames;
         public string[] femaleNames;
         
         public void Initialize()
         {
-            avatarClickSounds = new RacialSounds();
-            femalePickSounds = new RacialSounds();
-            malePickSounds = new RacialSounds();
-            femaleChangeProfessionSounds = new RacialSounds();
-            maleChangeProfessionSounds = new RacialSounds();
+
         }
     }
 }
