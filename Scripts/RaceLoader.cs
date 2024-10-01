@@ -121,9 +121,22 @@ public class RaceLoader
                     RaceCharacteristicData charData = data.characteristics[i];
                     RaceCharacteristicModel charModel = new RaceCharacteristicModel();
                     charModel.tag = charData.buildingTag.ToBuildingTagModel();
-                    charModel.effect = charData.villagerPerkEffect.ToVillagerPerkModel();
-                    charModel.globalEffect = charData.globalEffect.ToEffectModel();
-                    charModel.buildingPerk = charData.buildingPerk.ToBuildingPerkModel();
+
+                    if (!string.IsNullOrEmpty(charData.villagerPerkEffect))
+                    {
+                        charModel.effect = charData.villagerPerkEffect.ToVillagerPerkModel();
+                    }
+
+                    if (!string.IsNullOrEmpty(charData.globalEffect))
+                    {
+                        charModel.globalEffect = charData.globalEffect.ToEffectModel();
+                    }
+
+                    if (!string.IsNullOrEmpty(charData.buildingPerk))
+                    {
+                        charModel.buildingPerk = charData.buildingPerk.ToBuildingPerkModel();
+                    }
+
                     model.characteristics[i] = charModel;
                 }
             }
