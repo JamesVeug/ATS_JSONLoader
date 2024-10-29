@@ -101,10 +101,24 @@ public class GoodsLoader
         ImportExportUtils.ApplyValueNoNull(ref model.isOnHUD, ref data.isOnHUD, toModel, "goods", "isOnHUD");
         ImportExportUtils.ApplyValueNoNull(ref model.consoleId, ref data.consoleId, toModel, "goods", "consoleId");
         ImportExportUtils.ApplyValueNoNull(ref model.tags, ref data.tags, toModel, "goods", "tags");
-        
-        
-        if (!toModel || !isNewGood)
+
+
+        if (toModel)
         {
+            // Data -> Model
+            if (!isNewGood)
+            {
+                if (!string.IsNullOrEmpty(data.icon))
+                {
+                    ImportExportUtils.ApplyProperty(() => { return model.icon; }, (a) => { builder.SetIcon(a); },
+                        ref data.icon,
+                        toModel, "goods", "icon");
+                }
+            }
+        }
+        else
+        {
+            // Model -> Data
             ImportExportUtils.ApplyProperty(() => { return model.icon; }, (a) => { builder.SetIcon(a); }, ref data.icon,
                 toModel, "goods", "icon");
         }
