@@ -52,7 +52,7 @@ public class LocalizableField : IFlexibleField
             return;
         }
         
-        int indexOf = englishFieldName.LastIndexOf("_");
+        int indexOf = key.LastIndexOf("_");
         string languageCode = key.Substring(indexOf + 1);
         
         SystemLanguage language = GetLanguageFromKey(languageCode);
