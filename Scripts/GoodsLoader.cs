@@ -5,9 +5,11 @@ using System.Linq;
 using ATS_API;
 using ATS_API.Goods;
 using ATS_API.Helpers;
+using ATS_API.MetaRewards;
 using ATS_JSONLoader;
 using Eremite;
 using Eremite.Model;
+using Eremite.Model.Meta;
 using TinyJson;
 using PluginInfo = ATS_JSONLoader.PluginInfo;
 
@@ -115,12 +117,83 @@ public class GoodsLoader
                         toModel, "goods", "icon");
                 }
             }
+
+            if (data.embarkGoodMetaRewards != null)
+            {
+                var models = SO.Settings.metaRewards
+                    .Where(a=>a is EmbarkGoodMetaRewardModel goodReward && goodReward.good.good == model)
+                    .Select(a=>a as EmbarkGoodMetaRewardModel).ToList();
+                
+                // Edit existing meta rewards
+                foreach (GoodMetaRewardData rewardData in data.embarkGoodMetaRewards)
+                {
+                    string expectedName = !string.IsNullOrEmpty(rewardData.guid) ? rewardData.guid + "_" + rewardData.name : rewardData.name;
+                    
+                    EmbarkGoodMetaRewardModel metaRewardModel = models.FirstOrDefault(a => a.name == expectedName);
+                    if (metaRewardModel == null)
+                    {
+                        metaRewardModel = MetaRewardManager.New<EmbarkGoodMetaRewardModel>(rewardData.guid, rewardData.name).Model as EmbarkGoodMetaRewardModel;
+                        metaRewardModel.good = new GoodRef();
+                        metaRewardModel.good.good = model;
+                    }
+                    else
+                    {
+                        models.Remove(metaRewardModel);
+                    }
+
+                    EmbarkGoodMetaRewardBuilder goodBuilder = new EmbarkGoodMetaRewardBuilder(metaRewardModel);
+                    EmbarkGoodMetaRewardModel rewardModel = goodBuilder.Model;
+                    ImportExportUtils.ApplyValue(ref rewardModel.good.amount, ref rewardData.goodAmount, toModel, "metaReward", "goodAmount");
+                    ImportExportUtils.ApplyLocaText(ref rewardModel.displayName, ref rewardData.displayName, (a,b)=>goodBuilder.SetDisplayName(a,b), toModel, "displayName");
+                    ImportExportUtils.ApplyLocaText(ref rewardModel.description, ref rewardData.description, (a,b)=>goodBuilder.SetDescription(a,b), toModel, "description");
+                    ImportExportUtils.ApplyVector2Int(ref rewardModel.costRange, ref rewardData.minCost, ref rewardData.maxCost, toModel, "metaReward", "costRange");
+                }
+                
+                
+                // Disable meta rewards not in the array
+                // TODO: This is not working yet
+            }
         }
         else
         {
             // Model -> Data
             ImportExportUtils.ApplyProperty(() => { return model.icon; }, (a) => { builder.SetIcon(a); }, ref data.icon,
                 toModel, "goods", "icon");
+
+            var models = SO.Settings.metaRewards.Where(a=>a is EmbarkGoodMetaRewardModel goodReward && goodReward.good.good == model)
+                .Select(a=>a as EmbarkGoodMetaRewardModel).ToArray();
+            if (models.Length > 0)
+            {
+                data.embarkGoodMetaRewards = new GoodMetaRewardData[models.Length];
+                for (var i = 0; i < models.Length; i++)
+                {
+                    var metaRewardModel = models[i];
+                    GoodMetaRewardData rewardData = new GoodMetaRewardData();
+                    rewardData.Initialize();
+
+                    string name = "";
+                    string guid = "";
+                    if (MetaRewardManager.NewMetaRewardsLookup.TryGetValue(metaRewardModel.name.ToMetaRewardTypes(), out var newMetaRewardData))
+                    {
+                        name = newMetaRewardData.rawName;
+                        guid = newMetaRewardData.guid;
+                    }
+                    else
+                    {
+                        name = metaRewardModel.name;
+                    }
+                    
+                    ImportExportUtils.ApplyValue(ref guid, ref rewardData.guid, toModel, "metaReward", "guid");
+                    ImportExportUtils.ApplyValue(ref name, ref rewardData.name, toModel, "metaReward", "name");
+                    ImportExportUtils.ApplyLocaText(ref metaRewardModel.displayName, ref rewardData.displayName, (a, b) => builder.SetDisplayName(a, b), false, "displayName");
+                    ImportExportUtils.ApplyLocaText(ref metaRewardModel.description, ref rewardData.description, (a, b) => builder.SetDescription(a, b), false, "description");
+                    rewardData.goodAmount = metaRewardModel.good.amount;
+                    rewardData.minCost = metaRewardModel.costRange.x;
+                    rewardData.maxCost = metaRewardModel.costRange.y;
+
+                    data.embarkGoodMetaRewards[i] = rewardData;
+                }
+            }
         }
     }
 
@@ -231,6 +304,11 @@ public class GoodsLoader
             Apply(goodModel, data, false, goodModel.name, false);
             
             string file = Path.Combine(Plugin.ExportDirectory, "goods", goodModel.name + "_good.json");
+            if(Directory.Exists(Path.GetDirectoryName(file)) == false)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(file));
+            }
+            
             string json = JSONParser.ToJSON(data);
             File.WriteAllText(file, json);
         }
@@ -261,11 +339,30 @@ public class GoodsData : IInitializable
     public float? tradingSellValue;
     public bool? allTradersBuyThisGood;
     public string[] tradersBuyingThisGood;
+    public GoodMetaRewardData[] embarkGoodMetaRewards;
 
     public void Initialize()
     {
         displayName = new LocalizableField("displayName");
         description = new LocalizableField("description");
         shortDescription = new LocalizableField("shortDescription");
+    }
+}
+
+public class GoodMetaRewardData : IInitializable
+{
+    public string guid;
+    public string name;
+    public LocalizableField displayName;
+    public LocalizableField description;
+    public int goodAmount;
+    public int minCost;
+    public int maxCost;
+
+
+    public void Initialize()
+    {
+        displayName = new LocalizableField("displayName");
+        description = new LocalizableField("description");
     }
 }
