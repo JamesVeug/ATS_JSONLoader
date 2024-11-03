@@ -49,7 +49,7 @@ public static partial class ImportExportUtils
         return GUIDManager.Get<T>(guid, name);
     }
     
-    public static void Applymethod<T, Y>(Func<T> getter, Action<T> setter, ref Y serializeInfoValue, bool toModel, string category, string suffix)
+    public static void ApplyMethod<T, Y>(Func<T> getter, Action<T> setter, ref Y serializeInfoValue, bool toModel, string category, string suffix)
     {
         if (toModel)
         {
@@ -81,18 +81,18 @@ public static partial class ImportExportUtils
         }
     }
 
-    public static void ApplyProperty<T, Y>(ref T serializeInfoValue, Func<Y> getter, Action<Y> setter, bool toModel, string category, string suffix)
+    public static void ApplyProperty<T, Y>(ref T aSerializeInfoValue, Func<Y> bGetter, Action<Y> bSetter, bool toModel, string category, string suffix)
     {
         if (toModel)
         {
-            Y y = getter();
-            ApplyValue(ref serializeInfoValue, ref y, false, category, suffix);
+            Y y = bGetter();
+            ApplyValue(ref aSerializeInfoValue, ref y, true, category, suffix);
         }
         else
         {
             Y y = default;
-            ApplyValue(ref serializeInfoValue, ref y, true, category, suffix);
-            setter(y);
+            ApplyValue(ref aSerializeInfoValue, ref y, false, category, suffix);
+            bSetter(y);
         }
     }
 
@@ -119,6 +119,27 @@ public static partial class ImportExportUtils
         {
             ConvertValue(ref a.x, ref bX, category, suffix);
             ConvertValue(ref a.y, ref bY, category, suffix);
+        }
+    }
+    
+    public static void ApplyVector2Int(ref Vector2Int a, ref int bX, ref int bY, bool toA, string category, string suffix)
+    {
+        if (toA)
+        {
+            int x = a.x;
+            int y = a.y;
+            ConvertValue(ref bX, ref x, category, suffix);
+            ConvertValue(ref bY, ref y, category, suffix);
+            a = new Vector2Int(x, y);
+        }
+        else
+        {
+            int x = a.x;
+            int y = a.x;
+            ConvertValue(ref x, ref bX, category, suffix);
+            ConvertValue(ref y, ref bY, category, suffix);
+            bX = x;
+            bY = y;
         }
     }
 
@@ -603,6 +624,24 @@ public static partial class ImportExportUtils
                 }
 
                 to = (ToType)(object)soundRef;
+                return;
+            }
+            else if (fromType == typeof(string) && toType == typeof(AscensionModifierModel))
+            {
+                string path = (string)(object)from;
+                AscensionModifierModel modifier = SO.Settings.ascensionModifiers.FirstOrDefault(a => a.name == path);
+                if (modifier == null)
+                {
+                    Error($"Could not find AscensionModifierModel with name '{path}'!");
+                }
+
+                to = (ToType)(object)modifier;
+                return;
+            }
+            else if (fromType == typeof(AscensionModifierModel) && toType == typeof(string))
+            {
+                AscensionModifierModel modifier = (AscensionModifierModel)(object)from;
+                to = (ToType)(object)modifier.name;
                 return;
             }
         }

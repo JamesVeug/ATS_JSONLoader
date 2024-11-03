@@ -103,6 +103,7 @@ public class Plugin : BaseUnityPlugin
 
         GoodsLoader.LoadAll(files);
         RaceLoader.LoadAll(files);
+        DifficultyLoader.LoadAll(files);
     }
 
     private static void ExportAllFiles()
