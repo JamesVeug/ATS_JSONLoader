@@ -104,6 +104,7 @@ public class Plugin : BaseUnityPlugin
         GoodsLoader.LoadAll(files);
         RaceLoader.LoadAll(files);
         DifficultyLoader.LoadAll(files);
+        MetaRewardLoader.LoadAll(files);
     }
 
     private static void ExportAllFiles()
@@ -113,7 +114,10 @@ public class Plugin : BaseUnityPlugin
             Directory.CreateDirectory(ExportDirectory);
         }
 
+        Log.LogInfo($"Exporting all files to {ExportDirectory}... Grab a coffee... this will take a long time.");
         GoodsLoader.ExportAll();
         RaceLoader.ExportAll();
+        DifficultyLoader.ExportAll();
+        MetaRewardLoader.ExportAll();
     }
 }

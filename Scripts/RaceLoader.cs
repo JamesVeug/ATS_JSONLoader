@@ -144,7 +144,6 @@ public class RaceLoader
         else
         {
             data.characteristics = new RaceCharacteristicData[model.characteristics.Length];
-            Plugin.Log.LogInfo($"{modelName} Characteristics: {model.characteristics.Length}");
             for (int i = 0; i < model.characteristics.Length; i++)
             {
                 RaceCharacteristicModel charModel = model.characteristics[i];
@@ -169,6 +168,11 @@ public class RaceLoader
             Apply(goodModel, data, false, goodModel.name);
 
             string file = Path.Combine(Plugin.ExportDirectory, "races", goodModel.name + "_race.json");
+            if(Directory.Exists(Path.GetDirectoryName(file)) == false)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(file));
+            }
+            
             string json = JSONParser.ToJSON(data);
             File.WriteAllText(file, json);
         }
