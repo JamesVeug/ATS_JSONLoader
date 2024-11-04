@@ -115,10 +115,10 @@ public class Plugin : BaseUnityPlugin
         }
 
         Log.LogInfo($"Exporting all files to {ExportDirectory}... Grab a coffee... this will take a long time.");
+        JSONSchemaGenerator.GenerateAndExport();
         GoodsLoader.ExportAll();
         RaceLoader.ExportAll();
         DifficultyLoader.ExportAll();
         MetaRewardLoader.ExportAll();
-        JSONSchemaGenerator.GenerateAndExport();
     }
 }
