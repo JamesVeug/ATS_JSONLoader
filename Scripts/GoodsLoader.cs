@@ -10,6 +10,7 @@ using ATS_JSONLoader;
 using Eremite;
 using Eremite.Model;
 using Eremite.Model.Meta;
+using Newtonsoft.Json;
 using TinyJson;
 using PluginInfo = ATS_JSONLoader.PluginInfo;
 
@@ -315,30 +316,76 @@ public class GoodsLoader
     }
 }
 
+[GenerateSchema("Goods", "Fuel/Eatable/Tradeable items/Amber/etc....")]
 public class GoodsData : IInitializable
 {
+    [SchemaGuid] 
     public string guid;
+    
+    [SchemaName] 
     public string name;
+    
+    [SchemaIcon(TextureHelper.SpriteType.GoodIcon)] 
     public string icon;
+    
+    [SchemaDisplayName] 
     public LocalizableField displayName;
+    
+    [SchemaDescription] 
     public LocalizableField description;
+    
+    [SchemaShortDescription] 
     public LocalizableField shortDescription;
+    
+    [SchemaField(false, "If set to true will allow villagers to eat it. Use eatingFullness to set how full villagers get.")] 
     public bool? eatable;
+    
+    [SchemaField(0, "The order of which this will be good will be sorted in some lists.")] 
     public int? order;
+    
+    [SchemaField(40f, "How long this good will burn at the hearth if canBeBurned is set to true.")] 
     public float? burningTime;
+    
+    [SchemaField(1f, "How full villagers get when they eat this good if eatable is set to true.")] 
     public float? eatingFullness;
+    
+    [SchemaField(false, "If set to true then this good can be burnt at the hearth. Use burningTime to set how long it will burn.")] 
     public bool? canBeBurned;
+    
+    [SchemaField(true)] 
     public bool? showStorageAmount;
+    
+    [SchemaField(true)] 
     public bool? isOnHUD;
+    
+    [SchemaEnum<GoodsCategoriesTypes>(GoodsCategoriesTypes.Food, "Column it appears in to enable/disable use by villagers. If not set API will auto set it.")] 
     public string category;
+    
+    [SchemaField(null)] 
     public string[] tags;
+    
+    [SchemaField("", "Identifier to be used by the console??")] 
     public string consoleId;
+    
+    [SchemaField(4.5f, "How much the player will receive for selling this.")] 
     public float? tradingBuyValue;
+    
+    [SchemaField(true, "If set to true then this good will be sold by all traders.")] 
     public bool? allTradersSellThisGood;
+    
+    [SchemaTraderType(TraderTypes.Trader_0_General, "Name of traders that can sell this good.")] 
     public string[] tradersSellingThisGood;
+    
+    [SchemaField(2.25f, "How much traders will sell this good for.")] 
     public float? tradingSellValue;
+    
+    [SchemaField(true, "If set to true then the player can sell this good to all traders.")] 
     public bool? allTradersBuyThisGood;
+    
+    [SchemaTraderType(TraderTypes.Trader_0_General, "Name of traders that can buy this off the player..")] 
     public string[] tradersBuyingThisGood;
+    
+    [SchemaField(null, "Rewards the player can choose when starting a new settlement. If not included then will not affect existing meta rewards.")] 
     public GoodMetaRewardData[] embarkGoodMetaRewards;
 
     public void Initialize()
@@ -351,12 +398,25 @@ public class GoodsData : IInitializable
 
 public class GoodMetaRewardData : IInitializable
 {
+    [SchemaGuid] 
     public string guid;
+    
+    [SchemaGuid] 
     public string name;
+    
+    [SchemaDisplayName] 
     public LocalizableField displayName;
+    
+    [SchemaDescription] 
     public LocalizableField description;
+    
+    [SchemaField("How much of this good you will get when selecting this reward.")]
     public int goodAmount;
+    
+    [SchemaField("Minimum cost required to get this meta reward.")]
     public int minCost;
+    
+    [SchemaField("Maximum cost required to get this meta reward.")]
     public int maxCost;
 
 

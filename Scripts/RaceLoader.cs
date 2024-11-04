@@ -180,51 +180,117 @@ public class RaceLoader
 
     public class RaceCharacteristicData
     {
+        [SchemaBuildingTagType("")]
         public string buildingTag;
+        
+        [SchemaVillagerPerkTypeType("")]
         public string villagerPerkEffect;
+        
+        [SchemaEffectType(EffectTypes.Ale_3pm, "")]
         public string globalEffect;
+        
+        [SchemaBuildingPerkType("")]
         public string buildingPerk;
     }
 
+    [GenerateSchema("Races", "Also known as villagers")]
     public class RaceData : IInitializable
     {
+        [SchemaGuid]
         public string guid;
+        
+        [SchemaName]
         public string name;
+        
+        [SchemaIcon(TextureHelper.SpriteType.RaceIcon)]
         public string icon;
+        
+        [SchemaIcon(TextureHelper.SpriteType.RaceIcon, "Same as icon but with transparent background and roudned image.")]
         public string roundIcon;
+        
+        [SchemaIcon(TextureHelper.SpriteType.RaceIconWide, "Large concept image of the race that will appear when selecting which villagers to join your town.")]
         public string widePortrait;
+        
+        [SchemaField("")]
         public string tag;
+        
+        [SchemaField(true, false, "If set to true the villager will always be available in the game.")]
         public bool? isEssential;
+        
+        [SchemaField(0, false, "Order in which the villager will appear in lists. 0 is minimum")]
         public int? order;
 
+        [SchemaField("1.8f", false, "Base speed the villager can move at")]
         public float? baseSpeed;
+        
+        [SchemaField(15f, false, "Starting resolve of the villager")]
         public float? initialResolve;
+        
+        [SchemaField(0f, false, "Minimum resolve the villager can have")]
         public float? minResolve;
+        
+        [SchemaField(50f, false, "Maximum resolve the villager can have")]
         public float? maxResolve;
+        
+        [SchemaField(0.15f, false, "Resolve increase per second when the villager is happy")]
         public float? resolvePositveChangePerSec;
+        
+        [SchemaField(0.12f, false, "Resolve decrease per second when the villager is unhappy")]
         public float? resolveNegativeChangePerSec;
+        
+        [SchemaField(0.1f, false, "Factor that determines how much faster the resolve decreases when the villager is unhappy")]
         public float? resolveNegativeChangeDiffFactor;
+        
+        [SchemaField(0.00013f, false, "How much Reputation the player gains per second when the villagers resolve meets the threshold.")]
         public float? reputationPerSec;
-        public int? minPopulationToGainReputation;
+        
+        [SchemaField(0.025f, false, "Maximum amount of reputation the player gains per second when the villagers resolve meets the threshold.")]
         public float? maxReputationFromResolvePerSec;
+        
+        [SchemaField("1", false, "Minimum population required to gain reputation")]
+        public int? minPopulationToGainReputation;
+        
+        [SchemaField(30f, false, "Minimum and maximum resolve values for the reputation treshold")]
         public float? minResolveForReputationTreshold;
+        
+        [SchemaField(50f, false, "Minimum and maximum resolve values for the reputation treshold")]
         public float? maxResolveForReputationTreshold;
+        
+        [SchemaField(4f)]
         public float? reputationTresholdIncreasePerReputation;
+        
+        [SchemaField(0.1f)]
         public float? resolveToReputationRatio;
+        
+        [SchemaField(0.7f)]
         public float? populationToReputationRatio;
+        
+        [SchemaField(6, false, "How hunger a villager gets before it wants to leave the village.")]
         public int? hungerTolerance;
+        
+        [SchemaField("", false, "name of the 'Housing Need' required to meet the villagers racial housing need")]
         public string racialHousingNeed;
+        
+        [SchemaField(120f, false, "How often the villager needs are checked")]
         public float? needsInterval;
+        
+        [SchemaNeed]
         public string[] needs;
+        
+        [SchemaField(null, false, "Characteristics of the villager of what they like and are good at.")]
         public RaceCharacteristicData[] characteristics;
 
+        // NOTE: Excluding sounds because this json is already too large for a schema
         public RacialSounds avatarClickSounds;
         public RacialSounds femalePickSounds;
         public RacialSounds malePickSounds;
         public RacialSounds femaleChangeProfessionSounds;
         public RacialSounds maleChangeProfessionSounds;
 
+        [SchemaField(null, false, "All possible names a male villager can have")]
         public string[] maleNames;
+        
+        [SchemaField(null, false, "All possible names a female villager can have")]
         public string[] femaleNames;
         
         public void Initialize()

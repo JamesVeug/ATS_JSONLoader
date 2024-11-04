@@ -187,46 +187,114 @@ public class DifficultyLoader
     }
 }
 
+[GenerateSchema("Difficulty", "Difficulty when starting a settlement")]
 public class DifficultyData : IInitializable
 {
+    [SchemaGuid] 
     public string guid;
+    
+    [SchemaName] 
     public string name;
+    
+    [SchemaIcon(TextureHelper.SpriteType.DifficultyIcon)]
     public string icon;
+    
+    [SchemaDisplayName]
     public LocalizableField displayName;
+    
+    [SchemaDescription]
     public LocalizableField description;
+    
+    [SchemaShortName]
     public string shortName;
+    
+    [SchemaField(0, false, "Position in the list of difficulties. Starts at 0 for the first difficulty.")] 
     public int? index;
+    
+    [SchemaField(1, false, "Position in the list of ascension difficulties. 0 if not prestige difficulty or first prestige in the list.")] 
     public int? ascensionIndex;
+    
+    [SchemaField(5, false, "Amount of seal fragments earned when winning the game with this difficulty selected.")] 
     public int? sealFragmentsForWin;
+    
+    [SchemaField(false, false, "When set to true will set this difficulty to be a prestige difficulty.")] 
     public bool? isAscension;
+    
+    [SchemaField(true, false, "When set to false will hide this difficulty from the list of difficulties.")] 
     public bool? canBePicked;
+    
+    [SchemaField(true, false, "When set to false will hide this difficulty from the list of difficulties in custom games.")] 
     public bool? isInCustomGame;
+    
+    [SchemaField(1f)] 
     public float? blightFootprintRate;
+    
+    [SchemaField(1f)] 
     public float? blightCorruptionRate;
+    
+    [SchemaField(5.1f)] 
     public float? rewardsMultiplier;
+    
+    [SchemaField(5.1f)] 
     public float? expMultiplier;
+    
+    [SchemaField(2.1f)] 
     public float? scoreMultiplier;
+    
+    [SchemaField(6)] 
     public int? difficultyBudget;
+    
+    [SchemaField(1)] 
     public int? positiveEffects;
+    
+    [SchemaField(4)] 
     public int? negativeEffects;
+    
+    [SchemaField(-1)] 
     public int? minEffectCost;
+    
+    [SchemaField(3)] 
     public int? maxEffectCost;
+    
+    [SchemaField(-4)] 
     public int? preparationPointsPenalty;
+    
+    [SchemaField(1)] 
     public float? portRequirementsRatio;
+    
+    [SchemaField(1)] 
     public int? maxWildcards;
+    
+    [SchemaField("Seal")] 
     public string inGameSeal;
+    
+    [SchemaAscensionModifierType("List of effects that are applied to this difficulty.")] 
     public string[] modifiers;
 
+    [SchemaField(1, false, "Prestige level of the difficulty. Overrides everything in the Difficulty to set the prestige level.")]
     public int? prestigeLevel;
+    
+    [SchemaField(true, false, "When set to true will copy the modifiers from the lower level difficulties.")]
     public bool? copyModifiersFromPreviousDifficulties;
+    
+    [SchemaField(null, false, "List of new modifiers that are created and applied to this difficulty.")]
     public NewModifier[] newModifiers;
 
     public class NewModifier : IInitializable
     {
+        [SchemaShortDescription]
         public LocalizableField shortDescription;
+        
+        [SchemaEffectType(EffectTypes.Corrupted_Sacrifice, "Effect that is applied to the difficulty.")]
         public string effect;
+        
+        [SchemaField(true, false, "When set to true will apply the effect to the difficulty.")]
         public bool? isEarlyEffect;
+        
+        [SchemaField(true, false, "When set to false will hide the effect from the list of effects in custom games.")]
         public bool? isShown;
+        
+        [SchemaField(true, false, "When set to false will hide the effect from the list of effects in custom games.")]
         public bool? inCustomMode;
         
         public void Initialize()

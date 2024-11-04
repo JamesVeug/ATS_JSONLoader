@@ -119,5 +119,6 @@ public class Plugin : BaseUnityPlugin
         RaceLoader.ExportAll();
         DifficultyLoader.ExportAll();
         MetaRewardLoader.ExportAll();
+        JSONSchemaGenerator.GenerateAndExport();
     }
 }

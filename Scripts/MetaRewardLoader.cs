@@ -197,6 +197,7 @@ public class MetaRewardLoader
     }
 }
 
+[GenerateSchema("MetaReward", "Rewards given to the player when embarking")]
 public class MetaRewardData : IInitializable
 {
     public enum MetaRewardTypes
@@ -206,15 +207,34 @@ public class MetaRewardData : IInitializable
         EmbarkEffectMetaReward,
     }
 
+    [SchemaGuid]
     public string guid;
+    
+    [SchemaName]
     public string name;
-    public LocalizableField displayName;
-    public LocalizableField description;
+    
+    [SchemaEnumAttribute<MetaRewardTypes>(MetaRewardTypes.EmbarkGoodMetaReward, true, "Type of meta reward")]
     public string type;
+    
+    [SchemaDisplayName]
+    public LocalizableField displayName;
+    
+    [SchemaDescription]
+    public LocalizableField description;
+    
+    [SchemaEffectType(EffectTypes.Ale_3pm, "Effect of the reward if type is EmbarkEffectMetaReward")]
     public string effect;
+    
+    [SchemaGoodType("Good given when the game starts if type is EmbarkGoodMetaReward")]
     public string good;
+    
+    [SchemaField(1, false, "Amount of good given if type is EmbarkGoodMetaReward")]
     public int goodAmount;
+    
+    [SchemaField(0, false, "Minimum cost of the reward")]
     public int minCost;
+    
+    [SchemaField(0, false, "Maximum cost of the reward")]
     public int maxCost;
 
 
