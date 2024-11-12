@@ -1,3 +1,10 @@
+# 0.5.0
+- Added custom difficulty support
+- Added custom embark support for goods and effects
+- Fixed excluding icon from good.json causing the file to not load
+- Fixed localization not working
+- Changed export path to `%userprofile%\AppData\LocalLow\Eremite Games\Against the Storm\JSONLoader\Exported`
+
 # 0.4.0
 - Updated to ATS 1.4.4R
 - Hotkeys now show in the Keybindings tab in the options menu
