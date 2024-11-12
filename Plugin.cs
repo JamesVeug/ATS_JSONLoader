@@ -25,7 +25,7 @@ public class Plugin : BaseUnityPlugin
     
     public static string JSONLoaderDirectory = "";
     public static string BepInExDirectory = "";
-    public static string ExportDirectory => Path.Combine(Application.dataPath, "JSONLoader", "Exported");
+    public static string ExportDirectory => Path.Combine(Application.persistentDataPath, "JSONLoader", "Exported");
 
     private Harmony harmony;
     
