@@ -1,0 +1,220 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://github.com/JamesVeug/ATS_JSONLoader",
+  "type": "object",
+  "title": "Difficulty",
+  "description": "Difficulty when starting a settlement",
+  "required": [
+    "guid",
+    "name"
+  ],
+  "properties": {
+    "guid": {
+      "description": "Unique identifier for the mod that added this. Blank if it's added as part of the base game.",
+      "pattern": "^[a-zA-Z\\d]+$",
+      "type": "string"
+    },
+    "name": {
+      "description": "Unique identifier",
+      "pattern": "^[a-zA-Z\\d_]+$",
+      "minLength": 1,
+      "type": "string"
+    },
+    "icon": {
+      "default": "",
+      "description": "Name of the file containing the icon for this object. Example: MyCustomGood.png\nIcon size: 128x128 pixels",
+      "type": "string"
+    },
+    "displayName": {
+      "description": "Name that will appear in the game.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+      "type": "string"
+    },
+    "description": {
+      "description": "Long Description describing what it does.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+      "type": "string"
+    },
+    "shortName": {
+      "description": "Shorter version of the Name.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+      "type": "string"
+    },
+    "index": {
+      "default": 0,
+      "description": "Position in the list of difficulties. Starts at 0 for the first difficulty.",
+      "type": "integer"
+    },
+    "ascensionIndex": {
+      "default": 1,
+      "description": "Position in the list of ascension difficulties. 0 if not prestige difficulty or first prestige in the list.",
+      "type": "integer"
+    },
+    "sealFragmentsForWin": {
+      "default": 5,
+      "description": "Amount of seal fragments earned when winning the game with this difficulty selected.",
+      "type": "integer"
+    },
+    "isAscension": {
+      "default": false,
+      "description": "When set to true will set this difficulty to be a prestige difficulty.",
+      "type": "boolean"
+    },
+    "canBePicked": {
+      "default": true,
+      "description": "When set to false will hide this difficulty from the list of difficulties.",
+      "type": "boolean"
+    },
+    "isInCustomGame": {
+      "default": true,
+      "description": "When set to false will hide this difficulty from the list of difficulties in custom games.",
+      "type": "boolean"
+    },
+    "blightFootprintRate": {
+      "default": 1.0,
+      "type": "number"
+    },
+    "blightCorruptionRate": {
+      "default": 1.0,
+      "type": "number"
+    },
+    "rewardsMultiplier": {
+      "default": 5.1,
+      "type": "number"
+    },
+    "expMultiplier": {
+      "default": 5.1,
+      "type": "number"
+    },
+    "scoreMultiplier": {
+      "default": 2.1,
+      "type": "number"
+    },
+    "difficultyBudget": {
+      "default": 6,
+      "type": "integer"
+    },
+    "positiveEffects": {
+      "default": 1,
+      "type": "integer"
+    },
+    "negativeEffects": {
+      "default": 4,
+      "type": "integer"
+    },
+    "minEffectCost": {
+      "default": -1,
+      "type": "integer"
+    },
+    "maxEffectCost": {
+      "default": 3,
+      "type": "integer"
+    },
+    "preparationPointsPenalty": {
+      "default": -4,
+      "type": "integer"
+    },
+    "portRequirementsRatio": {
+      "default": 1,
+      "type": "number"
+    },
+    "maxWildcards": {
+      "default": 1,
+      "type": "integer"
+    },
+    "inGameSeal": {
+      "default": "Seal",
+      "type": "string"
+    },
+    "modifiers": {
+      "default": "Parasites",
+      "description": "List of effects that are applied to this difficulty.\n\nFor more information, see:\nhttps://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/AscensionModifierTypes.cs\nhttps://hoodedhorse.com/wiki/Against_the_Storm/Difficulty",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "title": "Predefined AscensionModifierTypes",
+            "enum": [
+              "Additional_Impatience_For_Death",
+              "Ascension_All_Altar",
+              "Blightrot_Medium_Difficulty",
+              "Blightrot_Spawn",
+              "Exploration_Tax",
+              "Faster_Fuel_Sacrifice",
+              "FasterLeaving",
+              "Fewer_Blueprints_Options",
+              "Fewer_Cornerstones_Options",
+              "Fewer_Initial_Blueprints",
+              "Global_Reputation_Treshold_Increase",
+              "Hard_Orders_Only",
+              "Higher_Blueprints_Reroll_Cost",
+              "Higher_Needs_Consumption_Rate",
+              "Higher_Traders_Prices",
+              "Hunger_Multiplier_Effects",
+              "Longer_Relics_Working_Time",
+              "Longer_Storm",
+              "Low_Difficulty_Chance_For_No_Consumption",
+              "Lower_Impatience_Reduction",
+              "Parasites",
+              "Pre_Ascension_All_Blight",
+              "Pre_Ascension_Normal_And_Hard_No_Blight",
+              "Reputation_Changes",
+              "Reputation_Changes_Hard",
+              "Wet_Soil"
+            ]
+          },
+          {
+            "type": "string",
+            "title": "Mod-Added AscensionModifierTypes"
+          }
+        ]
+      }
+    },
+    "prestigeLevel": {
+      "default": 1,
+      "description": "Prestige level of the difficulty. Overrides everything in the Difficulty to set the prestige level.",
+      "type": "integer"
+    },
+    "copyModifiersFromPreviousDifficulties": {
+      "default": true,
+      "description": "When set to true will copy the modifiers from the lower level difficulties.",
+      "type": "boolean"
+    },
+    "newModifiers": {
+      "description": "List of new modifiers that are created and applied to this difficulty.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "shortDescription": {
+            "description": "Short Description describing what it does. Typically max 1 line.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+            "type": "string"
+          },
+          "effect": {
+            "default": "Corrupted_Sacrifice",
+            "description": "Effect that is applied to the difficulty.\n\nFor more information, see:\nhttps://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/EffectTypes.cs\nhttps://hoodedhorse.com/wiki/Against_the_Storm/Perks",
+            "anyOf": [
+              {
+                "type": "string",
+                "title": "Mod-Added EffectTypes"
+              }
+            ]
+          },
+          "isEarlyEffect": {
+            "default": true,
+            "description": "When set to true will apply the effect to the difficulty.",
+            "type": "boolean"
+          },
+          "isShown": {
+            "default": true,
+            "description": "When set to false will hide the effect from the list of effects in custom games.",
+            "type": "boolean"
+          },
+          "inCustomMode": {
+            "default": true,
+            "description": "When set to false will hide the effect from the list of effects in custom games.",
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://github.com/JamesVeug/ATS_JSONLoader",
+  "type": "object",
+  "title": "Goods",
+  "description": "Fuel/Eatable/Tradeable items/Amber/etc....",
+  "required": [
+    "guid",
+    "name"
+  ],
+  "properties": {
+    "guid": {
+      "description": "Unique identifier for the mod that added this. Blank if it's added as part of the base game.",
+      "pattern": "^[a-zA-Z\\d]+$",
+      "type": "string"
+    },
+    "name": {
+      "description": "Unique identifier",
+      "pattern": "^[a-zA-Z\\d_]+$",
+      "minLength": 1,
+      "type": "string"
+    },
+    "icon": {
+      "default": "",
+      "description": "Name of the file containing the icon for this object. Example: MyCustomGood.png\nIcon size: 128x128 pixels",
+      "type": "string"
+    },
+    "displayName": {
+      "description": "Name that will appear in the game.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+      "type": "string"
+    },
+    "description": {
+      "description": "Long Description describing what it does.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+      "type": "string"
+    },
+    "shortDescription": {
+      "description": "Short Description describing what it does. Typically max 1 line.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+      "type": "string"
+    },
+    "eatable": {
+      "default": false,
+      "description": "If set to true will allow villagers to eat it. Use eatingFullness to set how full villagers get.",
+      "type": "boolean"
+    },
+    "order": {
+      "default": 0,
+      "description": "The order of which this will be good will be sorted in some lists.",
+      "type": "integer"
+    },
+    "burningTime": {
+      "default": 40.0,
+      "description": "How long this good will burn at the hearth if canBeBurned is set to true.",
+      "type": "number"
+    },
+    "eatingFullness": {
+      "default": 1.0,
+      "description": "How full villagers get when they eat this good if eatable is set to true.",
+      "type": "number"
+    },
+    "canBeBurned": {
+      "default": false,
+      "description": "If set to true then this good can be burnt at the hearth. Use burningTime to set how long it will burn.",
+      "type": "boolean"
+    },
+    "showStorageAmount": {
+      "default": true,
+      "type": "boolean"
+    },
+    "isOnHUD": {
+      "default": true,
+      "type": "boolean"
+    },
+    "category": {
+      "default": "Food",
+      "description": "Column it appears in to enable/disable use by villagers. If not set API will auto set it.",
+      "anyOf": [
+        {
+          "type": "string",
+          "title": "Predefined GoodsCategoriesTypes",
+          "enum": [
+            "Building_Materials",
+            "Consumable_Items",
+            "Crafting",
+            "Food",
+            "Fuel",
+            "Others",
+            "Trade_Goods"
+          ]
+        },
+        {
+          "type": "string",
+          "title": "Mod-Added GoodsCategoriesTypes"
+        }
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "consoleId": {
+      "default": "",
+      "description": "Identifier to be used by the console??",
+      "type": "string"
+    },
+    "tradingBuyValue": {
+      "default": 4.5,
+      "description": "How much the player will receive for selling this.",
+      "type": "number"
+    },
+    "allTradersSellThisGood": {
+      "default": true,
+      "description": "If set to true then this good will be sold by all traders.",
+      "type": "boolean"
+    },
+    "tradersSellingThisGood": {
+      "default": "Trader_0_General",
+      "description": "Name of traders that can sell this good.\n\nFor more information, see:\nhttps://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/TraderTypes.cs\nhttps://hoodedhorse.com/wiki/Against_the_Storm/Trading",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "title": "Predefined TraderTypes",
+            "enum": [
+              "Trader_0_General",
+              "Trader_1_First_Dawn_Company",
+              "Trader_2_Brass_Order",
+              "Trader_3_Ancient",
+              "Trader_4_Vanguard_Of_The_Stolen_Keys",
+              "Trader_5_Royal_Trading_Company",
+              "Trader_6_Wandering_Merchant",
+              "Trader_7_Trickster",
+              "Trader_Glade_01",
+              "Trader_Glade_02",
+              "Trader_Glade_03"
+            ]
+          },
+          {
+            "type": "string",
+            "title": "Mod-Added TraderTypes"
+          }
+        ]
+      }
+    },
+    "tradingSellValue": {
+      "default": 2.25,
+      "description": "How much traders will sell this good for.",
+      "type": "number"
+    },
+    "allTradersBuyThisGood": {
+      "default": true,
+      "description": "If set to true then the player can sell this good to all traders.",
+      "type": "boolean"
+    },
+    "tradersBuyingThisGood": {
+      "default": "Trader_0_General",
+      "description": "Name of traders that can buy this off the player..\n\nFor more information, see:\nhttps://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/TraderTypes.cs\nhttps://hoodedhorse.com/wiki/Against_the_Storm/Trading",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "title": "Predefined TraderTypes",
+            "enum": [
+              "Trader_0_General",
+              "Trader_1_First_Dawn_Company",
+              "Trader_2_Brass_Order",
+              "Trader_3_Ancient",
+              "Trader_4_Vanguard_Of_The_Stolen_Keys",
+              "Trader_5_Royal_Trading_Company",
+              "Trader_6_Wandering_Merchant",
+              "Trader_7_Trickster",
+              "Trader_Glade_01",
+              "Trader_Glade_02",
+              "Trader_Glade_03"
+            ]
+          },
+          {
+            "type": "string",
+            "title": "Mod-Added TraderTypes"
+          }
+        ]
+      }
+    },
+    "embarkGoodMetaRewards": {
+      "description": "Rewards the player can choose when starting a new settlement. If not included then will not affect existing meta rewards.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "guid",
+          "name"
+        ],
+        "properties": {
+          "guid": {
+            "description": "Unique identifier for the mod that added this. Blank if it's added as part of the base game.",
+            "pattern": "^[a-zA-Z\\d]+$",
+            "type": "string"
+          },
+          "name": {
+            "description": "Unique identifier for the mod that added this. Blank if it's added as part of the base game.",
+            "pattern": "^[a-zA-Z\\d]+$",
+            "type": "string"
+          },
+          "displayName": {
+            "description": "Name that will appear in the game.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+            "type": "string"
+          },
+          "description": {
+            "description": "Long Description describing what it does.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+            "type": "string"
+          },
+          "goodAmount": {
+            "default": "How much of this good you will get when selecting this reward.",
+            "type": "integer"
+          },
+          "minCost": {
+            "default": "Minimum cost required to get this meta reward.",
+            "type": "integer"
+          },
+          "maxCost": {
+            "default": "Maximum cost required to get this meta reward.",
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

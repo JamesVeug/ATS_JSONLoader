@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://github.com/JamesVeug/ATS_JSONLoader",
+  "type": "object",
+  "title": "MetaReward",
+  "description": "Rewards given to the player when embarking",
+  "required": [
+    "guid",
+    "name",
+    "type"
+  ],
+  "properties": {
+    "guid": {
+      "description": "Unique identifier for the mod that added this. Blank if it's added as part of the base game.",
+      "pattern": "^[a-zA-Z\\d]+$",
+      "type": "string"
+    },
+    "name": {
+      "description": "Unique identifier",
+      "pattern": "^[a-zA-Z\\d_]+$",
+      "minLength": 1,
+      "type": "string"
+    },
+    "type": {
+      "default": "EmbarkGoodMetaReward",
+      "description": "Type of meta reward",
+      "anyOf": [
+        {
+          "type": "string",
+          "title": "Predefined MetaRewardTypes",
+          "enum": [
+            "EmbarkGoodMetaReward",
+            "EmbarkEffectMetaReward"
+          ]
+        },
+        {
+          "type": "string",
+          "title": "Mod-Added MetaRewardTypes"
+        }
+      ]
+    },
+    "displayName": {
+      "description": "Name that will appear in the game.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+      "type": "string"
+    },
+    "description": {
+      "description": "Long Description describing what it does.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+      "type": "string"
+    },
+    "effect": {
+      "default": "Ale_3pm",
+      "description": "Effect of the reward if type is EmbarkEffectMetaReward\n\nFor more information, see:\nhttps://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/EffectTypes.cs\nhttps://hoodedhorse.com/wiki/Against_the_Storm/Perks",
+      "anyOf": [
+        {
+          "type": "string",
+          "title": "Mod-Added EffectTypes"
+        }
+      ]
+    },
+    "good": {
+      "default": "Valuable_Amber",
+      "description": "Good given when the game starts if type is EmbarkGoodMetaReward\n\nFor more information, see:\nhttps://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/GoodsTypes.cs\nhttps://hoodedhorse.com/wiki/Against_the_Storm/Resources",
+      "anyOf": [
+        {
+          "type": "string",
+          "title": "Predefined GoodsTypes",
+          "enum": [
+            "_Meta_Artifacts",
+            "_Meta_Food_Stockpiles",
+            "_Meta_Machinery",
+            "Blight_Fuel",
+            "Crafting_Coal",
+            "Crafting_Dye",
+            "Crafting_Flour",
+            "Crafting_Oil",
+            "Crafting_Sea_Marrow",
+            "Food_Processed_Biscuits",
+            "Food_Processed_Jerky",
+            "Food_Processed_Paste",
+            "Food_Processed_Pickled_Goods",
+            "Food_Processed_Pie",
+            "Food_Processed_Porridge",
+            "Food_Processed_Skewers",
+            "Food_Raw_Berries",
+            "Food_Raw_Eggs",
+            "Food_Raw_Fish",
+            "Food_Raw_Grain",
+            "Food_Raw_Herbs",
+            "Food_Raw_Insects",
+            "Food_Raw_Meat",
+            "Food_Raw_Mushrooms",
+            "Food_Raw_Roots",
+            "Food_Raw_Vegetables",
+            "Hearth_Parts",
+            "Mat_Processed_Bricks",
+            "Mat_Processed_Fabric",
+            "Mat_Processed_Parts",
+            "Mat_Processed_Pipe",
+            "Mat_Processed_Planks",
+            "Mat_Raw_Algae",
+            "Mat_Raw_Clay",
+            "Mat_Raw_Leather",
+            "Mat_Raw_Plant_Fibre",
+            "Mat_Raw_Reeds",
+            "Mat_Raw_Resin",
+            "Mat_Raw_Scales",
+            "Mat_Raw_Sparkdew",
+            "Mat_Raw_Stone",
+            "Mat_Raw_Wood",
+            "Metal_Copper_Bar",
+            "Metal_Copper_Ore",
+            "Metal_Crystalized_Dew",
+            "Needs_Ale",
+            "Needs_Boots",
+            "Needs_Coats",
+            "Needs_Incense",
+            "Needs_Scrolls",
+            "Needs_Scrolls_Tutorial",
+            "Needs_Tea",
+            "Needs_Training_Gear",
+            "Needs_Wine",
+            "Other_Fishing_Bait",
+            "Packs_Pack_Of_Building_Materials",
+            "Packs_Pack_Of_Crops",
+            "Packs_Pack_Of_Luxury_Goods",
+            "Packs_Pack_Of_Provisions",
+            "Packs_Pack_Of_Trade_Goods",
+            "TEMP_Meta_Exp",
+            "Tools_Simple_Tools",
+            "Valuable_Amber",
+            "Valuable_Ancient_Tablet",
+            "Vessel_Barrels",
+            "Vessel_Pottery",
+            "Vessel_Waterskin",
+            "Water_Clearance_Water",
+            "Water_Drizzle_Water",
+            "Water_Storm_Water"
+          ]
+        },
+        {
+          "type": "string",
+          "title": "Mod-Added GoodsTypes"
+        }
+      ]
+    },
+    "goodAmount": {
+      "default": 1,
+      "description": "Amount of good given if type is EmbarkGoodMetaReward",
+      "type": "integer"
+    },
+    "minCost": {
+      "default": 0,
+      "description": "Minimum cost of the reward",
+      "type": "integer"
+    },
+    "maxCost": {
+      "default": 0,
+      "description": "Maximum cost of the reward",
+      "type": "integer"
+    }
+  }
+}

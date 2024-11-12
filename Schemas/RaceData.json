@@ -1,0 +1,407 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://github.com/JamesVeug/ATS_JSONLoader",
+  "type": "object",
+  "title": "Races",
+  "description": "Also known as villagers",
+  "required": [
+    "guid",
+    "name"
+  ],
+  "properties": {
+    "guid": {
+      "description": "Unique identifier for the mod that added this. Blank if it's added as part of the base game.",
+      "pattern": "^[a-zA-Z\\d]+$",
+      "type": "string"
+    },
+    "name": {
+      "description": "Unique identifier",
+      "pattern": "^[a-zA-Z\\d_]+$",
+      "minLength": 1,
+      "type": "string"
+    },
+    "icon": {
+      "default": "",
+      "description": "Name of the file containing the icon for this object. Example: MyCustomGood.png\nIcon size: 255x255 pixels",
+      "type": "string"
+    },
+    "roundIcon": {
+      "default": "",
+      "description": "Name of the file containing the icon for this object. Example: MyCustomGood.png\nSame as icon but with transparent background and roudned image.\nIcon size: 255x255 pixels",
+      "type": "string"
+    },
+    "widePortrait": {
+      "default": "",
+      "description": "Name of the file containing the icon for this object. Example: MyCustomGood.png\nLarge concept image of the race that will appear when selecting which villagers to join your town.\nIcon size: 512x201 pixels",
+      "type": "string"
+    },
+    "tag": {
+      "default": "",
+      "type": "string"
+    },
+    "isEssential": {
+      "default": true,
+      "description": "If set to true the villager will always be available in the game.",
+      "type": "boolean"
+    },
+    "order": {
+      "default": 0,
+      "description": "Order in which the villager will appear in lists. 0 is minimum",
+      "type": "integer"
+    },
+    "baseSpeed": {
+      "default": "1.8f",
+      "description": "Base speed the villager can move at",
+      "type": "number"
+    },
+    "initialResolve": {
+      "default": 15.0,
+      "description": "Starting resolve of the villager",
+      "type": "number"
+    },
+    "minResolve": {
+      "default": 0.0,
+      "description": "Minimum resolve the villager can have",
+      "type": "number"
+    },
+    "maxResolve": {
+      "default": 50.0,
+      "description": "Maximum resolve the villager can have",
+      "type": "number"
+    },
+    "resolvePositveChangePerSec": {
+      "default": 0.15,
+      "description": "Resolve increase per second when the villager is happy",
+      "type": "number"
+    },
+    "resolveNegativeChangePerSec": {
+      "default": 0.12,
+      "description": "Resolve decrease per second when the villager is unhappy",
+      "type": "number"
+    },
+    "resolveNegativeChangeDiffFactor": {
+      "default": 0.1,
+      "description": "Factor that determines how much faster the resolve decreases when the villager is unhappy",
+      "type": "number"
+    },
+    "reputationPerSec": {
+      "default": 0.00013,
+      "description": "How much Reputation the player gains per second when the villagers resolve meets the threshold.",
+      "type": "number"
+    },
+    "maxReputationFromResolvePerSec": {
+      "default": 0.025,
+      "description": "Maximum amount of reputation the player gains per second when the villagers resolve meets the threshold.",
+      "type": "number"
+    },
+    "minPopulationToGainReputation": {
+      "default": "1",
+      "description": "Minimum population required to gain reputation",
+      "type": "integer"
+    },
+    "minResolveForReputationTreshold": {
+      "default": 30.0,
+      "description": "Minimum and maximum resolve values for the reputation treshold",
+      "type": "number"
+    },
+    "maxResolveForReputationTreshold": {
+      "default": 50.0,
+      "description": "Minimum and maximum resolve values for the reputation treshold",
+      "type": "number"
+    },
+    "reputationTresholdIncreasePerReputation": {
+      "default": 4.0,
+      "type": "number"
+    },
+    "resolveToReputationRatio": {
+      "default": 0.1,
+      "type": "number"
+    },
+    "populationToReputationRatio": {
+      "default": 0.7,
+      "type": "number"
+    },
+    "hungerTolerance": {
+      "default": 6,
+      "description": "How hunger a villager gets before it wants to leave the village.",
+      "type": "integer"
+    },
+    "racialHousingNeed": {
+      "default": "",
+      "description": "name of the 'Housing Need' required to meet the villagers racial housing need",
+      "type": "string"
+    },
+    "needsInterval": {
+      "default": 120.0,
+      "description": "How often the villager needs are checked",
+      "type": "number"
+    },
+    "needs": {
+      "default": "Biscuits",
+      "description": "Names of each Need the villager requires. Example: Housing, Food... etc\n\nFor more information, see:\nhttps://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/NeedTypes.cs\nhttps://hoodedhorse.com/wiki/Against_the_Storm/Complex_Needs",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "title": "Predefined NeedTypes",
+            "enum": [
+              "Any_Housing",
+              "Beaver_Housing",
+              "Biscuits",
+              "Bloodthirst",
+              "Boots",
+              "Clothes",
+              "Education",
+              "Fox_Housing",
+              "Frog_Housing",
+              "Harpy_Housing",
+              "Human_Housing",
+              "Jerky",
+              "Leasiure",
+              "Lizard_Housing",
+              "Luxury",
+              "Paste",
+              "Pickled_Goods",
+              "Pie",
+              "Porridge",
+              "Religion",
+              "Skewer",
+              "Treatment"
+            ]
+          },
+          {
+            "type": "string",
+            "title": "Mod-Added NeedTypes"
+          }
+        ]
+      }
+    },
+    "characteristics": {
+      "description": "Characteristics of the villager of what they like and are good at.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "buildingTag": {
+            "default": "Alchemy",
+            "description": "\n\nFor more information, see:\nhttps://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/BuildingTagTypes.cs",
+            "anyOf": [
+              {
+                "type": "string",
+                "title": "Predefined BuildingTagTypes",
+                "enum": [
+                  "Alchemy",
+                  "Animals",
+                  "Brewing",
+                  "Cloth",
+                  "Cysts",
+                  "Farming",
+                  "Forest",
+                  "Hearth_Beavers",
+                  "Hearth_Foxes",
+                  "Hearth_Frogs",
+                  "Hearth_Harpies",
+                  "Hearth_Humans",
+                  "Hearth_Lizards",
+                  "Rainwater",
+                  "Stone",
+                  "Tech",
+                  "Warmth",
+                  "Wood"
+                ]
+              },
+              {
+                "type": "string",
+                "title": "Mod-Added BuildingTagTypes"
+              }
+            ]
+          },
+          "villagerPerkEffect": {
+            "default": "Proficiency",
+            "description": "\n\nFor more information, see:\nhttps://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/VillagerPerkTypes.cs",
+            "anyOf": [
+              {
+                "type": "string",
+                "title": "Predefined VillagerPerkTypes",
+                "enum": [
+                  "Acidic_Environment",
+                  "Acidic_Environment_Blightrot",
+                  "Blight_Death_Chance",
+                  "Blight_Faster_Move",
+                  "Blight_Fighter_Speed_Speed_Increase",
+                  "Blight_No_Production",
+                  "Blight_Production_Boost",
+                  "Charm_Status",
+                  "cMdlt_Distracted_ColdFront",
+                  "cMdlt_Distracted_StrangeLights",
+                  "cMdlt_Energized_FreshBreeze",
+                  "cMdlt_Energized_InvigoratingWinds",
+                  "cMdlt_Fading_ColdSnap",
+                  "cMdlt_Fading_DeadlyLights",
+                  "cMdlt_Fading_EerieSong",
+                  "cMdlt_Fading_Hailstorm",
+                  "cMdlt_FadingToxicRain",
+                  "cMdlt_Focused_StrangeVisions",
+                  "cMdlt_Focused_SunFestivities",
+                  "cMdlt_Frustrated_Melanchory",
+                  "cMdlt_Frustrated_Swarms",
+                  "cMdlt_Gluttonous_ColdSnap",
+                  "cMdlt_Gluttonous_Downpour",
+                  "cMdlt_HomelessDeath10_RegularRain",
+                  "cMdlt_LowResolve_Cloudburst",
+                  "cMdlt_LowResolve_HomelessInStorm",
+                  "cMdlt_Motivated_Aurora",
+                  "cMdlt_Motivated_EuphoricVapours",
+                  "cMdlt_Motivated_Swarms",
+                  "cMdlt_Slowed_BitterRain",
+                  "cMdlt_Slowed_Fog",
+                  "cMdlt_Stagnant_Eclipse",
+                  "cMdlt_Stagnant_Eclipse_NEW",
+                  "cMdlt_Stagnant_NauseousSpores",
+                  "cMdlt_Stagnant_NauseousSpores_NEW",
+                  "Comfortable_Job",
+                  "Extreme_Noise",
+                  "FallenViceroyCommemoration",
+                  "FarmersDiet",
+                  "Faster_Woocutters",
+                  "Forced_Improvisation",
+                  "Furniture",
+                  "Global_Chance_Of_Death",
+                  "Hauler_Break_Interval_Villager_Perk",
+                  "Hauler_Speed_Villager_Perk",
+                  "Houses_Plus1_Break_Time_Child",
+                  "Leisure_Worker",
+                  "LessHostilityPerWoodcutter_Proficiency",
+                  "MoleResolvePenalty_Hard",
+                  "MoleResolvePenalty_Impossible",
+                  "MoleResolvePenalty_Normal",
+                  "MoleResolvePenalty_Very_Hard",
+                  "N_Need_Villagers_Speed_Bonus",
+                  "Need_Complex_Food_Extra_Production",
+                  "Need_Service_Goods_Extra_Production",
+                  "Poisoned_Food_Instant",
+                  "Proficiency",
+                  "Proficiency_Blightrot",
+                  "Rainpunk_Comfortable",
+                  "RottingWoodDestroyYield",
+                  "Royal_Guard_Training_Resolve_Reward",
+                  "SE_Hot_Springs_Villager_Resolve_Effect",
+                  "SE_Longer_Break_Interval_Child",
+                  "SE_Mine_In_Storm_Villager_Resolve_Effect",
+                  "Shaky_Hands",
+                  "Shorter_Break_NEW",
+                  "SickTreesDestroyYield",
+                  "Smart_Worker",
+                  "Spiced_Ale",
+                  "U_Frog_Houses_Bonus_Resolve",
+                  "U_Houses_Bonus_Resolve",
+                  "U_Houses_Villagers_Speed_Bonus",
+                  "VaultResolvePenalty_Normal",
+                  "Very_Long_Breaks"
+                ]
+              },
+              {
+                "type": "string",
+                "title": "Mod-Added VillagerPerkTypes"
+              }
+            ]
+          },
+          "globalEffect": {
+            "default": "Ale_3pm",
+            "description": "\n\nFor more information, see:\nhttps://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/EffectTypes.cs\nhttps://hoodedhorse.com/wiki/Against_the_Storm/Perks",
+            "anyOf": [
+              {
+                "type": "string",
+                "title": "Mod-Added EffectTypes"
+              }
+            ]
+          },
+          "buildingPerk": {
+            "default": "Hauler_Cart",
+            "description": "\n\nFor more information, see:\nhttps://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/BuildingPerkTypes.cs",
+            "anyOf": [
+              {
+                "type": "string",
+                "title": "Predefined BuildingPerkTypes",
+                "enum": [
+                  "Arch_Inst_Extra_Production",
+                  "Arch_Inst_Hostility",
+                  "Arch_Inst_Relic_Working_Time",
+                  "Arch_Inst_Saving",
+                  "Arch_Inst_Tools_For_Hostility",
+                  "Arch_Inst_Workers_Carry_More",
+                  "Hauler_Cart",
+                  "Hauler_Cart_2",
+                  "Highlight_Archeology_1",
+                  "Highlight_Archeology_2",
+                  "Highlight_Archeology_3",
+                  "R_Extra_Production_Chance",
+                  "R_Production_Rate",
+                  "R_Rainpunk_Comfortable",
+                  "Spec_Relics_Working_Time",
+                  "U_Beaver_Houses_Unique_Bonus",
+                  "U_Extractor_Tank",
+                  "U_Fox_Houses_Unique_Bonus",
+                  "U_Frog_House_Building_Mat_Crit",
+                  "U_Frog_House_Building_Mat_Speed",
+                  "U_Frog_House_More_Resolve_For_Rainpunk",
+                  "U_Frog_House_Newcomer_Bonus",
+                  "U_Frog_House_Water_Tank",
+                  "U_Frog_House_Yearly_Packs",
+                  "U_Frog_Houses_Bonus_Resolve",
+                  "U_Harpy_Houses_Unique_Bonus",
+                  "U_Hauler_Extra_Capacity",
+                  "U_Hauler_Range",
+                  "U_Hauler_Speed",
+                  "U_Hauler_Time_Between_Breaks",
+                  "U_Houses_Bonus_Capacity",
+                  "U_Houses_Bonus_Resolve",
+                  "U_Houses_Villagers_Speed_Bonus",
+                  "U_Human_Houses_Unique_Bonus",
+                  "U_Lizard_Houses_Unique_Bonus",
+                  "U_Mine_Extra_Charges_Unlock_1",
+                  "U_Mine_Extra_Charges_Unlock_2",
+                  "U_Mine_Main_Charges_Unlock_1",
+                  "U_Mine_Main_Charges_Unlock_2",
+                  "U_Mine_Production_Rate",
+                  "U_Mine_Upgrade_Cart_1",
+                  "U_Mine_Upgrade_Cart_2",
+                  "U_Mine_Upgrade_Speed_1",
+                  "U_Mine_Upgrade_Speed_2",
+                  "U_Pump_Automaton",
+                  "U_Storage_Automaton",
+                  "UBP_Blight_Fighter_Automaton",
+                  "UBP_Blight_Fighter_Speed",
+                  "UBP_Blight_Post_Production_Rate",
+                  "UBP_Extra_Production_Chance",
+                  "UBP_Faster_Cysts_Burning",
+                  "UBP_Global_Background_Cyst_Generation_Rate",
+                  "UBP_Global_Cyst_Generation_Rate"
+                ]
+              },
+              {
+                "type": "string",
+                "title": "Mod-Added BuildingPerkTypes"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "maleNames": {
+      "description": "All possible names a male villager can have",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "femaleNames": {
+      "description": "All possible names a female villager can have",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

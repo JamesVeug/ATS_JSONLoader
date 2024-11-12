@@ -47,6 +47,9 @@
         <None Include="Examples\*.*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Include="Schemas\*.*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
       
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
@@ -55,17 +58,20 @@
       
     <ItemGroup>
       <Folder Include="Examples\" />
+      <Folder Include="Schemas\" />
     </ItemGroup>
     
     <Target Name="Deploy" AfterTargets="Build">
         <ItemGroup>
             <Assembly Include="$(OutputPath)\$(AssemblyName).dll" />
             <Examples Include="$(OutputPath)\Examples\*.*" />
+            <Schemas Include="$(OutputPath)\Schemas\*.*" />
         </ItemGroup>
          
         <!-- Create a folder with all the .dlls and files to easily uplaod to thunderstore -->
         <Copy SourceFiles="@(Assembly)" DestinationFolder="$(OutputPath)\ThunderStore\" />
         <Copy SourceFiles="@(Examples)" DestinationFolder="$(OutputPath)\ThunderStore\plugins\Examples" />
+        <Copy SourceFiles="@(Schemas)" DestinationFolder="$(OutputPath)\ThunderStore\plugins\Schemas" />
         <Copy SourceFiles="CHANGELOG.md" DestinationFolder="$(OutputPath)\ThunderStore\" />
         <Copy SourceFiles="README.md" DestinationFolder="$(OutputPath)\ThunderStore\" />
         <Copy SourceFiles="manifest.json" DestinationFolder="$(OutputPath)\ThunderStore\" />
