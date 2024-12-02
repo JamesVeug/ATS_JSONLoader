@@ -1,3 +1,7 @@
+# 0.5.1
+- Works for ATS 1.5.5R
+- Removed Race racialHousingNeed support (v1.5 moved this to houses)
+
 # 0.5.0
 - Added custom difficulty support
 - Added custom embark support for goods and effects
