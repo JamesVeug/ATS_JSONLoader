@@ -94,7 +94,7 @@ public class RaceLoader
         ImportExportUtils.ApplyValueNoNull(ref model.populationToReputationRatio, ref data.populationToReputationRatio, toModel, "races", "populationToReputationRatio");
         ImportExportUtils.ApplyValueNoNull(ref model.hungerTolerance, ref data.hungerTolerance, toModel, "races", "hungerTolerance");
         ImportExportUtils.ApplyValueNoNull(ref model.needs, ref data.needs, toModel, "races", "needs");
-        ImportExportUtils.ApplyValueNoNull(ref model.racialHousingNeed, ref data.racialHousingNeed, toModel, "races", "racialHousingNeed");
+        // ImportExportUtils.ApplyValueNoNull(ref model.racialHousingNeed, ref data.racialHousingNeed, toModel, "races", "racialHousingNeed");
         ImportExportUtils.ApplyValueNoNull(ref model.needsInterval, ref data.needsInterval, toModel, "races", "needsInterval");
 
 
@@ -268,9 +268,6 @@ public class RaceLoader
         [SchemaField(6, false, "How hunger a villager gets before it wants to leave the village.")]
         public int? hungerTolerance;
         
-        [SchemaField("", false, "name of the 'Housing Need' required to meet the villagers racial housing need")]
-        public string racialHousingNeed;
-        
         [SchemaField(120f, false, "How often the villager needs are checked")]
         public float? needsInterval;
         
@@ -292,6 +289,10 @@ public class RaceLoader
         
         [SchemaField(null, false, "All possible names a female villager can have")]
         public string[] femaleNames;
+        
+        // Removed in ATS v1.5
+        // [SchemaField("", false, "name of the 'Housing Need' required to meet the villagers racial housing need")]
+        // public string racialHousingNeed;
         
         public void Initialize()
         {
