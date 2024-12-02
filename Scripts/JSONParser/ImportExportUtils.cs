@@ -10,6 +10,7 @@ using ATS_API.Localization;
 using ATS_JSONLoader;
 using ATS_JSONLoader.Sounds;
 using Eremite;
+using Eremite.Buildings;
 using Eremite.Model;
 using Eremite.Model.Sound;
 using TinyJson;
@@ -641,6 +642,40 @@ public static partial class ImportExportUtils
             else if (fromType == typeof(AscensionModifierModel) && toType == typeof(string))
             {
                 AscensionModifierModel modifier = (AscensionModifierModel)(object)from;
+                to = (ToType)(object)modifier.name;
+                return;
+            }
+            else if (fromType == typeof(string) && toType == typeof(RecipeGradeModel))
+            {
+                string path = (string)(object)from;
+                RecipeGradeModel modifier = SO.Settings.recipes.Select(a=>a.grade).FirstOrDefault(a => a.name == path);
+                if (modifier == null)
+                {
+                    Error($"Could not find RecipeGradeModel with name '{path}'!");
+                }
+                to = (ToType)(object)modifier;
+                return;
+            }
+            else if (fromType == typeof(RecipeGradeModel) && toType == typeof(string))
+            {
+                RecipeGradeModel modifier = (RecipeGradeModel)(object)from;
+                to = (ToType)(object)modifier.name;
+                return;
+            }
+            else if (fromType == typeof(string) && toType == typeof(GoodModel))
+            {
+                string path = (string)(object)from;
+                GoodModel modifier = SO.Settings.Goods.FirstOrDefault(a => a.name == path);
+                if (modifier == null)
+                {
+                    Error($"Could not find GoodModel with name '{path}'!");
+                }
+                to = (ToType)(object)modifier;
+                return;
+            }
+            else if (fromType == typeof(GoodModel) && toType == typeof(string))
+            {
+                GoodModel modifier = (GoodModel)(object)from;
                 to = (ToType)(object)modifier.name;
                 return;
             }

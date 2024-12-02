@@ -105,6 +105,7 @@ public class Plugin : BaseUnityPlugin
         RaceLoader.LoadAll(files);
         DifficultyLoader.LoadAll(files);
         MetaRewardLoader.LoadAll(files);
+        WorkshopRecipeLoader.LoadAll(files);
     }
 
     private static void ExportAllFiles()
@@ -120,5 +121,6 @@ public class Plugin : BaseUnityPlugin
         RaceLoader.ExportAll();
         DifficultyLoader.ExportAll();
         MetaRewardLoader.ExportAll();
+        WorkshopRecipeLoader.ExportAll();
     }
 }
