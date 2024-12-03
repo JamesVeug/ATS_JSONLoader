@@ -126,11 +126,6 @@
       "description": "How hunger a villager gets before it wants to leave the village.",
       "type": "integer"
     },
-    "racialHousingNeed": {
-      "default": "",
-      "description": "name of the 'Housing Need' required to meet the villagers racial housing need",
-      "type": "string"
-    },
     "needsInterval": {
       "default": 120.0,
       "description": "How often the villager needs are checked",
@@ -280,6 +275,10 @@
                   "N_Need_Villagers_Speed_Bonus",
                   "Need_Complex_Food_Extra_Production",
                   "Need_Service_Goods_Extra_Production",
+                  "PerkCrafter_Break_Interval_Child_10",
+                  "PerkCrafter_Break_Interval_Child_12",
+                  "PerkCrafter_Break_Interval_Child_4",
+                  "PerkCrafter_Break_Interval_Child_7",
                   "Poisoned_Food_Instant",
                   "Proficiency",
                   "Proficiency_Blightrot",
@@ -336,6 +335,7 @@
                   "Highlight_Archeology_1",
                   "Highlight_Archeology_2",
                   "Highlight_Archeology_3",
+                  "PerkCrafter_Fewer_Housing_Spots_Child",
                   "R_Extra_Production_Chance",
                   "R_Production_Rate",
                   "R_Rainpunk_Comfortable",
