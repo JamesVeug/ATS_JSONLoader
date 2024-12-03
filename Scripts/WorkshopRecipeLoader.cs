@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ATS_API.Ascension;
-using ATS_API.Difficulties;
 using ATS_API.Helpers;
 using ATS_API.Recipes;
-using ATS_API.Recipes.Builders;
 using ATS_JSONLoader;
 using Eremite;
 using Eremite.Buildings;
@@ -76,12 +73,14 @@ public class WorkshopRecipeLoader
     {
         ImportExportUtils.SetID(modelName);
 
+        Logging.VerboseLog($"Applying JSON (workshopRecipes) {modelName}");
         ImportExportUtils.ApplyValueNoNull(ref model.grade, ref data.grade, toModel, "workshopRecipes", "grade");
         ImportExportUtils.ApplyValueNoNull(ref model.producedGood.good, ref data.producedGood, toModel, "workshopRecipes", "producedGood");
         ImportExportUtils.ApplyValueNoNull(ref model.producedGood.amount, ref data.producedAmount, toModel, "workshopRecipes", "producedAmount");
         ImportExportUtils.ApplyValueNoNull(ref model.productionTime, ref data.productionTime, toModel, "workshopRecipes", "productionTime");
         ImportExportUtils.ApplyValueNoNull(ref model.tags, ref data.tags, toModel, "workshopRecipes", "tags");
 
+        Logging.VerboseLog($"Required Goods: {data.requiredGoods}");
         if (toModel)
         {
             if (data.requiredGoods != null)
@@ -89,11 +88,13 @@ public class WorkshopRecipeLoader
                 model.requiredGoods = new GoodsSet[data.requiredGoods.Length];
                 for (var i = 0; i < data.requiredGoods.Length; i++)
                 {
+                    Logging.VerboseLog($"Required Goods Set: {i}");
                     var set = data.requiredGoods[i];
                     var requiredGoodSet = new GoodsSet();
                     requiredGoodSet.goods = new GoodRef[set.goods.Length];
                     for (var j = 0; j < set.goods.Length; j++)
                     {
+                        Logging.VerboseLog($"\tRequired Good: {j}");
                         var good = set.goods[j];
                         var requiredGood = new GoodRef();
                         requiredGood.good = good.good.ToGoodModel();
@@ -101,14 +102,6 @@ public class WorkshopRecipeLoader
                         requiredGoodSet.goods[j] = requiredGood;
                     }
                     model.requiredGoods[i] = requiredGoodSet;
-
-                    foreach (GoodsSet goodsSet in model.requiredGoods)
-                    {
-                        foreach (GoodRef good in goodsSet.goods)
-                        {
-                            Plugin.Log.LogInfo($"Required Good: {good.good.name} Required Amount: {good.amount}");
-                        }
-                    }
                 }
             }
         }
@@ -131,7 +124,32 @@ public class WorkshopRecipeLoader
                 data.requiredGoods[i] = goodSet;
             }
         }
+        
+        Logging.VerboseLog($"Workshops");
+        if (toModel)
+        {
+            if (data.buildings != null)
+            {
+                foreach (WorkshopModel workshop in SO.Settings.workshops)
+                {
+                    bool shouldContainRecipe = data.buildings.Contains(workshop.name);
+                    if (shouldContainRecipe && !workshop.recipes.Contains(model))
+                    {
+                        workshop.recipes = workshop.recipes.ForceAdd(model);
+                    }
+                    else if (!shouldContainRecipe && workshop.recipes.Contains(model))
+                    {
+                        workshop.recipes = workshop.recipes.Where(a=>a != model).ToArray();
+                    }
+                }
+            }
+        }
+        else
+        {
+            data.buildings = SO.Settings.workshops.Where(a=>a.recipes.Contains(model)).Select(a=>a.name).ToArray();
+        }
     }
+    
     
     public static void ExportAll()
     {
@@ -192,6 +210,9 @@ public class WorkshopRecipeData : IInitializable
     [SchemaEnum<TagTypes>(TagTypes.Building_Material_Tag, "Tags of which some effects can affect this recipe by")]
     public string[] tags;
 
+    [SchemaEnum<WorkshopTypes>(WorkshopTypes.Apothecary, "Which workshops can use this recipe")] 
+    public string[] buildings;
+    
     public void Initialize()
     {
         
