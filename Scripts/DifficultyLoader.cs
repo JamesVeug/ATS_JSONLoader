@@ -13,12 +13,15 @@ using PluginInfo = ATS_JSONLoader.PluginInfo;
 
 public class DifficultyLoader
 {
+    public const string fileExtension = "_difficulty.json";
+    
     public static void LoadAll(List<string> files)
     {
+        
         for (int i = 0; i < files.Count; i++)
         {
             string file = files[i];
-            if (!file.EndsWith("_difficulty.json"))
+            if (!file.EndsWith(fileExtension))
             {
                 continue;
             }
@@ -175,7 +178,7 @@ public class DifficultyLoader
             
             Apply(model, data, false, model.name, isNewDifficulty);
             
-            string file = Path.Combine(Plugin.ExportDirectory, "difficulties", model.name + "_difficulty.json");
+            string file = Path.Combine(Plugin.ExportDirectory, "difficulties", model.name + fileExtension);
             if(Directory.Exists(Path.GetDirectoryName(file)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(file));
@@ -187,7 +190,7 @@ public class DifficultyLoader
     }
 }
 
-[GenerateSchema("Difficulty", "Difficulty when starting a settlement")]
+[GenerateSchema("Difficulty", "Difficulty when starting a settlement.", DifficultyLoader.fileExtension)]
 public class DifficultyData : IInitializable
 {
     [SchemaGuid] 

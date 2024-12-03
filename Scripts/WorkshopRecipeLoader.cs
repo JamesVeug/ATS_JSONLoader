@@ -13,12 +13,14 @@ using PluginInfo = ATS_JSONLoader.PluginInfo;
 
 public class WorkshopRecipeLoader
 {
+    public const string fileExtension = "_workshopRecipe.json";
+    
     public static void LoadAll(List<string> files)
     {
         for (int i = 0; i < files.Count; i++)
         {
             string file = files[i];
-            if (!file.EndsWith("_workshopRecipe.json"))
+            if (!file.EndsWith(fileExtension))
             {
                 continue;
             }
@@ -171,7 +173,7 @@ public class WorkshopRecipeLoader
             
             Apply(model, data, false, model.name);
             
-            string file = Path.Combine(Plugin.ExportDirectory, "workshopRecipes", model.name + "_workshopRecipe.json");
+            string file = Path.Combine(Plugin.ExportDirectory, "workshopRecipes", model.name + fileExtension);
             if(Directory.Exists(Path.GetDirectoryName(file)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(file));
@@ -183,7 +185,7 @@ public class WorkshopRecipeLoader
     }
 }
 
-[GenerateSchema("Workshop Recipe", "Recipes added to workshop buildings to produce goods")]
+[GenerateSchema("Workshop Recipe", "Recipes added to workshop buildings to produce goods.", WorkshopRecipeLoader.fileExtension)]
 public class WorkshopRecipeData : IInitializable
 {
     [SchemaGuid] 

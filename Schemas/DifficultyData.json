@@ -3,7 +3,7 @@
   "id": "https://github.com/JamesVeug/ATS_JSONLoader",
   "type": "object",
   "title": "Difficulty",
-  "description": "Difficulty when starting a settlement",
+  "description": "Difficulty when starting a settlement.\n\nFor JSONLoader to load this file into Against the Storm create a file on your computer ending with _difficulty.json and paste the contents of the JSON inside. Example: \"MyFile_difficulty.json\"",
   "required": [
     "guid",
     "name"

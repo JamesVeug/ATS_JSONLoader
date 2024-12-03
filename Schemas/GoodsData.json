@@ -3,7 +3,7 @@
   "id": "https://github.com/JamesVeug/ATS_JSONLoader",
   "type": "object",
   "title": "Goods",
-  "description": "Fuel/Eatable/Tradeable items/Amber/etc....",
+  "description": "Fuel/Eatable/Tradeable items/Amber/etc.\n\nFor JSONLoader to load this file into Against the Storm create a file on your computer ending with _good.json and paste the contents of the JSON inside. Example: \"MyFile_good.json\"",
   "required": [
     "guid",
     "name"

@@ -3,7 +3,7 @@
   "id": "https://github.com/JamesVeug/ATS_JSONLoader",
   "type": "object",
   "title": "Workshop Recipe",
-  "description": "Recipes added to workshop buildings to produce goods",
+  "description": "Recipes added to workshop buildings to produce goods.\n\nFor JSONLoader to load this file into Against the Storm create a file on your computer ending with _workshopRecipe.json and paste the contents of the JSON inside. Example: \"MyFile_workshopRecipe.json\"",
   "required": [
     "guid",
     "name"

@@ -16,12 +16,14 @@ using PluginInfo = ATS_JSONLoader.PluginInfo;
 
 public class GoodsLoader
 {
+    public const string fileExtension = "_good.json";
+    
     public static void LoadAll(List<string> files)
     {
         for (int i = 0; i < files.Count; i++)
         {
             string file = files[i];
-            if (!file.EndsWith("_good.json"))
+            if (!file.EndsWith(fileExtension))
             {
                 continue;
             }
@@ -304,7 +306,7 @@ public class GoodsLoader
             
             Apply(goodModel, data, false, goodModel.name, false);
             
-            string file = Path.Combine(Plugin.ExportDirectory, "goods", goodModel.name + "_good.json");
+            string file = Path.Combine(Plugin.ExportDirectory, "goods", goodModel.name + fileExtension);
             if(Directory.Exists(Path.GetDirectoryName(file)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(file));
@@ -316,7 +318,7 @@ public class GoodsLoader
     }
 }
 
-[GenerateSchema("Goods", "Fuel/Eatable/Tradeable items/Amber/etc....")]
+[GenerateSchema("Goods", "Fuel/Eatable/Tradeable items/Amber/etc.", GoodsLoader.fileExtension)]
 public class GoodsData : IInitializable
 {
     [SchemaGuid] 

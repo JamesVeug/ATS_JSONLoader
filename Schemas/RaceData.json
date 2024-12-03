@@ -3,7 +3,7 @@
   "id": "https://github.com/JamesVeug/ATS_JSONLoader",
   "type": "object",
   "title": "Races",
-  "description": "Also known as villagers",
+  "description": "Also known as villagers.\n\nFor JSONLoader to load this file into Against the Storm create a file on your computer ending with _race.json and paste the contents of the JSON inside. Example: \"MyFile_race.json\"",
   "required": [
     "guid",
     "name"

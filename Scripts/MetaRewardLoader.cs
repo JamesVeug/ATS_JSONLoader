@@ -13,12 +13,14 @@ using PluginInfo = ATS_JSONLoader.PluginInfo;
 
 public class MetaRewardLoader
 {
+    public const string fileExtension = "_metaReward.json";
+    
     public static void LoadAll(List<string> files)
     {
         for (int i = 0; i < files.Count; i++)
         {
             string file = files[i];
-            if (!file.EndsWith("_metaReward.json"))
+            if (!file.EndsWith(fileExtension))
             {
                 continue;
             }
@@ -185,7 +187,7 @@ public class MetaRewardLoader
             }
             Apply(data, false, model.name, isNewMetaReward, builder);
             
-            string file = Path.Combine(Plugin.ExportDirectory, "metaRewards", model.name + "_metaReward.json");
+            string file = Path.Combine(Plugin.ExportDirectory, "metaRewards", model.name + fileExtension);
             if(Directory.Exists(Path.GetDirectoryName(file)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(file));
@@ -197,7 +199,7 @@ public class MetaRewardLoader
     }
 }
 
-[GenerateSchema("MetaReward", "Rewards given to the player when embarking")]
+[GenerateSchema("MetaReward", "Rewards given to the player when embarking.", MetaRewardLoader.fileExtension)]
 public class MetaRewardData : IInitializable
 {
     public enum MetaRewardTypes

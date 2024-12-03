@@ -3,7 +3,7 @@
   "id": "https://github.com/JamesVeug/ATS_JSONLoader",
   "type": "object",
   "title": "MetaReward",
-  "description": "Rewards given to the player when embarking",
+  "description": "Rewards given to the player when embarking.\n\nFor JSONLoader to load this file into Against the Storm create a file on your computer ending with _metaReward.json and paste the contents of the JSON inside. Example: \"MyFile_metaReward.json\"",
   "required": [
     "guid",
     "name",

@@ -91,7 +91,7 @@ public static class JSONSchemaGenerator
         Type type = fieldInfo.FieldType;
         if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
         {
-            Plugin.Log.LogInfo("Nullable type " + type + " to " + type.GetGenericArguments()[0].Name);
+            // Plugin.Log.LogInfo("Nullable type " + type + " to " + type.GetGenericArguments()[0].Name);
             type = Nullable.GetUnderlyingType(type);
         }
         

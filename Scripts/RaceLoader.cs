@@ -11,12 +11,14 @@ using UnityEngine;
 
 public class RaceLoader
 {
+    public const string fileExtension = "_race.json";
+    
     public static void LoadAll(List<string> files)
     {
         for (int i = 0; i < files.Count; i++)
         {
             string file = files[i];
-            if (!file.EndsWith("_race.json"))
+            if (!file.EndsWith(fileExtension))
             {
                 continue;
             }
@@ -167,7 +169,7 @@ public class RaceLoader
 
             Apply(goodModel, data, false, goodModel.name);
 
-            string file = Path.Combine(Plugin.ExportDirectory, "races", goodModel.name + "_race.json");
+            string file = Path.Combine(Plugin.ExportDirectory, "races", goodModel.name + fileExtension);
             if(Directory.Exists(Path.GetDirectoryName(file)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(file));
@@ -193,7 +195,7 @@ public class RaceLoader
         public string buildingPerk;
     }
 
-    [GenerateSchema("Races", "Also known as villagers")]
+    [GenerateSchema("Races", "Also known as villagers.", RaceLoader.fileExtension)]
     public class RaceData : IInitializable
     {
         [SchemaGuid]
