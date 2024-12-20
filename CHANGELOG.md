@@ -1,3 +1,8 @@
+# 0.6.0
+- Works for ATS 1.6.2R
+- Added support to add/change Workshop recipes
+- Updated Schemas with instructions on what file extension they need
+
 # 0.5.1
 - Works for ATS 1.5.5R
 - Removed Race racialHousingNeed support (v1.5 moved this to houses)
