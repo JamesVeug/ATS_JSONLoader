@@ -1,10 +1,8 @@
 ﻿using System.Linq;
 using ATS_API.Helpers;
-using ATS_API.Recipes;
 using Eremite;
 using Eremite.Buildings;
 using Eremite.Model;
-using UnityEngine;
 
 public class HelperMethods
 {
@@ -53,7 +51,7 @@ public class HelperMethods
     {
         public NeedModel Convert(string name)
         {
-            return SO.Settings.Needs.FirstOrDefault(a=>a.name == name);
+            return name.ToNeedModel();
         }
 
         public string Convert(NeedModel value)
@@ -66,12 +64,73 @@ public class HelperMethods
     {
         public ModelTag Convert(string name)
         {
-            return SO.Settings.tags.FirstOrDefault(a=>a.name == name);
+            return name.ToModelTag();
         }
 
         public string Convert(ModelTag value)
         {
             return value.name;
+        }
+    }
+
+    public class DecorationTierData : JSONSerializer<string, DecorationTier>, JSONSerializer<DecorationTier, string>
+    {
+        public DecorationTier Convert(string name)
+        {
+            return name.ToDecorationTierTypes().ToDecorationTier();
+        }
+
+        public string Convert(DecorationTier value)
+        {
+            return value.name.ToDecorationTierTypes().ToString();
+        }
+    }
+
+    public class WorkshopRecipeModelData : JSONSerializer<string, WorkshopRecipeModel>, JSONSerializer<WorkshopRecipeModel, string>
+    {
+        public WorkshopRecipeModel Convert(string name)
+        {
+            return name.ToWorkshopRecipeModel();
+        }
+
+        public string Convert(WorkshopRecipeModel value)
+        {
+            return value.name;
+        }
+    }
+
+    public class InstitutionRecipeModelData : JSONSerializer<string, InstitutionRecipeModel>, JSONSerializer<InstitutionRecipeModel, string>
+    {
+        public InstitutionRecipeModel Convert(string name)
+        {
+            return name.ToInstitutionRecipeModel();
+        }
+
+        public string Convert(InstitutionRecipeModel value)
+        {
+            return value.name;
+        }
+    }
+
+    public class InstitutionActiveEffectData : JSONSerializer<InstitutionEffectModel, InstitutionActiveEffectData>, JSONSerializer<InstitutionActiveEffectData, InstitutionEffectModel>
+    {
+        public int MinWorkers;
+        public string Effect;
+        
+        public InstitutionActiveEffectData Convert(InstitutionEffectModel model)
+        {
+            InstitutionActiveEffectData data = new InstitutionActiveEffectData();
+            data.MinWorkers = model.minWorkers;
+            data.Effect = model.effect.name;
+            return data;
+        }
+
+        public InstitutionEffectModel Convert(InstitutionActiveEffectData value)
+        {
+            InstitutionEffectModel model = new InstitutionEffectModel();
+            model.minWorkers = value.MinWorkers;
+            model.effect = value.Effect.ToEffectModel();
+            return model;
         }
     }
     

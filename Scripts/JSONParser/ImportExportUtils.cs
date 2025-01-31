@@ -299,6 +299,19 @@ public static partial class ImportExportUtils
 
                 return;
             }
+            else if (TryGetJSONSerializer(toType, fromType, out MethodInfo serializerMethod))
+            {
+                // use JSONConvertsTo<T> interface
+                // toType converts to fromType
+                Log("A " + toType.Name + " has the interface to convert into " + fromType.Name);
+                
+                object o = Activator.CreateInstance(serializerMethod.ReflectedType);
+                Log("Created instance of " + serializerMethod.ReflectedType.Name);
+                
+                to = (ToType)serializerMethod.Invoke(o, new object[] { from });
+                Log("Converted " + from + " to " + to);
+                return;
+            }
             else if (fromType.IsEnum && toType == typeof(string))
             {
                 string oType = from.ToString();
@@ -679,37 +692,6 @@ public static partial class ImportExportUtils
                 to = (ToType)(object)modifier.name;
                 return;
             }
-            else if (fromType == typeof(string) && toType == typeof(WorkshopRecipeModel))
-            {
-                string path = (string)(object)from;
-                WorkshopRecipeModel modifier = SO.Settings.workshopsRecipes.FirstOrDefault(a => a.name == path);
-                if (modifier == null)
-                {
-                    Error($"Could not find WorkshopRecipeModel with name '{path}'!");
-                }
-                to = (ToType)(object)modifier;
-                return;
-            }
-            else if (fromType == typeof(WorkshopRecipeModel) && toType == typeof(string))
-            {
-                WorkshopRecipeModel modifier = (WorkshopRecipeModel)(object)from;
-                to = (ToType)(object)modifier.name;
-                return;
-            }
-            
-            // use JSONConvertsTo<T> interface
-            if (TryGetConvertInterface(toType, fromType, out MethodInfo serializerMethod))
-            {
-                // toType converts to fromType
-                Log("A " + toType.Name + " has the interface to convert into " + fromType.Name);
-                
-                object o = Activator.CreateInstance(serializerMethod.ReflectedType);
-                Log("Created instance of " + serializerMethod.ReflectedType.Name);
-                
-                to = (ToType)serializerMethod.Invoke(o, new object[] { from });
-                Log("Converted " + from + " to " + to);
-                return;
-            }
         }
         catch (Exception e)
         {
@@ -721,7 +703,7 @@ public static partial class ImportExportUtils
         Error($"Unsupported conversion type: {fromType} to {toType}\n{Environment.StackTrace}");
     }
     
-    private static bool TryGetConvertInterface(Type toType, Type fromType, out MethodInfo serializer)
+    private static bool TryGetJSONSerializer(Type toType, Type fromType, out MethodInfo serializer)
     {
         foreach (Type type in AllSerializers)
         {

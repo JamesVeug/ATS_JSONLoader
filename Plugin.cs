@@ -108,6 +108,8 @@ public class Plugin : BaseUnityPlugin
         // WorkshopRecipeLoader.LoadAll(files);
         new WorkshopBuildingLoader().LoadAll(files);
         new HouseBuildingLoader().LoadAll(files);
+        new DecorationBuildingLoader().LoadAll(files);
+        new InstitutionBuildingLoader().LoadAll(files);
     }
 
     private static void ExportAllFiles()
@@ -126,5 +128,7 @@ public class Plugin : BaseUnityPlugin
         // WorkshopRecipeLoader.ExportAll();
         new WorkshopBuildingLoader().ExportAll();
         new HouseBuildingLoader().ExportAll();
+        new DecorationBuildingLoader().ExportAll();
+        new InstitutionBuildingLoader().ExportAll();
     }
 }

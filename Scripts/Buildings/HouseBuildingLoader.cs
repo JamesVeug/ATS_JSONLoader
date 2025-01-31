@@ -43,7 +43,7 @@ public class HouseBuildingLoader : ABuildingLoader<HouseModel, HouseBuildingData
         ImportExportUtils.ApplyValueNoNull(ref model.icon, ref data.icon, toModel, "HouseBuildings", "icon");
         ImportExportUtils.ApplyValueNoNull(ref model.order, ref data.order, toModel, "HouseBuildings", "order");
         ImportExportUtils.ApplyValueNoNull(ref model.movingCost, ref data.movingCost, toModel, "HouseBuildings", "movingCost");
-        ImportExportUtils.ApplyValueNoNull(ref model.movable, ref data.movable, toModel, "WorkshopBuildings", "movable");
+        ImportExportUtils.ApplyValueNoNull(ref model.movable, ref data.movable, toModel, "HouseBuildings", "movable");
         ImportExportUtils.ApplyValueNoNull(ref model.category, ref data.category, toModel, "HouseBuildings", "category");
         ImportExportUtils.ApplyValueNoNull(ref model.tags, ref data.tags, toModel, "HouseBuildings", "tags");
         ImportExportUtils.ApplyValueNoNull(ref model.usabilityTags, ref data.usabilityTags, toModel, "HouseBuildings", "usabilityTags");

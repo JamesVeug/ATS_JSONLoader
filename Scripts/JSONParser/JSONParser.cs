@@ -732,7 +732,7 @@ namespace TinyJson
                             return depth * 1000 + indexOf;
                         }).ToArray();
                         
-                        LogWarning($"{type.Name} Fields: {PUBLIC_FIELD_INFOS.Length} {string.Join(", ", PUBLIC_FIELD_INFOS.Select((a) => a.Name))}");
+                        // LogWarning($"{type.Name} Fields: {PUBLIC_FIELD_INFOS.Length} {string.Join(", ", PUBLIC_FIELD_INFOS.Select((a) => a.Name))}");
                         
                         publicFieldInfoCache[type] = PUBLIC_FIELD_INFOS;
                     } 

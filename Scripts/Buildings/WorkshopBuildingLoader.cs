@@ -46,7 +46,7 @@ public class WorkshopBuildingLoader : ABuildingLoader<WorkshopModel, WorkshopBui
         ImportExportUtils.ApplyValueNoNull(ref model.profession, ref data.profession, toModel, "WorkshopBuildings", "profession");
         ImportExportUtils.ApplyValueNoNull(ref model.category, ref data.category, toModel, "WorkshopBuildings", "category");
         ImportExportUtils.ApplyValueNoNull(ref model.tags, ref data.tags, toModel, "WorkshopBuildings", "tags");
-        ImportExportUtils.ApplyValueNoNull(ref model.usabilityTags, ref data.usabilityTags, toModel, "HouseBuildings", "usabilityTags");
+        ImportExportUtils.ApplyValueNoNull(ref model.usabilityTags, ref data.usabilityTags, toModel, "WorkshopBuildings", "usabilityTags");
         ImportExportUtils.ApplyValueNoNull(ref model.requiredGoods, ref data.requiredGoods, toModel, "WorkshopBuildings", "requiredGoods");
         ImportExportUtils.ApplyValueNoNull(ref model.workplaces, ref data.workplaces, toModel, "WorkshopBuildings", "workplaces");
         ImportExportUtils.ApplyValueNoNull(ref model.recipes, ref data.workshopRecipes, toModel, "WorkshopBuildings", "recipes");
