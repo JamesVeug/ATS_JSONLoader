@@ -43,22 +43,14 @@ public class HouseBuildingLoader : ABuildingLoader<HouseModel, HouseBuildingData
         ImportExportUtils.ApplyValueNoNull(ref model.icon, ref data.icon, toModel, "HouseBuildings", "icon");
         ImportExportUtils.ApplyValueNoNull(ref model.order, ref data.order, toModel, "HouseBuildings", "order");
         ImportExportUtils.ApplyValueNoNull(ref model.movingCost, ref data.movingCost, toModel, "HouseBuildings", "movingCost");
+        ImportExportUtils.ApplyValueNoNull(ref model.movable, ref data.movable, toModel, "WorkshopBuildings", "movable");
         ImportExportUtils.ApplyValueNoNull(ref model.category, ref data.category, toModel, "HouseBuildings", "category");
         ImportExportUtils.ApplyValueNoNull(ref model.tags, ref data.tags, toModel, "HouseBuildings", "tags");
+        ImportExportUtils.ApplyValueNoNull(ref model.usabilityTags, ref data.usabilityTags, toModel, "HouseBuildings", "usabilityTags");
         ImportExportUtils.ApplyValueNoNull(ref model.requiredGoods, ref data.requiredGoods, toModel, "HouseBuildings", "requiredGoods");
         ImportExportUtils.ApplyValueNoNull(ref model.housingRaces, ref data.housingRaces, toModel, "HouseBuildings", "housingRaces");
         ImportExportUtils.ApplyValueNoNull(ref model.housingPlaces, ref data.housingPlaces, toModel, "HouseBuildings", "housingPlaces");
         ImportExportUtils.ApplyValueNoNull(ref model.servedNeeds, ref data.servedNeeds, toModel, "HouseBuildings", "servedNeeds");
-        
-        /*
-         * var house = new HouseBuildingBuilder(PluginInfo.PLUGIN_GUID, "SkyScraper", "TestBuildingIcon.png", 9);
-            house.SetDefaultVisualIcon("TestBuildingDisplayIcon.png");
-            house.SetAllHousingRaces();
-            house.AddServedNeeds(NeedTypes.Any_Housing);
-            house.AddRequiredGoods((8, GoodsTypes.Mat_Processed_Planks));
-         */
-        
-        
     }
 }
 
@@ -76,6 +68,9 @@ public class HouseBuildingData : ABuildingData
 
     [SchemaField(null)] 
     public HelperMethods.GoodRefData movingCost;
+
+    [SchemaField(null)]
+    public bool movable;
     
     [SchemaField(null)] 
     public HelperMethods.GoodRefData[] requiredGoods;
@@ -87,5 +82,8 @@ public class HouseBuildingData : ABuildingData
     public int housingPlaces;
 
     [SchemaField(null)]
-    public HelperMethods.NeedData[] servedNeeds;
+    public string[] servedNeeds;
+
+    [SchemaField(null)]
+    public string[] usabilityTags;
 }

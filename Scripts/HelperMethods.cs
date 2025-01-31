@@ -8,55 +8,70 @@ using UnityEngine;
 
 public class HelperMethods
 {
-    public class GoodRefData : IJSONConvertsTo<GoodRef>
+    public class GoodRefData : JSONSerializer<GoodRef, GoodRefData>, JSONSerializer<GoodRefData, GoodRef>
     {
         public string goodName;
         public int amount;
 
-        public GoodRef ConvertTo()
+        public GoodRef Convert(GoodRefData data)
         {
             GoodRef goodRef = new GoodRef();
-            goodRef.good = goodName.ToGoodModel();
-            goodRef.amount = amount;
+            goodRef.good = data.goodName.ToGoodModel();
+            goodRef.amount = data.amount;
             return goodRef;
         }
         
-        public void ConvertFrom(GoodRef goodRef)
+        public GoodRefData Convert(GoodRef goodRef)
         {
-            goodName = goodRef.good?.Name;
-            amount = goodRef.amount;
+            GoodRefData goodRefData = new GoodRefData();
+            goodRefData.goodName = goodRef.good?.Name;
+            goodRefData.amount = goodRef.amount;
+            return goodRefData;
         }
     }
 
-    public class WorkPlaceData : IJSONConvertsTo<WorkplaceModel>
+    public class WorkPlaceData : JSONSerializer<WorkplaceModel, WorkPlaceData>, JSONSerializer<WorkPlaceData, WorkplaceModel>
     {
         public string[] races;
         
-        public WorkplaceModel ConvertTo()
+        public WorkplaceModel Convert(WorkPlaceData data)
         {
             WorkplaceModel workplaceModel = new WorkplaceModel();
-            workplaceModel.allowedRaces = races.ToRaceModelArray();
+            workplaceModel.allowedRaces = data.races.ToRaceModelArray();
             return workplaceModel;
         }
 
-        public void ConvertFrom(WorkplaceModel value)
+        public WorkPlaceData Convert(WorkplaceModel value)
         {
-            races = value.allowedRaces.Select(a => a?.Name).ToArray();
+            WorkPlaceData workPlaceData = new WorkPlaceData();
+            workPlaceData.races = value.allowedRaces.Select(a => a?.Name).ToArray();
+            return workPlaceData;
         }
     }
 
-    public class NeedData : IJSONConvertsTo<NeedModel>
+    public class NeedData : JSONSerializer<string, NeedModel>, JSONSerializer<NeedModel, string>
     {
-        public string needName;
-
-        public NeedModel ConvertTo()
+        public NeedModel Convert(string name)
         {
-            return SO.Settings.Needs.FirstOrDefault(a=>a.name == needName);
+            return SO.Settings.Needs.FirstOrDefault(a=>a.name == name);
         }
 
-        public void ConvertFrom(NeedModel value)
+        public string Convert(NeedModel value)
         {
-            needName = value.name;
+            return value.name;
+        }
+    }
+
+    public class TagData : JSONSerializer<string, ModelTag>, JSONSerializer<ModelTag, string>
+    {
+        public ModelTag Convert(string name)
+        {
+            return SO.Settings.tags.FirstOrDefault(a=>a.name == name);
+        }
+
+        public string Convert(ModelTag value)
+        {
+            return value.name;
         }
     }
     

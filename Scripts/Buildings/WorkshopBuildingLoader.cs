@@ -42,9 +42,11 @@ public class WorkshopBuildingLoader : ABuildingLoader<WorkshopModel, WorkshopBui
         ImportExportUtils.ApplyValueNoNull(ref model.icon, ref data.icon, toModel, "WorkshopBuildings", "icon");
         ImportExportUtils.ApplyValueNoNull(ref model.order, ref data.order, toModel, "WorkshopBuildings", "order");
         ImportExportUtils.ApplyValueNoNull(ref model.movingCost, ref data.movingCost, toModel, "WorkshopBuildings", "movingCost");
+        ImportExportUtils.ApplyValueNoNull(ref model.movable, ref data.movable, toModel, "WorkshopBuildings", "movable");
         ImportExportUtils.ApplyValueNoNull(ref model.profession, ref data.profession, toModel, "WorkshopBuildings", "profession");
         ImportExportUtils.ApplyValueNoNull(ref model.category, ref data.category, toModel, "WorkshopBuildings", "category");
         ImportExportUtils.ApplyValueNoNull(ref model.tags, ref data.tags, toModel, "WorkshopBuildings", "tags");
+        ImportExportUtils.ApplyValueNoNull(ref model.usabilityTags, ref data.usabilityTags, toModel, "HouseBuildings", "usabilityTags");
         ImportExportUtils.ApplyValueNoNull(ref model.requiredGoods, ref data.requiredGoods, toModel, "WorkshopBuildings", "requiredGoods");
         ImportExportUtils.ApplyValueNoNull(ref model.workplaces, ref data.workplaces, toModel, "WorkshopBuildings", "workplaces");
         ImportExportUtils.ApplyValueNoNull(ref model.recipes, ref data.workshopRecipes, toModel, "WorkshopBuildings", "recipes");
@@ -65,6 +67,9 @@ public class WorkshopBuildingData : ABuildingData
 
     [SchemaField(null)] 
     public HelperMethods.GoodRefData movingCost;
+
+    [SchemaField(null)] 
+    public bool movable;
     
     [SchemaEnum<ProfessionTypes>(ProfessionTypes.Alchemist, "Which races are good in this building.")]
     public string profession;
@@ -77,4 +82,7 @@ public class WorkshopBuildingData : ABuildingData
     
     [SchemaField(null)]
     public string[] workshopRecipes;
+
+    [SchemaField(null)]
+    public string[] usabilityTags;
 }

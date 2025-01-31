@@ -107,6 +107,7 @@ public class Plugin : BaseUnityPlugin
         // MetaRewardLoader.LoadAll(files);
         // WorkshopRecipeLoader.LoadAll(files);
         new WorkshopBuildingLoader().LoadAll(files);
+        new HouseBuildingLoader().LoadAll(files);
     }
 
     private static void ExportAllFiles()
@@ -124,5 +125,6 @@ public class Plugin : BaseUnityPlugin
         // MetaRewardLoader.ExportAll();
         // WorkshopRecipeLoader.ExportAll();
         new WorkshopBuildingLoader().ExportAll();
+        new HouseBuildingLoader().ExportAll();
     }
 }

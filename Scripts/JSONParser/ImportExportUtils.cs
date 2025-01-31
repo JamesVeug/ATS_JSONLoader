@@ -698,25 +698,16 @@ public static partial class ImportExportUtils
             }
             
             // use JSONConvertsTo<T> interface
-            if (TryGetConvertInterface(toType, fromType))
+            if (TryGetConvertInterface(toType, fromType, out MethodInfo serializerMethod))
             {
                 // toType converts to fromType
                 Log("A " + toType.Name + " has the interface to convert into " + fromType.Name);
                 
-                to = (ToType)Activator.CreateInstance(toType);
-                MethodInfo method = to.GetType().GetMethod("ConvertFrom", BindingFlags.Instance | BindingFlags.Public);
-                Log("ConvertFrom: " + method);
-                method.Invoke(to, new object[] { from });
-                return;
-            }
-            else if (TryGetConvertInterface(fromType, toType))
-            {
-                // GoodRefData -> GoodRef
-                Log("B " + fromType.Name + " has the interface to convert into " + toType.Name);
+                object o = Activator.CreateInstance(serializerMethod.ReflectedType);
+                Log("Created instance of " + serializerMethod.ReflectedType.Name);
                 
-                MethodInfo method = from.GetType().GetMethod("ConvertTo", BindingFlags.Instance | BindingFlags.Public);
-                Log("ConvertTo: " + method);
-                to = (ToType)method.Invoke(from, new object[] { });
+                to = (ToType)serializerMethod.Invoke(o, new object[] { from });
+                Log("Converted " + from + " to " + to);
                 return;
             }
         }
@@ -729,37 +720,32 @@ public static partial class ImportExportUtils
 
         Error($"Unsupported conversion type: {fromType} to {toType}\n{Environment.StackTrace}");
     }
-
-    private static bool TryGetConvertInterface(Type toType, Type fromType)
+    
+    private static bool TryGetConvertInterface(Type toType, Type fromType, out MethodInfo serializer)
     {
-        Type[] interfaces = toType.GetInterfaces();
-        foreach (Type i in interfaces)
+        foreach (Type type in AllSerializers)
         {
-            if (!i.IsGenericType)
+            Log("Checking " + type.Name);
+            if (type.GetInterfaces().Any(i =>
             {
-                continue;
-            }
-
-            if (i.GetGenericTypeDefinition() != typeof(IJSONConvertsTo<>))
+                return i.IsGenericType && i.GetGenericTypeDefinition() == typeof(JSONSerializer<,>) &&
+                       i.GetGenericArguments()[0] == fromType &&
+                       i.GetGenericArguments()[1] == toType;
+            }))
             {
-                continue;
-            }
-            
-            // Compare the generic type
-            if(i.GetGenericArguments().Single() == fromType)
-            {
-                Log("Type " + toType.Name + " can convert to type " + fromType.Name);
+                Log("Found " + type.Name);
+                serializer = type.GetMethods(BindingFlags.Instance | BindingFlags.Public)
+                    .Where(a=>a.Name == "Convert")
+                    .FirstOrDefault(a => a.GetParameters().Length == 1 &&
+                                         a.GetParameters()[0].ParameterType == fromType &&
+                                         a.ReturnType == toType);
+                Log("Found Serializer: " + serializer);
                 return true;
             }
         }
 
+        serializer = null;
         return false;
-    }
-
-    private static bool TryGetInterface(Type type, out Type interfaceType)
-    {
-        interfaceType = typeof(IJSONConvertsTo<>);
-        return interfaceType != null;
     }
 
     private static Texture2D GetTextureFromString(string path)
@@ -1126,4 +1112,15 @@ public static partial class ImportExportUtils
     {
         Plugin.Log.LogError($"[{DebugPath}][{ID}][{LoggingSuffix}] {e.Message}\n{e.StackTrace}");
     }
+
+    private static readonly Type[] AllSerializers = Assembly.GetAssembly(typeof(Plugin))
+        .GetTypes()
+        .Where(a =>
+        {
+            return a.GetInterfaces()
+                .Any(i =>
+                {
+                    return i.IsGenericType && i.GetGenericTypeDefinition() == typeof(JSONSerializer<,>);
+                });
+        }).ToArray();
 }

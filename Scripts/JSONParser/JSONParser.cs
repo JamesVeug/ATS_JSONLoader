@@ -709,6 +709,31 @@ namespace TinyJson
                     if (!publicFieldInfoCache.TryGetValue(type, out FieldInfo[] PUBLIC_FIELD_INFOS))
                     {
                         PUBLIC_FIELD_INFOS = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                        
+                        // Order fields by base order in hierarchy and order in that class
+                        PUBLIC_FIELD_INFOS = PUBLIC_FIELD_INFOS.OrderBy((a) =>
+                        {
+                            // Get depth in hierarchy
+                            Type baseType = a.DeclaringType;
+                            while(baseType.BaseType != null)
+                            {
+                                baseType = baseType.BaseType;
+                            }
+                            
+                            int depth = 0;
+                            Type currentType = a.DeclaringType;
+                            while (currentType != null)
+                            {
+                                depth++;
+                                currentType = currentType.BaseType;
+                            }
+
+                            int indexOf = a.DeclaringType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).IndexOf(a);
+                            return depth * 1000 + indexOf;
+                        }).ToArray();
+                        
+                        LogWarning($"{type.Name} Fields: {PUBLIC_FIELD_INFOS.Length} {string.Join(", ", PUBLIC_FIELD_INFOS.Select((a) => a.Name))}");
+                        
                         publicFieldInfoCache[type] = PUBLIC_FIELD_INFOS;
                     } 
                     if (!publicPropertyInfoCache.TryGetValue(type, out PropertyInfo[] PUBLIC_PROPERTY_INFOS))

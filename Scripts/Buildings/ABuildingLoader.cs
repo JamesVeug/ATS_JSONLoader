@@ -121,7 +121,7 @@ public abstract class ABuildingLoader<ModelType,DataType>
             
             Apply(model, data, false, model.name, false);
             
-            string folder = char.ToUpper(FileExtension[0]) + FileExtension.Substring(1, FileExtension.LastIndexOf("_"));
+            string folder = char.ToUpper(FileExtension[1]) + FileExtension.Substring(2, FileExtension.LastIndexOf(".") - 2) + "s";
             string file = Path.Combine(Plugin.ExportDirectory, folder, model.name + FileExtension);
             if (Directory.Exists(Path.GetDirectoryName(file)) == false)
             {
