@@ -441,11 +441,11 @@ public static partial class ImportExportUtils
             }
             else if (fromType == typeof(Sprite) && toType == typeof(string))
             {
-                Sprite texture = (Sprite)(object)from;
-                if (texture != null)
+                Sprite sprite = (Sprite)(object)from;
+                if (sprite != null)
                 {
                     string path = Path.Combine(Plugin.ExportDirectory, category, "Assets", $"{ID}_{suffix}.png");
-                    to = (ToType)(object)ExportTexture(texture.texture, path);
+                    to = (ToType)(object)ExportSprite(sprite, path);
                 }
 
                 return;
@@ -733,7 +733,7 @@ public static partial class ImportExportUtils
             {
                 string contents = path.Substring("base64:".Length);
                 byte[] bytes = Convert.FromBase64String(contents);
-                Texture2D texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+                Texture2D texture = new Texture2D(2, 2, TextureFormat.RGBA32, false, true);
                 texture.filterMode = FilterMode.Point;
                 texture.LoadImage(bytes);
                 
@@ -899,27 +899,29 @@ public static partial class ImportExportUtils
             texture.GetNativeTexturePtr());
         return ExportTexture(converted, path);
     }
+    
+    private static string ExportSprite(Sprite sprite, string path)
+    {
+        Texture2D texture = sprite.texture;
+        if (!texture.isReadable)
+        {
+            texture = GetReadableTexture2D(texture);
+        }
+        
+        
+        Rect rect = sprite.textureRect;
+        Texture2D newTexture = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGBA32, false, false);
+        Color[] pixels = texture.GetPixels((int)rect.xMin, (int)rect.yMin, (int)rect.width, (int)rect.height);
+        newTexture.SetPixels(pixels);
+        newTexture.Apply();
+        return ExportTexture(newTexture, path);
+    }
 
     private static string ExportTexture(Texture2D texture, string path)
     {
         if (!texture.isReadable)
         {
-            RenderTexture renderTex = RenderTexture.GetTemporary(
-                texture.width,
-                texture.height,
-                0,
-                RenderTextureFormat.Default,
-                RenderTextureReadWrite.Linear);
-
-            Graphics.Blit(texture, renderTex);
-            RenderTexture previous = RenderTexture.active;
-            RenderTexture.active = renderTex;
-            Texture2D readableText = new Texture2D(texture.width, texture.height);
-            readableText.ReadPixels(new Rect(0, 0, renderTex.width, renderTex.height), 0, 0);
-            readableText.Apply();
-            RenderTexture.active = previous;
-            RenderTexture.ReleaseTemporary(renderTex);
-            texture = readableText;
+            texture = GetReadableTexture2D(texture);
         }
 
         byte[] bytes = texture.EncodeToPNG();
@@ -941,6 +943,26 @@ public static partial class ImportExportUtils
 
         File.WriteAllBytes(path, bytes);
         return Path.GetFileName(path);
+    }
+
+    private static Texture2D GetReadableTexture2D(Texture2D texture)
+    {
+        RenderTexture renderTex = RenderTexture.GetTemporary(
+            texture.width,
+            texture.height,
+            0,
+            RenderTextureFormat.Default,
+            RenderTextureReadWrite.sRGB);
+
+        Graphics.Blit(texture, renderTex);
+        RenderTexture previous = RenderTexture.active;
+        RenderTexture.active = renderTex;
+        Texture2D readableText = new Texture2D(texture.width, texture.height, TextureFormat.RGBA32, false, false);
+        readableText.ReadPixels(new Rect(0, 0, renderTex.width, renderTex.height), 0, 0);
+        readableText.Apply();
+        RenderTexture.active = previous;
+        RenderTexture.ReleaseTemporary(renderTex);
+        return readableText;
     }
 
     public static string[] ExportTextures(IEnumerable<Texture2D> texture, string type, string fileName)
