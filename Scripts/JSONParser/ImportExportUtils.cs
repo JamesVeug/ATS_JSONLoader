@@ -679,6 +679,46 @@ public static partial class ImportExportUtils
                 to = (ToType)(object)modifier.name;
                 return;
             }
+            else if (fromType == typeof(string) && toType == typeof(WorkshopRecipeModel))
+            {
+                string path = (string)(object)from;
+                WorkshopRecipeModel modifier = SO.Settings.workshopsRecipes.FirstOrDefault(a => a.name == path);
+                if (modifier == null)
+                {
+                    Error($"Could not find WorkshopRecipeModel with name '{path}'!");
+                }
+                to = (ToType)(object)modifier;
+                return;
+            }
+            else if (fromType == typeof(WorkshopRecipeModel) && toType == typeof(string))
+            {
+                WorkshopRecipeModel modifier = (WorkshopRecipeModel)(object)from;
+                to = (ToType)(object)modifier.name;
+                return;
+            }
+            
+            // use JSONConvertsTo<T> interface
+            if (TryGetConvertInterface(toType, fromType))
+            {
+                // toType converts to fromType
+                Log("A " + toType.Name + " has the interface to convert into " + fromType.Name);
+                
+                to = (ToType)Activator.CreateInstance(toType);
+                MethodInfo method = to.GetType().GetMethod("ConvertFrom", BindingFlags.Instance | BindingFlags.Public);
+                Log("ConvertFrom: " + method);
+                method.Invoke(to, new object[] { from });
+                return;
+            }
+            else if (TryGetConvertInterface(fromType, toType))
+            {
+                // GoodRefData -> GoodRef
+                Log("B " + fromType.Name + " has the interface to convert into " + toType.Name);
+                
+                MethodInfo method = from.GetType().GetMethod("ConvertTo", BindingFlags.Instance | BindingFlags.Public);
+                Log("ConvertTo: " + method);
+                to = (ToType)method.Invoke(from, new object[] { });
+                return;
+            }
         }
         catch (Exception e)
         {
@@ -688,6 +728,38 @@ public static partial class ImportExportUtils
         }
 
         Error($"Unsupported conversion type: {fromType} to {toType}\n{Environment.StackTrace}");
+    }
+
+    private static bool TryGetConvertInterface(Type toType, Type fromType)
+    {
+        Type[] interfaces = toType.GetInterfaces();
+        foreach (Type i in interfaces)
+        {
+            if (!i.IsGenericType)
+            {
+                continue;
+            }
+
+            if (i.GetGenericTypeDefinition() != typeof(IJSONConvertsTo<>))
+            {
+                continue;
+            }
+            
+            // Compare the generic type
+            if(i.GetGenericArguments().Single() == fromType)
+            {
+                Log("Type " + toType.Name + " can convert to type " + fromType.Name);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool TryGetInterface(Type type, out Type interfaceType)
+    {
+        interfaceType = typeof(IJSONConvertsTo<>);
+        return interfaceType != null;
     }
 
     private static Texture2D GetTextureFromString(string path)
