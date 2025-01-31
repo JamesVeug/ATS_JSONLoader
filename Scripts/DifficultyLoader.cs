@@ -159,6 +159,7 @@ public class DifficultyLoader
     
     public static void ExportAll()
     {
+        Plugin.Log.LogInfo($"Exporting {MB.Settings.difficulties.Length} Difficulties.");
         foreach (DifficultyModel model in MB.Settings.difficulties)
         {
             DifficultyTypes type = model.name.ToDifficultyTypes();

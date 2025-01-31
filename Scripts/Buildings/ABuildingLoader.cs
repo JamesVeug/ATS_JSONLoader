@@ -57,7 +57,7 @@ public abstract class ABuildingData : IInitializable
     public HelperMethods.GoodRefData movingCost;
 
     [SchemaField(null)]
-    public bool movable;
+    public bool? movable;
     
     [SchemaField(null)] 
     public HelperMethods.GoodRefData[] requiredGoods;
@@ -158,6 +158,7 @@ public abstract class ABuildingLoader<ModelType,DataType>
     
     public virtual void ExportAll()
     {
+        Plugin.Log.LogInfo($"Exporting {AllModels.Count()} {typeof(ModelType).Name}s.");
         foreach (ModelType model in AllModels)
         {
             DataType data = Activator.CreateInstance<DataType>();

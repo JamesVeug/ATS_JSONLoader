@@ -288,6 +288,7 @@ public class GoodsLoader
 
     public static void ExportAll()
     {
+        Plugin.Log.LogInfo($"Exporting {MB.Settings.Goods.Length} Goods.");
         foreach (GoodModel goodModel in MB.Settings.Goods)
         {
             GoodsTypes goodsTypes = goodModel.name.ToGoodsTypes();

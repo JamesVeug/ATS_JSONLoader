@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -301,15 +302,11 @@ public static partial class ImportExportUtils
             }
             else if (TryGetJSONSerializer(toType, fromType, out MethodInfo serializerMethod))
             {
-                // use JSONConvertsTo<T> interface
-                // toType converts to fromType
-                Log("A " + toType.Name + " has the interface to convert into " + fromType.Name);
-                
-                object o = Activator.CreateInstance(serializerMethod.ReflectedType);
-                Log("Created instance of " + serializerMethod.ReflectedType.Name);
-                
-                to = (ToType)serializerMethod.Invoke(o, new object[] { from });
-                Log("Converted " + from + " to " + to);
+                // use JSONSerializer<From,To>.Convert(From) interface
+                Type type = serializerMethod.ReflectedType;
+                VerboseLog($"Using JSON serializer {type.Name} to convert {fromType.Name} to {toType.Name}");
+                object serializer = Activator.CreateInstance(type);
+                to = (ToType)serializerMethod.Invoke(serializer, new object[] { from });
                 return;
             }
             else if (fromType.IsEnum && toType == typeof(string))
@@ -707,21 +704,19 @@ public static partial class ImportExportUtils
     {
         foreach (Type type in AllSerializers)
         {
-            Log("Checking " + type.Name);
-            if (type.GetInterfaces().Any(i =>
+            foreach (var i in type.GetInterfaces())
             {
-                return i.IsGenericType && i.GetGenericTypeDefinition() == typeof(JSONSerializer<,>) &&
-                       i.GetGenericArguments()[0] == fromType &&
-                       i.GetGenericArguments()[1] == toType;
-            }))
-            {
-                Log("Found " + type.Name);
+                if (!i.IsGenericType || 
+                    i.GetGenericTypeDefinition() != typeof(JSONSerializer<,>) ||
+                    i.GetGenericArguments()[0] != fromType || 
+                    i.GetGenericArguments()[1] != toType)
+                {
+                    continue;
+                }
+                
                 serializer = type.GetMethods(BindingFlags.Instance | BindingFlags.Public)
-                    .Where(a=>a.Name == "Convert")
-                    .FirstOrDefault(a => a.GetParameters().Length == 1 &&
-                                         a.GetParameters()[0].ParameterType == fromType &&
-                                         a.ReturnType == toType);
-                Log("Found Serializer: " + serializer);
+                    .Where(a => a.Name == "Convert")
+                    .FirstOrDefault(a => a.GetParameters().Length == 1 && a.GetParameters()[0].ParameterType == fromType && a.ReturnType == toType);
                 return true;
             }
         }

@@ -143,6 +143,7 @@ public class MetaRewardLoader
     
     public static void ExportAll()
     {
+        Plugin.Log.LogInfo($"Exporting {MB.Settings.metaRewards.Length} MetaRewards.");
         foreach (MetaRewardModel model in MB.Settings.metaRewards)
         {
             MetaRewardData.MetaRewardTypes dataType = MetaRewardData.MetaRewardTypes.Unknown;

@@ -161,6 +161,7 @@ public class RaceLoader
 
     public static void ExportAll()
     {
+        Plugin.Log.LogInfo($"Exporting {MB.Settings.Races.Length} Races.");
         foreach (RaceModel goodModel in MB.Settings.Races)
         {
             RaceData data = new RaceData();

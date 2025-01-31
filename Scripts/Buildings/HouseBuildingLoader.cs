@@ -54,7 +54,7 @@ public class HouseBuildingData : ABuildingData
     public string[] housingRaces;
 
     [SchemaField(null)]
-    public int housingPlaces;
+    public int? housingPlaces;
 
     [SchemaField(null)]
     public string[] servedNeeds;

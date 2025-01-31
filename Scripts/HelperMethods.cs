@@ -133,6 +133,32 @@ public class HelperMethods
             return model;
         }
     }
+
+    public class BuildingCategoryModelData : JSONSerializer<string, BuildingCategoryModel>, JSONSerializer<BuildingCategoryModel, string>
+    {
+        public string Convert(BuildingCategoryModel model)
+        {
+            return model.name;
+        }
+
+        public BuildingCategoryModel Convert(string value)
+        {
+            return value.ToBuildingCategoryModel();
+        }
+    }
+
+    public class BuildingTagModelData : JSONSerializer<string, BuildingTagModel>, JSONSerializer<BuildingTagModel, string>
+    {
+        public string Convert(BuildingTagModel model)
+        {
+            return model.name;
+        }
+
+        public BuildingTagModel Convert(string value)
+        {
+            return value.ToBuildingTagModel();
+        }
+    }
     
     [SchemaHelpURL("https://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/BuildingTagTypes.cs", "https://hoodedhorse.com/wiki/Against_the_Storm/Trading")]
     public class SchemaBuildingTagTypesAttribute : SchemaEnumAttribute<BuildingTagTypes>

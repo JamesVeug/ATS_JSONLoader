@@ -155,6 +155,7 @@ public class WorkshopRecipeLoader
     
     public static void ExportAll()
     {
+        Plugin.Log.LogInfo($"Exporting {MB.Settings.workshopsRecipes.Length} WorkshopRecipes.");
         foreach (WorkshopRecipeModel model in MB.Settings.workshopsRecipes)
         {
             WorkshopRecipeData data = new WorkshopRecipeData();

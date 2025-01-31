@@ -101,11 +101,11 @@ public class Plugin : BaseUnityPlugin
     {
         List<string> files = GetAllJLDRFiles();
 
-        // GoodsLoader.LoadAll(files);
-        // RaceLoader.LoadAll(files);
-        // DifficultyLoader.LoadAll(files);
-        // MetaRewardLoader.LoadAll(files);
-        // WorkshopRecipeLoader.LoadAll(files);
+        GoodsLoader.LoadAll(files);
+        RaceLoader.LoadAll(files);
+        DifficultyLoader.LoadAll(files);
+        MetaRewardLoader.LoadAll(files);
+        WorkshopRecipeLoader.LoadAll(files);
         new WorkshopBuildingLoader().LoadAll(files);
         new HouseBuildingLoader().LoadAll(files);
         new DecorationBuildingLoader().LoadAll(files);
@@ -121,11 +121,11 @@ public class Plugin : BaseUnityPlugin
 
         Log.LogInfo($"Exporting all files to {ExportDirectory}... Grab a coffee... this will take a long time.");
         JSONSchemaGenerator.GenerateAndExport();
-        // GoodsLoader.ExportAll();
-        // RaceLoader.ExportAll();
-        // DifficultyLoader.ExportAll();
-        // MetaRewardLoader.ExportAll();
-        // WorkshopRecipeLoader.ExportAll();
+        GoodsLoader.ExportAll();
+        RaceLoader.ExportAll();
+        DifficultyLoader.ExportAll();
+        MetaRewardLoader.ExportAll();
+        WorkshopRecipeLoader.ExportAll();
         new WorkshopBuildingLoader().ExportAll();
         new HouseBuildingLoader().ExportAll();
         new DecorationBuildingLoader().ExportAll();
