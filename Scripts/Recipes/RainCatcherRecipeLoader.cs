@@ -5,7 +5,6 @@ using ATS_API.Recipes;
 using ATS_JSONLoader;
 using Eremite;
 using Eremite.Buildings;
-using Eremite.Model;
 
 public class RainCatcherRecipeLoader : ARecipeLoader<RainCatcherRecipeModel, RainCatcherRecipeData>
 {
@@ -41,6 +40,29 @@ public class RainCatcherRecipeLoader : ARecipeLoader<RainCatcherRecipeModel, Rai
         ImportExportUtils.ApplyValueNoNull(ref model.water, ref data.producedWater, toModel, "RainCatcherRecipes", "water");
         ImportExportUtils.ApplyValueNoNull(ref model.amount, ref data.producedAmount, toModel, "RainCatcherRecipes", "amount");
         ImportExportUtils.ApplyValueNoNull(ref model.productionTime, ref data.productionTime, toModel, "RainCatcherRecipes", "productionTime");
+        
+        if (toModel)
+        {
+            if (data.buildings != null)
+            {
+                foreach (RainCatcherModel buildingModel in SO.Settings.Buildings.Where(a=>a is RainCatcherModel).Cast<RainCatcherModel>())
+                {
+                    bool shouldContainRecipe = data.buildings.Contains(buildingModel.name);
+                    if (shouldContainRecipe && !buildingModel.recipes.Contains(model))
+                    {
+                        buildingModel.recipes = buildingModel.recipes.ForceAdd(model);
+                    }
+                    else if (!shouldContainRecipe && buildingModel.recipes.Contains(model))
+                    {
+                        buildingModel.recipes = buildingModel.recipes.Where(a=>a != model).ToArray();
+                    }
+                }
+            }
+        }
+        else
+        {
+            data.buildings = SO.Settings.Buildings.Where(a=>a is RainCatcherModel r && r.recipes.Contains(model)).Select(a=>a.name).ToArray();
+        }
     }
 }
 
@@ -55,4 +77,7 @@ public class RainCatcherRecipeData : ARecipeData
     
     [SchemaField(10f, "The time it takes to produce the water in seconds")] 
     public float? productionTime;
+
+    [SchemaEnum<RainCatcherTypes>(RainCatcherTypes.Rain_Catcher, "Which raincatchers can use this recipe")] 
+    public string[] buildings;
 }

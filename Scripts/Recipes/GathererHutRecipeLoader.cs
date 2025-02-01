@@ -45,6 +45,29 @@ public class GathererHutRecipeLoader : ARecipeLoader<GathererHutRecipeModel, Gat
         ImportExportUtils.ApplyValueNoNull(ref model.refGood, ref data.refGood, toModel, Category, "refGood");
         ImportExportUtils.ApplyValueNoNull(ref model.productionTime, ref data.productionTime, toModel, Category, "productionTime");
         ImportExportUtils.ApplyLocaText(ref model.gradeDesc, ref data.gradeDesc, (a, b) => builder.SetGradeDesc(a, b), false, "gradeDesc");
+        
+        if (toModel)
+        {
+            if (data.buildings != null)
+            {
+                foreach (var buildingModel in SO.Settings.Buildings.Where(a=>a is GathererHutModel).Cast<GathererHutModel>())
+                {
+                    bool shouldContainRecipe = data.buildings.Contains(buildingModel.name);
+                    if (shouldContainRecipe && !buildingModel.recipes.Contains(model))
+                    {
+                        buildingModel.recipes = buildingModel.recipes.ForceAdd(model);
+                    }
+                    else if (!shouldContainRecipe && buildingModel.recipes.Contains(model))
+                    {
+                        buildingModel.recipes = buildingModel.recipes.Where(a=>a != model).ToArray();
+                    }
+                }
+            }
+        }
+        else
+        {
+            data.buildings = SO.Settings.Buildings.Where(a=>a is GathererHutModel r && r.recipes.Contains(model)).Select(a=>a.name).ToArray();
+        }
     }
 }
 
@@ -59,4 +82,7 @@ public class GathererHutRecipeData : ARecipeData
     
     [SchemaLocalized("Description of the recipes grade")] 
     public LocalizableField gradeDesc;
+
+    [SchemaEnum<GathererHutTypes>(GathererHutTypes.Foragers_Camp, "Which gatherer buildings can use this recipe")] 
+    public string[] buildings;
 }

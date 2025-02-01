@@ -41,6 +41,29 @@ public class MineRecipeLoader : ARecipeLoader<MineRecipeModel, MineRecipeData>
         ImportExportUtils.ApplyValueNoNull(ref model.producedGood, ref data.producedGood, toModel, Category, "producedGood");
         ImportExportUtils.ApplyValueNoNull(ref model.productionTime, ref data.productionTime, toModel, Category, "productionTime");
         ImportExportUtils.ApplyValueNoNull(ref model.extraProduction, ref data.extraProduction, toModel, Category, "extraProduction");
+        
+        if (toModel)
+        {
+            if (data.buildings != null)
+            {
+                foreach (var buildingModel in SO.Settings.mines)
+                {
+                    bool shouldContainRecipe = data.buildings.Contains(buildingModel.name);
+                    if (shouldContainRecipe && !buildingModel.recipes.Contains(model))
+                    {
+                        buildingModel.recipes = buildingModel.recipes.ForceAdd(model);
+                    }
+                    else if (!shouldContainRecipe && buildingModel.recipes.Contains(model))
+                    {
+                        buildingModel.recipes = buildingModel.recipes.Where(a=>a != model).ToArray();
+                    }
+                }
+            }
+        }
+        else
+        {
+            data.buildings = SO.Settings.mines.Where(a=>a.recipes.Contains(model)).Select(a=>a.name).ToArray();
+        }
     }
 }
 
@@ -55,4 +78,7 @@ public class MineRecipeData : ARecipeData
     
     [SchemaField(null, "The amount of the good that is also produced by the recipe.")] 
     public HelperMethods.GoodRefChanceData[] extraProduction;
+
+    [SchemaEnum<MineTypes>(MineTypes.Mine, "Which mines can use this recipe")] 
+    public string[] buildings;
 }

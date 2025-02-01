@@ -45,6 +45,29 @@ public class FishingHutRecipeLoader : ARecipeLoader<FishingHutRecipeModel, Fishi
         ImportExportUtils.ApplyValueNoNull(ref model.refGood, ref data.refGood, toModel, Category, "refGood");
         ImportExportUtils.ApplyValueNoNull(ref model.productionTime, ref data.productionTime, toModel, Category, "productionTime");
         ImportExportUtils.ApplyLocaText(ref model.gradeDesc, ref data.gradeDesc, (a, b) => builder.SetGradeDesc(a, b), false, "gradeDesc");
+        
+        if (toModel)
+        {
+            if (data.buildings != null)
+            {
+                foreach (var buildingModel in SO.Settings.Buildings.Where(a=>a is FishingHutModel).Cast<FishingHutModel>())
+                {
+                    bool shouldContainRecipe = data.buildings.Contains(buildingModel.name);
+                    if (shouldContainRecipe && !buildingModel.recipes.Contains(model))
+                    {
+                        buildingModel.recipes = buildingModel.recipes.ForceAdd(model);
+                    }
+                    else if (!shouldContainRecipe && buildingModel.recipes.Contains(model))
+                    {
+                        buildingModel.recipes = buildingModel.recipes.Where(a=>a != model).ToArray();
+                    }
+                }
+            }
+        }
+        else
+        {
+            data.buildings = SO.Settings.Buildings.Where(a=>a is FishingHutModel r && r.recipes.Contains(model)).Select(a=>a.name).ToArray();
+        }
     }
 }
 
@@ -59,4 +82,7 @@ public class FishingHutRecipeData : ARecipeData
     
     [SchemaLocalized("The grade description of the recipe.")] 
     public LocalizableField gradeDesc;
+
+    [SchemaEnum<FishingHutTypes>(FishingHutTypes.Fishing_Hut, "Which fishing hut buildings can use this recipe")] 
+    public string[] buildings;
 }

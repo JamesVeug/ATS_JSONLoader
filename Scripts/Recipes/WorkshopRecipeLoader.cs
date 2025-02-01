@@ -41,53 +41,8 @@ public class WorkshopRecipeLoader : ARecipeLoader<WorkshopRecipeModel, WorkshopR
         ImportExportUtils.ApplyValueNoNull(ref model.producedGood.good, ref data.producedGood, toModel, "workshopRecipes", "producedGood");
         ImportExportUtils.ApplyValueNoNull(ref model.producedGood.amount, ref data.producedAmount, toModel, "workshopRecipes", "producedAmount");
         ImportExportUtils.ApplyValueNoNull(ref model.productionTime, ref data.productionTime, toModel, "workshopRecipes", "productionTime");
-
-        Logging.VerboseLog($"Required Goods: {data.requiredGoods}");
-        if (toModel)
-        {
-            if (data.requiredGoods != null)
-            {
-                model.requiredGoods = new GoodsSet[data.requiredGoods.Length];
-                for (var i = 0; i < data.requiredGoods.Length; i++)
-                {
-                    Logging.VerboseLog($"Required Goods Set: {i}");
-                    var set = data.requiredGoods[i];
-                    var requiredGoodSet = new GoodsSet();
-                    requiredGoodSet.goods = new GoodRef[set.goods.Length];
-                    for (var j = 0; j < set.goods.Length; j++)
-                    {
-                        Logging.VerboseLog($"\tRequired Good: {j}");
-                        var good = set.goods[j];
-                        var requiredGood = new GoodRef();
-                        requiredGood.good = good.good.ToGoodModel();
-                        requiredGood.amount = good.amount;
-                        requiredGoodSet.goods[j] = requiredGood;
-                    }
-                    model.requiredGoods[i] = requiredGoodSet;
-                }
-            }
-        }
-        else
-        {
-            data.requiredGoods = new HelperMethods.GoodSetData[model.requiredGoods.Length];
-            for (var i = 0; i < model.requiredGoods.Length; i++)
-            {
-                var set = model.requiredGoods[i];
-                var goodSet = new HelperMethods.GoodSetData();
-                goodSet.goods = new HelperMethods.RequiredGood[set.goods.Length];
-                for (var j = 0; j < set.goods.Length; j++)
-                {
-                    var good = set.goods[j];
-                    var requiredGood = new HelperMethods.RequiredGood();
-                    requiredGood.good = good.good.name;
-                    requiredGood.amount = good.amount;
-                    goodSet.goods[j] = requiredGood;
-                }
-                data.requiredGoods[i] = goodSet;
-            }
-        }
+        ImportExportUtils.ApplyValueNoNull(ref model.requiredGoods, ref data.requiredGoods, toModel, "workshopRecipes", "requiredGoods");
         
-        Logging.VerboseLog($"Workshops");
         if (toModel)
         {
             if (data.buildings != null)

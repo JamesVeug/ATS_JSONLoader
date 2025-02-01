@@ -41,6 +41,29 @@ public class InstitutionRecipeLoader : ARecipeLoader<InstitutionRecipeModel, Ins
         ImportExportUtils.ApplyValueNoNull(ref model.servedNeed, ref data.servedNeed, toModel, Category, "servedNeed");
         ImportExportUtils.ApplyValueNoNull(ref model.isGoodConsumed, ref data.isGoodConsumed, toModel, Category, "isGoodConsumed");
         ImportExportUtils.ApplyValueNoNull(ref model.requiredGoods, ref data.requiredGoods, toModel, Category, "requiredGoods");
+        
+        if (toModel)
+        {
+            if (data.buildings != null)
+            {
+                foreach (var buildingModel in SO.Settings.Institutions)
+                {
+                    bool shouldContainRecipe = data.buildings.Contains(buildingModel.name);
+                    if (shouldContainRecipe && !buildingModel.recipes.Contains(model))
+                    {
+                        buildingModel.recipes = buildingModel.recipes.ForceAdd(model);
+                    }
+                    else if (!shouldContainRecipe && buildingModel.recipes.Contains(model))
+                    {
+                        buildingModel.recipes = buildingModel.recipes.Where(a=>a != model).ToArray();
+                    }
+                }
+            }
+        }
+        else
+        {
+            data.buildings = SO.Settings.Institutions.Where(a=>a.recipes.Contains(model)).Select(a=>a.name).ToArray();
+        }
     }
 }
 
@@ -56,4 +79,6 @@ public class InstitutionRecipeData : ARecipeData
     [SchemaField(null, "Rewards the player can choose when starting a new settlement. If not included then will not affect existing meta rewards.")] 
     public HelperMethods.GoodSetData requiredGoods;
 
+    [SchemaEnum<InstitutionTypes>(InstitutionTypes.Bath_House, "Which service buildings can use this recipe")] 
+    public string[] buildings;
 }

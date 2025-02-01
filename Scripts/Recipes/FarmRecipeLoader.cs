@@ -42,6 +42,29 @@ public class FarmRecipeLoader : ARecipeLoader<FarmRecipeModel, FarmRecipeData>
         ImportExportUtils.ApplyValueNoNull(ref model.producedGood.amount, ref data.producedAmount, toModel, "FarmRecipes", "producedAmount");
         ImportExportUtils.ApplyValueNoNull(ref model.plantingTime, ref data.plantingTime, toModel, "FarmRecipes", "plantingTime");
         ImportExportUtils.ApplyValueNoNull(ref model.harvestTime, ref data.harvestTime, toModel, "FarmRecipes", "harvestTime");
+        
+        if (toModel)
+        {
+            if (data.buildings != null)
+            {
+                foreach (var buildingModel in SO.Settings.Buildings.Where(a=>a is FarmModel).Cast<FarmModel>())
+                {
+                    bool shouldContainRecipe = data.buildings.Contains(buildingModel.name);
+                    if (shouldContainRecipe && !buildingModel.recipes.Contains(model))
+                    {
+                        buildingModel.recipes = buildingModel.recipes.ForceAdd(model);
+                    }
+                    else if (!shouldContainRecipe && buildingModel.recipes.Contains(model))
+                    {
+                        buildingModel.recipes = buildingModel.recipes.Where(a=>a != model).ToArray();
+                    }
+                }
+            }
+        }
+        else
+        {
+            data.buildings = SO.Settings.Buildings.Where(a=>a is FarmModel r && r.recipes.Contains(model)).Select(a=>a.name).ToArray();
+        }
     }
 }
 
@@ -59,4 +82,7 @@ public class FarmRecipeData : ARecipeData
     
     [SchemaField(10f, "The time it takes to harvest the good in seconds")]
     public float? harvestTime;
+
+    [SchemaEnum<FarmTypes>(FarmTypes.SmallFarm, "Which farm buildings can use this recipe")] 
+    public string[] buildings;
 }
