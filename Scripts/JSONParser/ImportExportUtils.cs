@@ -31,7 +31,15 @@ public static partial class ImportExportUtils
 
     public static void SetDebugPath(string path)
     {
-        DebugPath = path.Substring(Plugin.BepInExDirectory.Length);
+        if (string.IsNullOrEmpty(path))
+        {
+            DebugPath = "";
+        }
+        else
+        {
+            DebugPath = path.Substring(Plugin.BepInExDirectory.Length);
+        }
+
         LoggingSuffix = "";
     }
 
@@ -304,7 +312,7 @@ public static partial class ImportExportUtils
             {
                 // use JSONSerializer<From,To>.Convert(From) interface
                 Type type = serializerMethod.ReflectedType;
-                VerboseLog($"Using JSON serializer {type.Name} to convert {fromType.Name} to {toType.Name}");
+                // VerboseLog($"Using JSON serializer {type.Name} to convert {fromType.Name} to {toType.Name}");
                 object serializer = Activator.CreateInstance(type);
                 to = (ToType)serializerMethod.Invoke(serializer, new object[] { from });
                 return;

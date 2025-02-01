@@ -175,8 +175,9 @@ public abstract class ABuildingLoader<ModelType,DataType>
             }
             
             Apply(model, data, false, model.name, false);
-            
-            string file = Path.Combine(Plugin.ExportDirectory, Category, model.name + FileExtension);
+
+            string fileExtension = model.name + FileExtension;
+            string file = Path.Combine(Plugin.ExportDirectory, Category, fileExtension);
             if (Directory.Exists(Path.GetDirectoryName(file)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(file));

@@ -105,7 +105,19 @@ public class Plugin : BaseUnityPlugin
         RaceLoader.LoadAll(files);
         DifficultyLoader.LoadAll(files);
         MetaRewardLoader.LoadAll(files);
-        WorkshopRecipeLoader.LoadAll(files);
+        
+        // Recipes
+        new WorkshopRecipeLoader().LoadAll(files);
+        new InstitutionRecipeLoader().LoadAll(files);
+        new CampRecipeLoader().LoadAll(files);
+        new FishingHutRecipeLoader().LoadAll(files);
+        new FarmRecipeLoader().LoadAll(files);
+        new GathererHutRecipeLoader().LoadAll(files);
+        new MineRecipeLoader().LoadAll(files);
+        new RainCatcherRecipeLoader().LoadAll(files);
+        new CollectorRecipeLoader().LoadAll(files);
+        
+        // Buildings
         new WorkshopBuildingLoader().LoadAll(files);
         new HouseBuildingLoader().LoadAll(files);
         new DecorationBuildingLoader().LoadAll(files);
@@ -114,6 +126,7 @@ public class Plugin : BaseUnityPlugin
 
     private static void ExportAllFiles()
     {
+        ImportExportUtils.SetDebugPath("");
         if (!Directory.Exists(ExportDirectory))
         {
             Directory.CreateDirectory(ExportDirectory);
@@ -125,7 +138,19 @@ public class Plugin : BaseUnityPlugin
         RaceLoader.ExportAll();
         DifficultyLoader.ExportAll();
         MetaRewardLoader.ExportAll();
-        WorkshopRecipeLoader.ExportAll();
+        
+        // Recipe
+        new WorkshopRecipeLoader().ExportAll();
+        new InstitutionRecipeLoader().ExportAll();
+        new CampRecipeLoader().ExportAll();
+        new FishingHutRecipeLoader().ExportAll();
+        new FarmRecipeLoader().ExportAll();
+        new GathererHutRecipeLoader().ExportAll();
+        new MineRecipeLoader().ExportAll();
+        new RainCatcherRecipeLoader().ExportAll();
+        new CollectorRecipeLoader().ExportAll();
+        
+        // Buildings
         new WorkshopBuildingLoader().ExportAll();
         new HouseBuildingLoader().ExportAll();
         new DecorationBuildingLoader().ExportAll();
