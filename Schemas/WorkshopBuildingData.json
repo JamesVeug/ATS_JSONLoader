@@ -1,0 +1,263 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://github.com/JamesVeug/ATS_JSONLoader",
+  "type": "object",
+  "title": "WorkshopBuilding",
+  "description": "Buildings that turn goods into products. (ie: Bakery, Toolshop)\n\nFor JSONLoader to load this file into Against the Storm create a file on your computer ending with _workshopBuilding.json and paste the contents of the JSON inside. Example: \"MyFile_workshopBuilding.json\"",
+  "required": [
+    "guid",
+    "name"
+  ],
+  "properties": {
+    "guid": {
+      "description": "Unique identifier for the mod that added this. Blank if it's added as part of the base game.",
+      "pattern": "^[a-zA-Z\\d]+$",
+      "type": "string"
+    },
+    "name": {
+      "description": "Unique identifier",
+      "pattern": "^[a-zA-Z\\d_]+$",
+      "minLength": 1,
+      "type": "string"
+    },
+    "icon": {
+      "default": "",
+      "description": "Name of the file containing the icon for this object. Example: MyCustomGood.png\nIcon size: 128x128 pixels",
+      "type": "string"
+    },
+    "displayName": {
+      "description": "Name that will appear in the game.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+      "type": "string"
+    },
+    "description": {
+      "description": "Long Description describing what it does.\nDefaults to english. To include more languages, add a new field with the language code to the end of the key. For example, 'displayName' => 'displayName_pl' for polish.",
+      "type": "string"
+    },
+    "order": {
+      "default": 0,
+      "description": "The order of which this will be good will be sorted in some lists.",
+      "type": "integer"
+    },
+    "maxAmount": {
+      "default": 0,
+      "description": "Maximum amount of this building the player can have.",
+      "type": "integer"
+    },
+    "maxBuilders": {
+      "default": 4,
+      "description": "Total builders that can construct this building.",
+      "type": "integer"
+    },
+    "baseRefundRate": {
+      "default": 1.0,
+      "description": "The base refund rate for this building.",
+      "type": "number"
+    },
+    "canBePicked": {
+      "default": true,
+      "type": "boolean"
+    },
+    "initiallyEssential": {
+      "default": true,
+      "type": "boolean"
+    },
+    "category": {
+      "default": "None",
+      "description": "Column it appears in to enable/disable use by villagers. If not set API will auto set it.",
+      "anyOf": [
+        {
+          "type": "string",
+          "title": "Predefined BuildingCategoriesTypes",
+          "enum": [
+            "City_Buildings",
+            "Debug_Nodes",
+            "Decorations",
+            "Event",
+            "Event_Ghost",
+            "Food_Production",
+            "Housing",
+            "Industry",
+            "Lore_Tablet_1",
+            "Lore_Tablet_2",
+            "Lore_Tablet_3",
+            "Lore_Tablet_4",
+            "Lore_Tablet_5",
+            "Lore_Tablet_6",
+            "Lore_Tablet_7",
+            "Relics",
+            "Resource_Gathering",
+            "Roads",
+            "Ruins",
+            "Tutorial_Invisible"
+          ]
+        },
+        {
+          "type": "string",
+          "title": "Mod-Added BuildingCategoriesTypes"
+        }
+      ]
+    },
+    "tags": {
+      "default": "None",
+      "description": "\n\nFor more information, see:\nhttps://github.com/JamesVeug/AgainstTheStormAPI/blob/master/ATS_API/Scripts/Helpers/Enums/BuildingTagTypes.cs\nhttps://hoodedhorse.com/wiki/Against_the_Storm/Trading",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "title": "Predefined BuildingTagTypes",
+            "enum": [
+              "Alchemy",
+              "Animals",
+              "Brewing",
+              "Cloth",
+              "Cysts",
+              "Farming",
+              "Forest",
+              "Hearth_Beavers",
+              "Hearth_Foxes",
+              "Hearth_Frogs",
+              "Hearth_Harpies",
+              "Hearth_Humans",
+              "Hearth_Lizards",
+              "Rainwater",
+              "Stone",
+              "Tech",
+              "Warmth",
+              "Wood"
+            ]
+          },
+          {
+            "type": "string",
+            "title": "Mod-Added BuildingTagTypes"
+          }
+        ]
+      }
+    },
+    "usabilityTags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "movingCost": {
+      "type": "object"
+    },
+    "movable": {
+      "type": "boolean"
+    },
+    "requiredGoods": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "profession": {
+      "default": "Alchemist",
+      "description": "Which races are good in this building.",
+      "anyOf": [
+        {
+          "type": "string",
+          "title": "Predefined ProfessionTypes",
+          "enum": [
+            "Alchemist",
+            "Apothecary",
+            "Artisan",
+            "Baker",
+            "Bath_House_Worker",
+            "Beanery_Worker",
+            "BlightFighter",
+            "Brewery_Worker",
+            "Brickyard_Worker",
+            "Builder",
+            "Butcher",
+            "Cannery_Worker",
+            "Carpenter",
+            "Cellar_Worker",
+            "Clan_Mamber",
+            "Clay_Pit_Workshop_Worker",
+            "Claypit_Digger",
+            "Cobbler",
+            "Cook",
+            "Cooper",
+            "Craftsman",
+            "Distillery_Worker",
+            "Druid",
+            "Explorer",
+            "Factory_Worker",
+            "Farmer",
+            "Finesmith",
+            "FireKeeper",
+            "Fisherman",
+            "Forager",
+            "Furnace_Worker",
+            "Geologist",
+            "Granary_Worker",
+            "Greenhouse_Worker",
+            "Greenhouse_Workshop_Worker",
+            "Grill_Worker",
+            "Guild_Member",
+            "Harvester",
+            "Hauler",
+            "Herbalist",
+            "Kiln_Worker",
+            "Leatherworker",
+            "Librarian",
+            "Lumbermill_Worker",
+            "Manufacturer",
+            "Mill_Worker",
+            "Miner",
+            "Monk",
+            "Outfitter",
+            "Oven_Worker",
+            "Pantry_Worker",
+            "Press_Worker",
+            "Priest",
+            "Provisioner",
+            "Rain_Catcher_Worker",
+            "Rain_Collector_Worker",
+            "Rancher",
+            "Scavenger",
+            "Scout",
+            "Scribe",
+            "Seller",
+            "Sewer",
+            "Smelter",
+            "Smith",
+            "Smokehouse_Worker",
+            "Speaker",
+            "Stamping_Mill_Worker",
+            "Stevedore",
+            "Stonecutter",
+            "Supplier",
+            "Teadoctor",
+            "Teahouse_Worker",
+            "Tinctury_Worker",
+            "Tinkerer",
+            "Toolshop_Worker",
+            "Trapper",
+            "Waiter",
+            "Weaver",
+            "Woodcutter"
+          ]
+        },
+        {
+          "type": "string",
+          "title": "Mod-Added ProfessionTypes"
+        }
+      ]
+    },
+    "workplaces": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "workshopRecipes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

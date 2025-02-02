@@ -62,7 +62,9 @@ public static class JSONSchemaGenerator
             schema["description"] = attribute.GetDescription();
         }
         
-        FieldInfo[] fieldInfos = type.GetFields().Where(a=>a.GetCustomAttribute<SchemaFieldAttribute>() != null).ToArray();
+        FieldInfo[] fieldInfos = type.GetFields().Where(a=>a.GetCustomAttribute<SchemaFieldAttribute>() != null)
+            .OrderBy(JSONParser.OrderFieldsByHierarchy)
+            .ToArray();
         string[] required = fieldInfos.Where(a=>a.GetCustomAttribute<SchemaFieldAttribute>().IsRequired()).Select(a=>a.Name).ToArray();
         if (required.Length > 0)
         {

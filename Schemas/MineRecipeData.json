@@ -1,0 +1,266 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://github.com/JamesVeug/ATS_JSONLoader",
+  "type": "object",
+  "title": "Mine Recipe",
+  "description": "Recipes added to Mine buildings to produce goods. (ie: Mine for coal/copper/salt)\n\nFor JSONLoader to load this file into Against the Storm create a file on your computer ending with _mineRecipe.json and paste the contents of the JSON inside. Example: \"MyFile_mineRecipe.json\"",
+  "required": [
+    "guid",
+    "name"
+  ],
+  "properties": {
+    "guid": {
+      "description": "Unique identifier for the mod that added this. Blank if it's added as part of the base game.",
+      "pattern": "^[a-zA-Z\\d]+$",
+      "type": "string"
+    },
+    "name": {
+      "description": "Unique identifier",
+      "pattern": "^[a-zA-Z\\d_]+$",
+      "minLength": 1,
+      "type": "string"
+    },
+    "grade": {
+      "default": "One",
+      "description": "The grade of the recipe",
+      "anyOf": [
+        {
+          "type": "string",
+          "title": "Predefined Grade",
+          "enum": [
+            "Zero",
+            "One",
+            "Two",
+            "Three"
+          ]
+        },
+        {
+          "type": "string",
+          "title": "Mod-Added Grade"
+        }
+      ]
+    },
+    "tags": {
+      "default": "Building_Material_Tag",
+      "description": "Tags of which some effects can affect this recipe by",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "title": "Predefined TagTypes",
+            "enum": [
+              "Aggregation_Tag_Caches",
+              "Aggregation_Tag_Camps",
+              "Aggregation_Tag_Dangerous_Events",
+              "Aggregation_Tag_Drills",
+              "Aggregation_Tag_Excavation",
+              "Aggregation_Tag_Ghosts",
+              "Aggregation_Tag_Haunted_Ruin_Beaver_House",
+              "Aggregation_Tag_Haunted_Ruin_Brewery",
+              "Aggregation_Tag_Haunted_Ruin_Cellar",
+              "Aggregation_Tag_Haunted_Ruin_Cooperage",
+              "Aggregation_Tag_Haunted_Ruin_Druid",
+              "Aggregation_Tag_Haunted_Ruin_Fox_House",
+              "Aggregation_Tag_Haunted_Ruin_Frog_House",
+              "Aggregation_Tag_Haunted_Ruin_Guild_House",
+              "Aggregation_Tag_Haunted_Ruin_Harpy_House",
+              "Aggregation_Tag_Haunted_Ruin_Herb_Garden",
+              "Aggregation_Tag_Haunted_Ruin_Human_House",
+              "Aggregation_Tag_Haunted_Ruin_Leatherworks",
+              "Aggregation_Tag_Haunted_Ruin_Lizard_House",
+              "Aggregation_Tag_Haunted_Ruin_Market",
+              "Aggregation_Tag_Haunted_Ruin_Rainmill",
+              "Aggregation_Tag_Haunted_Ruin_SmallFarm",
+              "Aggregation_Tag_Haunted_Ruin_Smelter",
+              "Aggregation_Tag_Haunted_Ruin_Temple",
+              "Aggregation_Tag_Hearths",
+              "Aggregation_Tag_Ruins",
+              "Aggregation_Tag_Storages",
+              "Building_Material_Tag",
+              "Complex_Food_Tag",
+              "Copper_Bar_And_Crystalized_Tag",
+              "Fabric_Tag",
+              "Farm_Recipe_Tag",
+              "Fishing_Tag",
+              "Food_Tag",
+              "Fuel_Tag",
+              "Gatherer_Hut_Tag",
+              "Gathering_Tag",
+              "Metal_Tag",
+              "N_FirstGameResultDialog",
+              "N_Initiation",
+              "N_IronmanMid",
+              "N_IronmanPostSeal",
+              "N_IronmanPreSeal",
+              "N_IronmanStart",
+              "Ore_Tag",
+              "Packs_Tag",
+              "Recipe_With_Water_Tag",
+              "Relic_Archeology",
+              "Relic_Chest",
+              "Tag_Beaver",
+              "Tag_Blight",
+              "Tag_Event_Send_To_Citadel_Reward",
+              "Tag_Fox",
+              "Tag_Frog",
+              "Tag_Harpy",
+              "Tag_Human",
+              "Tag_Lizzard",
+              "Tag_Metal_Bars_In_Recipe",
+              "Tag_Profession_Blight_Fighters",
+              "Tag_Profession_Firekeeper",
+              "Tag_Profession_Miner",
+              "Tag_Profession_Scout",
+              "Tag_Profession_Woodcutter",
+              "Tag_Rainpunk",
+              "Tag_Requires_Fertile_Soil",
+              "Tag_Storage_Haulers",
+              "Tag_Trade"
+            ]
+          },
+          {
+            "type": "string",
+            "title": "Mod-Added TagTypes"
+          }
+        ]
+      }
+    },
+    "producedGood": {
+      "description": "The good that is produced by the recipe.",
+      "type": "object"
+    },
+    "productionTime": {
+      "default": 10.0,
+      "description": "The time it takes to produce the good in seconds",
+      "type": "number"
+    },
+    "extraProduction": {
+      "description": "The amount of the good that is also produced by the recipe.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "good": {
+            "default": "Food_Raw_Herbs",
+            "description": "The good given",
+            "anyOf": [
+              {
+                "type": "string",
+                "title": "Predefined GoodsTypes",
+                "enum": [
+                  "_Meta_Artifacts",
+                  "_Meta_Food_Stockpiles",
+                  "_Meta_Machinery",
+                  "Blight_Fuel",
+                  "Crafting_Coal",
+                  "Crafting_Dye",
+                  "Crafting_Flour",
+                  "Crafting_Oil",
+                  "Crafting_Salt",
+                  "Crafting_Sea_Marrow",
+                  "Food_Processed_Biscuits",
+                  "Food_Processed_Jerky",
+                  "Food_Processed_Paste",
+                  "Food_Processed_Pickled_Goods",
+                  "Food_Processed_Pie",
+                  "Food_Processed_Porridge",
+                  "Food_Processed_Skewers",
+                  "Food_Raw_Berries",
+                  "Food_Raw_Eggs",
+                  "Food_Raw_Fish",
+                  "Food_Raw_Grain",
+                  "Food_Raw_Herbs",
+                  "Food_Raw_Insects",
+                  "Food_Raw_Meat",
+                  "Food_Raw_Mushrooms",
+                  "Food_Raw_Roots",
+                  "Food_Raw_Vegetables",
+                  "Hearth_Parts",
+                  "Mat_Processed_Bricks",
+                  "Mat_Processed_Fabric",
+                  "Mat_Processed_Parts",
+                  "Mat_Processed_Pipe",
+                  "Mat_Processed_Planks",
+                  "Mat_Raw_Algae",
+                  "Mat_Raw_Clay",
+                  "Mat_Raw_Leather",
+                  "Mat_Raw_Plant_Fibre",
+                  "Mat_Raw_Reeds",
+                  "Mat_Raw_Resin",
+                  "Mat_Raw_Scales",
+                  "Mat_Raw_Sparkdew",
+                  "Mat_Raw_Stone",
+                  "Mat_Raw_Wood",
+                  "Metal_Copper_Bar",
+                  "Metal_Copper_Ore",
+                  "Metal_Crystalized_Dew",
+                  "Needs_Ale",
+                  "Needs_Boots",
+                  "Needs_Coats",
+                  "Needs_Incense",
+                  "Needs_Scrolls",
+                  "Needs_Scrolls_Tutorial",
+                  "Needs_Tea",
+                  "Needs_Training_Gear",
+                  "Needs_Wine",
+                  "Other_Fishing_Bait",
+                  "Packs_Pack_Of_Building_Materials",
+                  "Packs_Pack_Of_Crops",
+                  "Packs_Pack_Of_Luxury_Goods",
+                  "Packs_Pack_Of_Provisions",
+                  "Packs_Pack_Of_Trade_Goods",
+                  "TEMP_Meta_Exp",
+                  "Tools_Simple_Tools",
+                  "Valuable_Amber",
+                  "Valuable_Ancient_Tablet",
+                  "Valuable_Thunderblight_Shard",
+                  "Vessel_Barrels",
+                  "Vessel_Pottery",
+                  "Vessel_Waterskin",
+                  "Water_Clearance_Water",
+                  "Water_Drizzle_Water",
+                  "Water_Storm_Water"
+                ]
+              },
+              {
+                "type": "string",
+                "title": "Mod-Added GoodsTypes"
+              }
+            ]
+          },
+          "amount": {
+            "default": 0,
+            "description": "The amount of the good produced",
+            "type": "integer"
+          },
+          "chance": {
+            "default": 0,
+            "description": "The chance of the good being produced. 0 never, 0.5 is 50% of the time, 1 is always",
+            "type": "number"
+          }
+        }
+      }
+    },
+    "buildings": {
+      "default": "Mine",
+      "description": "Which mines can use this recipe",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "title": "Predefined MineTypes",
+            "enum": [
+              "Mine"
+            ]
+          },
+          {
+            "type": "string",
+            "title": "Mod-Added MineTypes"
+          }
+        ]
+      }
+    }
+  }
+}

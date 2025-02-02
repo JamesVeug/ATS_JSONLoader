@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://github.com/JamesVeug/ATS_JSONLoader",
+  "type": "object",
+  "title": "RainCatcher Recipe",
+  "description": "Recipes added to RainCatcher buildings to collect water. (ie: Clearance, drizzle, storm)\n\nFor JSONLoader to load this file into Against the Storm create a file on your computer ending with _rainCatcherRecipe.json and paste the contents of the JSON inside. Example: \"MyFile_rainCatcherRecipe.json\"",
+  "required": [
+    "guid",
+    "name"
+  ],
+  "properties": {
+    "guid": {
+      "description": "Unique identifier for the mod that added this. Blank if it's added as part of the base game.",
+      "pattern": "^[a-zA-Z\\d]+$",
+      "type": "string"
+    },
+    "name": {
+      "description": "Unique identifier",
+      "pattern": "^[a-zA-Z\\d_]+$",
+      "minLength": 1,
+      "type": "string"
+    },
+    "grade": {
+      "default": "One",
+      "description": "The grade of the recipe",
+      "anyOf": [
+        {
+          "type": "string",
+          "title": "Predefined Grade",
+          "enum": [
+            "Zero",
+            "One",
+            "Two",
+            "Three"
+          ]
+        },
+        {
+          "type": "string",
+          "title": "Mod-Added Grade"
+        }
+      ]
+    },
+    "tags": {
+      "default": "Building_Material_Tag",
+      "description": "Tags of which some effects can affect this recipe by",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "title": "Predefined TagTypes",
+            "enum": [
+              "Aggregation_Tag_Caches",
+              "Aggregation_Tag_Camps",
+              "Aggregation_Tag_Dangerous_Events",
+              "Aggregation_Tag_Drills",
+              "Aggregation_Tag_Excavation",
+              "Aggregation_Tag_Ghosts",
+              "Aggregation_Tag_Haunted_Ruin_Beaver_House",
+              "Aggregation_Tag_Haunted_Ruin_Brewery",
+              "Aggregation_Tag_Haunted_Ruin_Cellar",
+              "Aggregation_Tag_Haunted_Ruin_Cooperage",
+              "Aggregation_Tag_Haunted_Ruin_Druid",
+              "Aggregation_Tag_Haunted_Ruin_Fox_House",
+              "Aggregation_Tag_Haunted_Ruin_Frog_House",
+              "Aggregation_Tag_Haunted_Ruin_Guild_House",
+              "Aggregation_Tag_Haunted_Ruin_Harpy_House",
+              "Aggregation_Tag_Haunted_Ruin_Herb_Garden",
+              "Aggregation_Tag_Haunted_Ruin_Human_House",
+              "Aggregation_Tag_Haunted_Ruin_Leatherworks",
+              "Aggregation_Tag_Haunted_Ruin_Lizard_House",
+              "Aggregation_Tag_Haunted_Ruin_Market",
+              "Aggregation_Tag_Haunted_Ruin_Rainmill",
+              "Aggregation_Tag_Haunted_Ruin_SmallFarm",
+              "Aggregation_Tag_Haunted_Ruin_Smelter",
+              "Aggregation_Tag_Haunted_Ruin_Temple",
+              "Aggregation_Tag_Hearths",
+              "Aggregation_Tag_Ruins",
+              "Aggregation_Tag_Storages",
+              "Building_Material_Tag",
+              "Complex_Food_Tag",
+              "Copper_Bar_And_Crystalized_Tag",
+              "Fabric_Tag",
+              "Farm_Recipe_Tag",
+              "Fishing_Tag",
+              "Food_Tag",
+              "Fuel_Tag",
+              "Gatherer_Hut_Tag",
+              "Gathering_Tag",
+              "Metal_Tag",
+              "N_FirstGameResultDialog",
+              "N_Initiation",
+              "N_IronmanMid",
+              "N_IronmanPostSeal",
+              "N_IronmanPreSeal",
+              "N_IronmanStart",
+              "Ore_Tag",
+              "Packs_Tag",
+              "Recipe_With_Water_Tag",
+              "Relic_Archeology",
+              "Relic_Chest",
+              "Tag_Beaver",
+              "Tag_Blight",
+              "Tag_Event_Send_To_Citadel_Reward",
+              "Tag_Fox",
+              "Tag_Frog",
+              "Tag_Harpy",
+              "Tag_Human",
+              "Tag_Lizzard",
+              "Tag_Metal_Bars_In_Recipe",
+              "Tag_Profession_Blight_Fighters",
+              "Tag_Profession_Firekeeper",
+              "Tag_Profession_Miner",
+              "Tag_Profession_Scout",
+              "Tag_Profession_Woodcutter",
+              "Tag_Rainpunk",
+              "Tag_Requires_Fertile_Soil",
+              "Tag_Storage_Haulers",
+              "Tag_Trade"
+            ]
+          },
+          {
+            "type": "string",
+            "title": "Mod-Added TagTypes"
+          }
+        ]
+      }
+    },
+    "producedWater": {
+      "default": "Clearance_Water",
+      "description": "The produced water when crafted",
+      "anyOf": [
+        {
+          "type": "string",
+          "title": "Predefined WaterTypes",
+          "enum": [
+            "Clearance_Water",
+            "Drizzle_Water",
+            "Storm_Water"
+          ]
+        },
+        {
+          "type": "string",
+          "title": "Mod-Added WaterTypes"
+        }
+      ]
+    },
+    "producedAmount": {
+      "default": 1,
+      "description": "The amount of the good produced",
+      "type": "integer"
+    },
+    "productionTime": {
+      "default": 10.0,
+      "description": "The time it takes to produce the water in seconds",
+      "type": "number"
+    },
+    "buildings": {
+      "default": "Rain_Catcher",
+      "description": "Which raincatchers can use this recipe",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "title": "Predefined RainCatcherTypes",
+            "enum": [
+              "Advanced_Rain_Catcher",
+              "Rain_Catcher"
+            ]
+          },
+          {
+            "type": "string",
+            "title": "Mod-Added RainCatcherTypes"
+          }
+        ]
+      }
+    }
+  }
+}

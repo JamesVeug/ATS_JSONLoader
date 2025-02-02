@@ -711,26 +711,7 @@ namespace TinyJson
                         PUBLIC_FIELD_INFOS = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                         
                         // Order fields by base order in hierarchy and order in that class
-                        PUBLIC_FIELD_INFOS = PUBLIC_FIELD_INFOS.OrderBy((a) =>
-                        {
-                            // Get depth in hierarchy
-                            Type baseType = a.DeclaringType;
-                            while(baseType.BaseType != null)
-                            {
-                                baseType = baseType.BaseType;
-                            }
-                            
-                            int depth = 0;
-                            Type currentType = a.DeclaringType;
-                            while (currentType != null)
-                            {
-                                depth++;
-                                currentType = currentType.BaseType;
-                            }
-
-                            int indexOf = a.DeclaringType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).IndexOf(a);
-                            return depth * 1000 + indexOf;
-                        }).ToArray();
+                        PUBLIC_FIELD_INFOS = PUBLIC_FIELD_INFOS.OrderBy(OrderFieldsByHierarchy).ToArray();
                         
                         // LogWarning($"{type.Name} Fields: {PUBLIC_FIELD_INFOS.Length} {string.Join(", ", PUBLIC_FIELD_INFOS.Select((a) => a.Name))}");
                         
@@ -797,6 +778,27 @@ namespace TinyJson
             }
 
             throw new NotImplementedException($"Type not supported for JSON serialization {type}");
+        }
+
+        public static int OrderFieldsByHierarchy(FieldInfo a)
+        {
+            // Get depth in hierarchy
+            Type baseType = a.DeclaringType;
+            while (baseType.BaseType != null)
+            {
+                baseType = baseType.BaseType;
+            }
+
+            int depth = 0;
+            Type currentType = a.DeclaringType;
+            while (currentType != null)
+            {
+                depth++;
+                currentType = currentType.BaseType;
+            }
+
+            int indexOf = a.DeclaringType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).IndexOf(a);
+            return depth * 1000 + indexOf;
         }
 
         private static string JsonInternalArray(object t, string prefix)

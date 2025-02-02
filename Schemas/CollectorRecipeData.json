@@ -2,8 +2,8 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "https://github.com/JamesVeug/ATS_JSONLoader",
   "type": "object",
-  "title": "Workshop Recipe",
-  "description": "Recipes added to workshop buildings to produce goods.\n\nFor JSONLoader to load this file into Against the Storm create a file on your computer ending with _workshopRecipe.json and paste the contents of the JSON inside. Example: \"MyFile_workshopRecipe.json\"",
+  "title": "Collector Recipe",
+  "description": "Unused in the project. Maybe originally meant for rain collectors?\n\nFor JSONLoader to load this file into Against the Storm create a file on your computer ending with _collectorRecipe.json and paste the contents of the JSON inside. Example: \"MyFile_collectorRecipe.json\"",
   "required": [
     "guid",
     "name"
@@ -224,190 +224,12 @@
       "description": "The time it takes to produce the good in seconds",
       "type": "number"
     },
-    "requiredGoods": {
-      "description": "Rewards the player can choose when starting a new settlement. If not included then will not affect existing meta rewards.",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "goods": {
-            "description": "Rewards the player can choose when starting a new settlement. If not included then will not affect existing meta rewards.",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "good": {
-                  "default": "Food_Raw_Herbs",
-                  "description": "The good required",
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "title": "Predefined GoodsTypes",
-                      "enum": [
-                        "_Meta_Artifacts",
-                        "_Meta_Food_Stockpiles",
-                        "_Meta_Machinery",
-                        "Blight_Fuel",
-                        "Crafting_Coal",
-                        "Crafting_Dye",
-                        "Crafting_Flour",
-                        "Crafting_Oil",
-                        "Crafting_Salt",
-                        "Crafting_Sea_Marrow",
-                        "Food_Processed_Biscuits",
-                        "Food_Processed_Jerky",
-                        "Food_Processed_Paste",
-                        "Food_Processed_Pickled_Goods",
-                        "Food_Processed_Pie",
-                        "Food_Processed_Porridge",
-                        "Food_Processed_Skewers",
-                        "Food_Raw_Berries",
-                        "Food_Raw_Eggs",
-                        "Food_Raw_Fish",
-                        "Food_Raw_Grain",
-                        "Food_Raw_Herbs",
-                        "Food_Raw_Insects",
-                        "Food_Raw_Meat",
-                        "Food_Raw_Mushrooms",
-                        "Food_Raw_Roots",
-                        "Food_Raw_Vegetables",
-                        "Hearth_Parts",
-                        "Mat_Processed_Bricks",
-                        "Mat_Processed_Fabric",
-                        "Mat_Processed_Parts",
-                        "Mat_Processed_Pipe",
-                        "Mat_Processed_Planks",
-                        "Mat_Raw_Algae",
-                        "Mat_Raw_Clay",
-                        "Mat_Raw_Leather",
-                        "Mat_Raw_Plant_Fibre",
-                        "Mat_Raw_Reeds",
-                        "Mat_Raw_Resin",
-                        "Mat_Raw_Scales",
-                        "Mat_Raw_Sparkdew",
-                        "Mat_Raw_Stone",
-                        "Mat_Raw_Wood",
-                        "Metal_Copper_Bar",
-                        "Metal_Copper_Ore",
-                        "Metal_Crystalized_Dew",
-                        "Needs_Ale",
-                        "Needs_Boots",
-                        "Needs_Coats",
-                        "Needs_Incense",
-                        "Needs_Scrolls",
-                        "Needs_Scrolls_Tutorial",
-                        "Needs_Tea",
-                        "Needs_Training_Gear",
-                        "Needs_Wine",
-                        "Other_Fishing_Bait",
-                        "Packs_Pack_Of_Building_Materials",
-                        "Packs_Pack_Of_Crops",
-                        "Packs_Pack_Of_Luxury_Goods",
-                        "Packs_Pack_Of_Provisions",
-                        "Packs_Pack_Of_Trade_Goods",
-                        "TEMP_Meta_Exp",
-                        "Tools_Simple_Tools",
-                        "Valuable_Amber",
-                        "Valuable_Ancient_Tablet",
-                        "Valuable_Thunderblight_Shard",
-                        "Vessel_Barrels",
-                        "Vessel_Pottery",
-                        "Vessel_Waterskin",
-                        "Water_Clearance_Water",
-                        "Water_Drizzle_Water",
-                        "Water_Storm_Water"
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "title": "Mod-Added GoodsTypes"
-                    }
-                  ]
-                },
-                "amount": {
-                  "default": 0,
-                  "description": "The amount of the good required",
-                  "type": "integer"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "buildings": {
-      "default": "Apothecary",
-      "description": "Which workshops can use this recipe",
+      "default": 0,
+      "description": "Which collector buildings can use this recipe",
       "type": "array",
       "items": {
-        "anyOf": [
-          {
-            "type": "string",
-            "title": "Predefined WorkshopTypes",
-            "enum": [
-              "Alchemist_Hut",
-              "Apothecary",
-              "Artisan",
-              "Bakery",
-              "Beanery",
-              "Brewery",
-              "Brick_Oven",
-              "Brickyard",
-              "Butcher",
-              "Cannery",
-              "Carpenter",
-              "Cellar",
-              "Clay_Pit_Workshop",
-              "Clothier",
-              "Cobbler",
-              "Cookhouse",
-              "Cooperage",
-              "Crude_Workstation",
-              "Distillery",
-              "Druid",
-              "Field_Kitchen",
-              "Finesmith",
-              "Flawless_Brewery",
-              "Flawless_Cellar",
-              "Flawless_Cooperage",
-              "Flawless_Druid",
-              "Flawless_Leatherworks",
-              "Flawless_Rain_Mill",
-              "Flawless_Smelter",
-              "Furnace",
-              "Granary",
-              "Greenhouse_Workshop",
-              "Grill",
-              "Kiln",
-              "Leatherworks",
-              "Lumbermill",
-              "Makeshift_Post",
-              "Manufactory",
-              "Pantry",
-              "Press",
-              "Provisioner",
-              "Rain_Mill",
-              "Rainpunk_Foundry",
-              "Ranch",
-              "Scribe",
-              "Smelter",
-              "Smithy",
-              "Smokehouse",
-              "Stamping_Mill",
-              "Supplier",
-              "Tea_House",
-              "Tinctury",
-              "Tinkerer",
-              "Toolshop",
-              "Weaver",
-              "Workshop"
-            ]
-          },
-          {
-            "type": "string",
-            "title": "Mod-Added WorkshopTypes"
-          }
-        ]
+        "type": "string"
       }
     }
   }
