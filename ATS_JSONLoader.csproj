@@ -58,7 +58,6 @@
       
     <ItemGroup>
       <Folder Include="Examples\" />
-      <Folder Include="Schemas\" />
     </ItemGroup>
     
     <Target Name="Deploy" AfterTargets="Build">
