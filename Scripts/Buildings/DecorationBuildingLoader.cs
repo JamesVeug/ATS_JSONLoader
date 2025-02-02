@@ -46,7 +46,7 @@ public class DecorationBuildingLoader : ABuildingLoader<DecorationModel, Decorat
     }
 }
 
-[GenerateSchema("DecorationBuilding", "A decoration building that buffs the hearth.", HouseBuildingLoader.kFileExtension)]
+[GenerateSchema("DecorationBuilding", "A decoration building that buffs the hearth. (ie: Anvil, Fox Fence, Harmony Spirit Altar)", HouseBuildingLoader.kFileExtension)]
 public class DecorationBuildingData : ABuildingData
 {
     [SchemaEnum<DecorationTierTypes>(DecorationTierTypes.Aesthetics, "Used to upgrade the Hearth.")] 

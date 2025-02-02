@@ -11,7 +11,7 @@ using TinyJson;
 
 public class GathererHutRecipeLoader : ARecipeLoader<GathererHutRecipeModel, GathererHutRecipeData>
 {
-    public const string fileExtension = "_GathererHutRecipe.json";
+    public const string fileExtension = "_gathererHutRecipe.json";
     public override string FileExtension => fileExtension;
     public override string Category => "GathererHutRecipes";
     public override IEnumerable<GathererHutRecipeModel> AllModels => MB.Settings.gatherersHutsRecipes;
@@ -71,7 +71,7 @@ public class GathererHutRecipeLoader : ARecipeLoader<GathererHutRecipeModel, Gat
     }
 }
 
-[GenerateSchema("GathererHut Recipe", "Recipes added to GathererHut buildings to produce goods.", GathererHutRecipeLoader.fileExtension)]
+[GenerateSchema("GathererHut Recipe", "Recipes added to GathererHut buildings to collect goods from nodes on maps. (ie: Clay, Eggs, Berry's... etc).", GathererHutRecipeLoader.fileExtension)]
 public class GathererHutRecipeData : ARecipeData
 {
     [SchemaField(null, "The good that is produced by the recipe.")]

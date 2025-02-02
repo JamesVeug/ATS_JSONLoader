@@ -46,7 +46,7 @@ public class WorkshopBuildingLoader : ABuildingLoader<WorkshopModel, WorkshopBui
     }
 }
 
-[GenerateSchema("WorkshopBuilding", "Buildings that turn basic WorkshopBuildings into products.", WorkshopBuildingLoader.fileExtension)]
+[GenerateSchema("WorkshopBuilding", "Buildings that turn goods into products. (ie: Bakery, Toolshop)", WorkshopBuildingLoader.fileExtension)]
 public class WorkshopBuildingData : ABuildingData
 {
     [SchemaEnum<ProfessionTypes>(ProfessionTypes.Alchemist, "Which races are good in this building.")]

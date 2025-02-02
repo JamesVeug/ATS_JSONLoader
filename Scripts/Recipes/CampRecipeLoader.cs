@@ -9,7 +9,7 @@ using Eremite.Model;
 
 public class CampRecipeLoader : ARecipeLoader<CampRecipeModel, CampRecipeData>
 {
-    public const string fileExtension = "_CampRecipe.json";
+    public const string fileExtension = "_campRecipe.json";
     public override string FileExtension => fileExtension;
     public override string Category => "CampRecipes";
     public override IEnumerable<CampRecipeModel> AllModels => MB.Settings.campsRecipes;
@@ -43,7 +43,7 @@ public class CampRecipeLoader : ARecipeLoader<CampRecipeModel, CampRecipeData>
     }
 }
 
-[GenerateSchema("Camp Recipe", "Recipes added to Camps (aka: Service buildings) to needs.", CampRecipeLoader.fileExtension)]
+[GenerateSchema("Camp Recipe", "Recipes added to Camps (ie: Wood cutting camp).", CampRecipeLoader.fileExtension)]
 public class CampRecipeData : ARecipeData
 {
     [SchemaField(null, "The good that is produced by the recipe.")]

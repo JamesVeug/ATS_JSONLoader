@@ -11,7 +11,7 @@ using TinyJson;
 
 public class FishingHutRecipeLoader : ARecipeLoader<FishingHutRecipeModel, FishingHutRecipeData>
 {
-    public const string fileExtension = "_FishingHutRecipe.json";
+    public const string fileExtension = "_fishingHutRecipe.json";
     public override string FileExtension => fileExtension;
     public override string Category => "FishingHutRecipes";
     public override IEnumerable<FishingHutRecipeModel> AllModels => MB.Settings.fishingHutsRecipes;

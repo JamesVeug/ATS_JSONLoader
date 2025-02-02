@@ -9,7 +9,7 @@ using Eremite.Model;
 
 public class MineRecipeLoader : ARecipeLoader<MineRecipeModel, MineRecipeData>
 {
-    public const string fileExtension = "_MineRecipe.json";
+    public const string fileExtension = "_mineRecipe.json";
     public override string FileExtension => fileExtension;
     public override string Category => "MineRecipes";
     public override IEnumerable<MineRecipeModel> AllModels => MB.Settings.minesRecipes;
@@ -67,7 +67,7 @@ public class MineRecipeLoader : ARecipeLoader<MineRecipeModel, MineRecipeData>
     }
 }
 
-[GenerateSchema("Mine Recipe", "Recipes added to Mine buildings to produce goods.", MineRecipeLoader.fileExtension)]
+[GenerateSchema("Mine Recipe", "Recipes added to Mine buildings to produce goods. (ie: Mine for coal/copper/salt)", MineRecipeLoader.fileExtension)]
 public class MineRecipeData : ARecipeData
 {
     [SchemaField(null, "The good that is produced by the recipe.")]

@@ -47,7 +47,7 @@ public class HouseBuildingLoader : ABuildingLoader<HouseModel, HouseBuildingData
     }
 }
 
-[GenerateSchema("HouseBuilding", "Buildings that turn basic HouseBuildings into products.", HouseBuildingLoader.kFileExtension)]
+[GenerateSchema("HouseBuilding", "Buildings that server housing needs for Villagers. (ie: Human House, Frog House)", HouseBuildingLoader.kFileExtension)]
 public class HouseBuildingData : ABuildingData
 {
     [SchemaField(null)]

@@ -9,7 +9,7 @@ using Eremite.Model;
 
 public class InstitutionRecipeLoader : ARecipeLoader<InstitutionRecipeModel, InstitutionRecipeData>
 {
-    public const string fileExtension = "_InstitutionRecipe.json";
+    public const string fileExtension = "_institutionRecipe.json";
     public override string FileExtension => fileExtension;
     public override string Category => "InstitutionRecipes";
     public override IEnumerable<InstitutionRecipeModel> AllModels => MB.Settings.institutionRecipes;

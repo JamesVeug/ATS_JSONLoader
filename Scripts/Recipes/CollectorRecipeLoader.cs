@@ -9,7 +9,7 @@ using Eremite.Model;
 
 public class CollectorRecipeLoader : ARecipeLoader<CollectorRecipeModel, CollectorRecipeData>
 {
-    public const string fileExtension = "_CollectorRecipe.json";
+    public const string fileExtension = "_collectorRecipe.json";
     public override string FileExtension => fileExtension;
     public override string Category => "CollectorRecipes";
     public override IEnumerable<CollectorRecipeModel> AllModels => MB.Settings.collectorsRecipes;
@@ -67,7 +67,7 @@ public class CollectorRecipeLoader : ARecipeLoader<CollectorRecipeModel, Collect
     }
 }
 
-[GenerateSchema("Collector Recipe", "Recipes added to Collector buildings to produce goods.", CollectorRecipeLoader.fileExtension)]
+[GenerateSchema("Collector Recipe", "Unused in the project. Maybe originally meant for rain collectors?", CollectorRecipeLoader.fileExtension)]
 public class CollectorRecipeData : ARecipeData
 {
     [SchemaEnum<GoodsTypes>(GoodsTypes.Crafting_Oil, "The produced good when crafted")]

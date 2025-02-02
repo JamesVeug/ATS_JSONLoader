@@ -48,7 +48,7 @@ public class InstitutionBuildingLoader : ABuildingLoader<InstitutionModel, Insti
     }
 }
 
-[GenerateSchema("InstitutionBuilding", "A building that requires goods to satisfy needs.", InstitutionBuildingLoader.kFileExtension)]
+[GenerateSchema("InstitutionBuilding", "A building that requires goods to satisfy needs. (ie: Bath House, Clan Hall) ", InstitutionBuildingLoader.kFileExtension)]
 public class InstitutionBuildingData : ABuildingData
 {
     [SchemaField(null)]

@@ -8,7 +8,7 @@ using Eremite.Buildings;
 
 public class RainCatcherRecipeLoader : ARecipeLoader<RainCatcherRecipeModel, RainCatcherRecipeData>
 {
-    public const string fileExtension = "_RainCatcherRecipe.json";
+    public const string fileExtension = "_rainCatcherRecipe.json";
     public override string FileExtension => fileExtension;
     public override string Category => "RainCatcherRecipes";
     public override IEnumerable<RainCatcherRecipeModel> AllModels => MB.Settings.rainCatchersRecipes;
@@ -66,7 +66,7 @@ public class RainCatcherRecipeLoader : ARecipeLoader<RainCatcherRecipeModel, Rai
     }
 }
 
-[GenerateSchema("RainCatcher Recipe", "Recipes added to RainCatcher buildings to produce goods.", RainCatcherRecipeLoader.fileExtension)]
+[GenerateSchema("RainCatcher Recipe", "Recipes added to RainCatcher buildings to collect water. (ie: Clearance, drizzle, storm)", RainCatcherRecipeLoader.fileExtension)]
 public class RainCatcherRecipeData : ARecipeData
 {
     [SchemaEnum<WaterTypes>(WaterTypes.Clearance_Water, "The produced water when crafted")]

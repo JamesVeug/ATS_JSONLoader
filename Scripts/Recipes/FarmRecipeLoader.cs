@@ -9,7 +9,7 @@ using Eremite.Model;
 
 public class FarmRecipeLoader : ARecipeLoader<FarmRecipeModel, FarmRecipeData>
 {
-    public const string fileExtension = "_FarmRecipe.json";
+    public const string fileExtension = "_farmRecipe.json";
     public override string FileExtension => fileExtension;
     public override string Category => "FarmRecipes";
     public override IEnumerable<FarmRecipeModel> AllModels => MB.Settings.farmsRecipes;
@@ -68,7 +68,7 @@ public class FarmRecipeLoader : ARecipeLoader<FarmRecipeModel, FarmRecipeData>
     }
 }
 
-[GenerateSchema("Farm Recipe", "Recipes added to Farm buildings to produce goods.", FarmRecipeLoader.fileExtension)]
+[GenerateSchema("Farm Recipe", "Recipes added to Farm buildings to grow goods (ie: Berrys, Crystalized Dew).", FarmRecipeLoader.fileExtension)]
 public class FarmRecipeData : ARecipeData
 {
     [SchemaEnum<GoodsTypes>(GoodsTypes.Crafting_Oil, "The produced good when crafted")]
