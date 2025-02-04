@@ -1,3 +1,21 @@
+# 0.7.0
+- Added support for editing buildings
+  - Workshops
+  - Houses
+  - Institutions
+  - Decorations
+- Added support for all recipe types
+  - Camp
+  - Collector
+  - Farm
+  - FishingHut
+  - GathererHut
+  - Institution
+  - Mine
+  - RainCatcher
+- Fixed exported images appearing dark
+- Fixed exported images showing the entire atlas instead of desired image
+
 # 0.6.0
 - Works for ATS 1.6.2R
 - Added support to add/change Workshop recipes

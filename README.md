@@ -18,12 +18,29 @@ Example: `Meatlovers_good.json`
 
 Below are online forms that will allow you to create/edit the JSON files and save it as a file to your computer to avoid accidentally writing .json files incorrectly.    
 
+General
 - Goods: https://tinyurl.com/yvez6x6e
 - Difficulties: https://tinyurl.com/muahb5z4
 - MetaRewards: https://tinyurl.com/bdfm4tjm
-- Races excluding sounds: https://tinyurl.com/mrmmbjae
+- Races (excluding sounds): https://tinyurl.com/mrmmbjae
+ 
+Recipes:
+- WorkshopRecipe: https://tinyurl.com/tpsy6khx
+- CampRecipe: https://tinyurl.com/3tz89mv4
+- CollectorRecipe: https://tinyurl.com/zzdbzset
+- FarmRecipe: https://tinyurl.com/yyeek2wj
+- FishingHutRecipe: https://tinyurl.com/49avjxn4
+- GathererHutRecipe: https://tinyurl.com/uzrj6atb
+- InstitutionRecipe: https://tinyurl.com/4ar88jdc
+- RainCatcherRecipe: https://tinyurl.com/54k5hasp
 
-Raw JSON files can be found in the `Schemas` folder of this repository.
+Buildings
+- HouseBuilding: https://tinyurl.com/9bmhuezr
+- InstitutionBuilding: https://tinyurl.com/yc3pm7bm
+- DecorationBuilding: https://tinyurl.com/36p4abwz
+- WorkshopBuilding: https://tinyurl.com/57awubuy
+
+NOTE: Raw JSON files can be found in the `Schemas` folder of this repository.
 
 
 ### How to use the forms
@@ -51,9 +68,12 @@ To reload while in game press `F5` and the game will reload the files, or you ca
 
 ## Exporting
 
-JSONLoader allows you to export all supported data of the game data to your computer so you can compare or edit as you need.
+JSONLoader allows you to export all supported data of the game to your computer as images and `.json` files so you can copy+paste, compare or edit as you need.
 
-To Export using Thunderstore go into the configs tab and change `Export` to `true` then restart the game.
+To trigger an Export:
+- Using Thunderstore go into the configs tab and change `Export` to `true` then restart the game.
+- Using API go into the games mod menu and change `Export` to `true` then restart the game.
+- Manually go into the BepInEx/configs folder, find JSONLoader and change `Export` to `true` then restart the game.
 
 The exported files will be in the `%userprofile%\AppData\LocalLow\Eremite Games\Against the Storm\JSONLoader\Exported` folder.
 
