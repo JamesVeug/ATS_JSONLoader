@@ -33,19 +33,20 @@ public class HelperMethods
 
     public class WorkPlaceData : JSONSerializer<WorkplaceModel, WorkPlaceData>, JSONSerializer<WorkPlaceData, WorkplaceModel>
     {
-        public string[] races;
+        [SchemaField(false, false, "Can only an automaton be assigned to this slow?")]
+        public bool onlyForAutomatons;
         
         public WorkplaceModel Convert(WorkPlaceData data)
         {
             WorkplaceModel workplaceModel = new WorkplaceModel();
-            workplaceModel.allowedRaces = data.races.ToRaceModelArray();
+            workplaceModel.onlyForAutomatons = data.onlyForAutomatons;
             return workplaceModel;
         }
 
         public WorkPlaceData Convert(WorkplaceModel value)
         {
             WorkPlaceData workPlaceData = new WorkPlaceData();
-            workPlaceData.races = value.allowedRaces.Select(a => a?.Name).ToArray();
+            workPlaceData.onlyForAutomatons = value.onlyForAutomatons;
             return workPlaceData;
         }
     }
