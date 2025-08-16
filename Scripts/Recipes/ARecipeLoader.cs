@@ -45,7 +45,7 @@ public abstract class ARecipeLoader<ModelType, DataType>
         for (int i = 0; i < files.Count; i++)
         {
             string file = files[i];
-            if (!file.EndsWith(FileExtension))
+            if (!file.EndsWith(FileExtension, StringComparison.OrdinalIgnoreCase))
             {
                 continue;
             }

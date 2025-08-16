@@ -20,7 +20,7 @@ public class MetaRewardLoader
         for (int i = 0; i < files.Count; i++)
         {
             string file = files[i];
-            if (!file.EndsWith(fileExtension))
+            if (!file.EndsWith(fileExtension, StringComparison.OrdinalIgnoreCase))
             {
                 continue;
             }
