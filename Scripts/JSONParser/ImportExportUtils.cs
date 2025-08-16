@@ -163,6 +163,7 @@ public static partial class ImportExportUtils
             }
             else
             {
+                LoggingSuffix = suffix;
                 VerboseLog($"Skipping {category}.{suffix} as it is null");
             }
         }
@@ -174,6 +175,7 @@ public static partial class ImportExportUtils
             }
             else
             {
+                LoggingSuffix = suffix;
                 VerboseLog($"Skipping {category}.{suffix} as it is null");
             }
         }
@@ -182,6 +184,7 @@ public static partial class ImportExportUtils
     private static void ConvertValue<FromType, ToType>(ref FromType from, ref ToType to, string category, string suffix)
     {
         LoggingSuffix = suffix;
+        VerboseLog($"Applying {suffix}");
 
         Type fromType = typeof(FromType);
         Type toType = typeof(ToType);

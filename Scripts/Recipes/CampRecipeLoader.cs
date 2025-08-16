@@ -37,7 +37,6 @@ public class CampRecipeLoader : ARecipeLoader<CampRecipeModel, CampRecipeData>
     {
         base.Apply(model, data, toModel, modelName);
 
-        Logging.VerboseLog($"Applying JSON (CampRecipes) {modelName}");
         ImportExportUtils.ApplyValueNoNull(ref model.refGood, ref data.refGood, toModel, Category, "refGood");
         ImportExportUtils.ApplyValueNoNull(ref model.productionTime, ref data.productionTime, toModel, Category, "productionTime");
     }

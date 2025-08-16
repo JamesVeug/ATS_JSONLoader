@@ -100,6 +100,10 @@ public class Plugin : BaseUnityPlugin
     private static void LoadAllFiles()
     {
         List<string> files = GetAllJLDRFiles();
+        if (Configs.VerboseLogging)
+        {
+            Log.LogInfo("Loading all JSON files:" + string.Join(", ", files.Select(Path.GetFileName)));
+        }
 
         GoodsLoader.LoadAll(files);
         RaceLoader.LoadAll(files);
