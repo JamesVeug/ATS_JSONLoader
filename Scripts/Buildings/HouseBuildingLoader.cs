@@ -11,6 +11,7 @@ public class HouseBuildingLoader : ABuildingLoader<HouseModel, HouseBuildingData
     public override string FileExtension => kFileExtension;
     public override string Category => "HouseBuilding";
     public override IEnumerable<HouseModel> AllModels => MB.Settings.Buildings.Where(a=>a is HouseModel).Cast<HouseModel>();
+    public override bool SupportsNewModels => true;
     
     public override HouseModel CreateNewModelModel(string guid, string name)
     {

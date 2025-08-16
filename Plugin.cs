@@ -121,11 +121,17 @@ public class Plugin : BaseUnityPlugin
         new RainCatcherRecipeLoader().LoadAll(files);
         new CollectorRecipeLoader().LoadAll(files);
         
+        
         // Buildings
         new WorkshopBuildingLoader().LoadAll(files);
         new HouseBuildingLoader().LoadAll(files);
         new DecorationBuildingLoader().LoadAll(files);
         new InstitutionBuildingLoader().LoadAll(files);
+        new FishingHutBuildingLoader().LoadAll(files);
+        new GathererHutBuildingLoader().LoadAll(files);
+        new CampBuildingLoader().LoadAll(files);
+        new HearthBuildingLoader().LoadAll(files);
+        
     }
 
     private static void ExportAllFiles()
@@ -159,5 +165,9 @@ public class Plugin : BaseUnityPlugin
         new HouseBuildingLoader().ExportAll();
         new DecorationBuildingLoader().ExportAll();
         new InstitutionBuildingLoader().ExportAll();
+        new FishingHutBuildingLoader().ExportAll();
+        new GathererHutBuildingLoader().ExportAll();
+        new CampBuildingLoader().ExportAll();
+        new HearthBuildingLoader().ExportAll();
     }
 }

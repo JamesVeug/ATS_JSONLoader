@@ -76,6 +76,7 @@ public abstract class ABuildingLoader<ModelType,DataType>
     public abstract string FileExtension { get; }
     public abstract string Category { get; }
     public abstract IEnumerable<ModelType> AllModels { get; }
+    public abstract bool SupportsNewModels { get; }
     public abstract ModelType CreateNewModelModel(string guid, string name);
     public abstract bool GetNewData(string name, out string rawName, out string guid);
     
@@ -85,7 +86,7 @@ public abstract class ABuildingLoader<ModelType,DataType>
         for (int i = 0; i < files.Count; i++)
         {
             string file = files[i];
-            if (!file.EndsWith(FileExtension))
+            if (!file.EndsWith(FileExtension, StringComparison.OrdinalIgnoreCase))
             {
                 continue;
             }
@@ -117,11 +118,16 @@ public abstract class ABuildingLoader<ModelType,DataType>
                     Logging.VerboseLog($"Found existing {typeof(DataType).Name} {fullName}");
                     model = AllModels.First(a=>a.name == fullName);
                 }
-                else
+                else if(SupportsNewModels)
                 {
                     Logging.VerboseLog($"Creating new {typeof(DataType).Name} {fullName}");
                     model = CreateNewModelModel(data.guid, data.name);
                     isNewGood = true;
+                }
+                else
+                {
+                    Logging.VerboseLog($"Cannot find model and {typeof(DataType).Name} does not support custom types. Skipping {file}");
+                    continue;
                 }
                 
                 Logging.VerboseLog($"Applying JSON ({typeof(ModelType).Name}) {file} to {typeof(DataType).Name} {fullName}");
@@ -164,7 +170,7 @@ public abstract class ABuildingLoader<ModelType,DataType>
             DataType data = Activator.CreateInstance<DataType>();
             data.Initialize();
 
-            if (GetNewData(model.name, out string rawName, out string guid))
+            if (SupportsNewModels && GetNewData(model.name, out string rawName, out string guid))
             {
                 data.guid = guid;
                 data.name = rawName;

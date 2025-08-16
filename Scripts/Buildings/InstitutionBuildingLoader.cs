@@ -11,6 +11,7 @@ public class InstitutionBuildingLoader : ABuildingLoader<InstitutionModel, Insti
     public override string Category => "InstitutionBuilding";
     public override string FileExtension => kFileExtension;
     public override IEnumerable<InstitutionModel> AllModels => MB.Settings.Buildings.Where(a=>a is InstitutionModel).Cast<InstitutionModel>();
+    public override bool SupportsNewModels => true;
     
     public override InstitutionModel CreateNewModelModel(string guid, string name)
     {

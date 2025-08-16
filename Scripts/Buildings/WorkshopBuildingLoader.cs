@@ -11,6 +11,8 @@ public class WorkshopBuildingLoader : ABuildingLoader<WorkshopModel, WorkshopBui
     public override string FileExtension => fileExtension;
     public override string Category => "WorkshopBuilding";
     public override IEnumerable<WorkshopModel> AllModels => MB.Settings.workshops;
+    public override bool SupportsNewModels => true;
+
     public override WorkshopModel CreateNewModelModel(string guid, string name)
     {
         return BuildingManager.CreateWorkshop(guid, name).BuildingModel;

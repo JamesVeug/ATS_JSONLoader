@@ -11,6 +11,7 @@ public class DecorationBuildingLoader : ABuildingLoader<DecorationModel, Decorat
     public override string FileExtension => kFileExtension;
     public override string Category => "DecorationBuilding";
     public override IEnumerable<DecorationModel> AllModels => MB.Settings.Buildings.Where(a=>a is DecorationModel).Cast<DecorationModel>();
+    public override bool SupportsNewModels => true;
     
     public override DecorationModel CreateNewModelModel(string guid, string name)
     {
