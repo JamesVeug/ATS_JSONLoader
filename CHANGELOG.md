@@ -1,3 +1,7 @@
+# 0.7.1
+- Updated to ATS 1.8.10R
+- Replaced `allowedRaces` with `onlyForAutomatons` for WorkPlaceData on certain buildings. 
+
 # 0.7.0
 - Added support for editing buildings
   - Workshops
