@@ -1,3 +1,12 @@
+# 0.8.0
+- Added editing only support for
+  - Fishing hut
+  - Gatherer hut
+  - Camp (Wood cutters camp)
+  - Hearth
+- File names are no longer case-sensitive (_GoOd.JsOn is now valid)
+- Verbose Minor logging changes
+
 # 0.7.1
 - Updated to ATS 1.8.10R
 - Replaced `allowedRaces` with `onlyForAutomatons` for WorkPlaceData on certain buildings. 

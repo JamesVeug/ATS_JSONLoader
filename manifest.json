@@ -1,6 +1,6 @@
 ﻿{
   "name": "JSONLoader",
-  "version_number": "0.7.1",
+  "version_number": "0.8.0",
   "website_url": "https://github.com/JamesVeug/ATS_JSONLoader",
   "description": "Add/Change ATS without code. Use json files instead.",
   "dependencies": [
