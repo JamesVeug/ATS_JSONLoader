@@ -58,10 +58,10 @@ public class FishingHutBuildingData : ABuildingData
     public string[] recipes;
 
     [SchemaField(null)]
-    public float baitMultiplier;
+    public float? baitMultiplier;
 
     [SchemaField(null)]
-    public float maxDistance;
+    public float? maxDistance;
     
     [SchemaField(null)]
     public HelperMethods.GoodRefData baitIngredient;

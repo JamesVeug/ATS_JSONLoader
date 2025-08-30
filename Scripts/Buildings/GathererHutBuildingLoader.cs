@@ -56,10 +56,10 @@ public class GathererHutBuildingData : ABuildingData
     public string[] recipes;
 
     [SchemaField(null)]
-    public float maxStorage;
+    public float? maxStorage;
 
     [SchemaField(null)]
-    public float maxDistance;
+    public float? maxDistance;
 }
 
 public class GathererHubBuildingBuilder : BuildingBuilder<GathererHutModel, GathererHutData>

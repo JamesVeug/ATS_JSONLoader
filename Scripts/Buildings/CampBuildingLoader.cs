@@ -56,10 +56,10 @@ public class CampBuildingData : ABuildingData
     public string[] recipes;
 
     [SchemaField(null)]
-    public float maxStorage;
+    public float? maxStorage;
 
     [SchemaField(null)]
-    public float maxDistance;
+    public float? maxDistance;
 }
 
 public class CampBuildingBuilder : BuildingBuilder<CampModel, CampData>
