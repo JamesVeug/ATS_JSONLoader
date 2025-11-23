@@ -131,6 +131,9 @@ public class Plugin : BaseUnityPlugin
         new GathererHutBuildingLoader().LoadAll(files);
         new CampBuildingLoader().LoadAll(files);
         new HearthBuildingLoader().LoadAll(files);
+        new FarmBuildingLoader().LoadAll(files);
+        new MineBuildingLoader().LoadAll(files);
+        new ExtractorBuildingLoader().LoadAll(files);
         
     }
 
@@ -169,5 +172,8 @@ public class Plugin : BaseUnityPlugin
         new GathererHutBuildingLoader().ExportAll();
         new CampBuildingLoader().ExportAll();
         new HearthBuildingLoader().ExportAll();
+        new FarmBuildingLoader().ExportAll();
+        new MineBuildingLoader().ExportAll();
+        new ExtractorBuildingLoader().ExportAll();
     }
 }
