@@ -34,6 +34,8 @@ public class FarmBuildingLoader : ABuildingLoader<FarmModel, FarmBuildingData>
         ImportExportUtils.ApplyLocaText(ref model.displayName, ref data.displayName, (a,b)=>builder.SetDisplayName(a,b), toModel, "displayName");
         ImportExportUtils.ApplyLocaText(ref model.description, ref data.description, (a,b)=>builder.SetDescription(a,b), toModel, "description");
         
+        ImportExportUtils.ApplyValueNoNull(ref model.levels, ref data.levels, toModel, Category, "levels");
+        
         ImportExportUtils.ApplyValueNoNull(ref model.maxStorage, ref data.maxStorage, toModel, Category, "maxStorage");
         ImportExportUtils.ApplyVector2Int(ref model.workArea, ref data.minWorkArea, ref data.maxWorkArea, toModel, Category, "workArea");
         ImportExportUtils.ApplyValueNoNull(ref model.profession, ref data.profession, toModel, Category, "profession");
@@ -72,6 +74,9 @@ public class FarmBuildingData : ABuildingData
     
     [SchemaField(null)]
     public HelperMethods.WorkPlaceData[] workplaces;
+
+    [SchemaField(null)]
+    public HelperMethods.BuildingLevelData[] levels;
 }
 
 public class FarmBuildingBuilder : BuildingBuilder<FarmModel, FarmData>

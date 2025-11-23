@@ -43,6 +43,8 @@ public class DecorationBuildingLoader : ABuildingLoader<DecorationModel, Decorat
         ImportExportUtils.ApplyLocaText(ref model.displayName, ref data.displayName, (a,b)=>builder.SetDisplayName(a,b), toModel, "displayName");
         ImportExportUtils.ApplyLocaText(ref model.description, ref data.description, (a,b)=>builder.SetDescription(a,b), toModel, "description");
         
+        ImportExportUtils.ApplyValueNoNull(ref model.levels, ref data.levels, toModel, Category, "levels");
+        
         ImportExportUtils.ApplyValueNoNull(ref model.tier, ref data.tier, toModel, Category, "tier");
     }
 }
@@ -52,4 +54,7 @@ public class DecorationBuildingData : ABuildingData
 {
     [SchemaEnum<DecorationTierTypes>(DecorationTierTypes.Aesthetics, "Used to upgrade the Hearth.")] 
     public string tier;
+
+    [SchemaField(null)]
+    public HelperMethods.BuildingLevelData[] levels;
 }

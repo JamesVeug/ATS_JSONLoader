@@ -34,6 +34,8 @@ public class FishingHutBuildingLoader : ABuildingLoader<FishingHutModel, Fishing
         ImportExportUtils.ApplyLocaText(ref model.displayName, ref data.displayName, (a,b)=>builder.SetDisplayName(a,b), toModel, "displayName");
         ImportExportUtils.ApplyLocaText(ref model.description, ref data.description, (a,b)=>builder.SetDescription(a,b), toModel, "description");
         
+        ImportExportUtils.ApplyValueNoNull(ref model.levels, ref data.levels, toModel, Category, "levels");
+        
         ImportExportUtils.ApplyValueNoNull(ref model.profession, ref data.profession, toModel, Category, "profession");
         ImportExportUtils.ApplyValueNoNull(ref model.workplaces, ref data.workplaces, toModel, Category, "workplaces");
         ImportExportUtils.ApplyValueNoNull(ref model.recipes, ref data.recipes, toModel, Category, "recipes");
@@ -68,6 +70,9 @@ public class FishingHutBuildingData : ABuildingData
     
     [SchemaField(null)]
     public HelperMethods.GoodRefData bait;
+
+    [SchemaField(null)]
+    public HelperMethods.BuildingLevelData[] levels;
 }
 
 public class FishingHubBuildingBuilder : BuildingBuilder<FishingHutModel, FishingHutData>

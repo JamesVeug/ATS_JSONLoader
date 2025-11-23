@@ -42,6 +42,8 @@ public class HouseBuildingLoader : ABuildingLoader<HouseModel, HouseBuildingData
         ImportExportUtils.ApplyLocaText(ref model.displayName, ref data.displayName, (a,b)=>builder.SetDisplayName(a,b), toModel, "displayName");
         ImportExportUtils.ApplyLocaText(ref model.description, ref data.description, (a,b)=>builder.SetDescription(a,b), toModel, "description");
         
+        ImportExportUtils.ApplyValueNoNull(ref model.levels, ref data.levels, toModel, Category, "levels");
+        
         ImportExportUtils.ApplyValueNoNull(ref model.housingRaces, ref data.housingRaces, toModel, Category, "housingRaces");
         ImportExportUtils.ApplyValueNoNull(ref model.housingPlaces, ref data.housingPlaces, toModel, Category, "housingPlaces");
         ImportExportUtils.ApplyValueNoNull(ref model.servedNeeds, ref data.servedNeeds, toModel, Category, "servedNeeds");
@@ -59,4 +61,7 @@ public class HouseBuildingData : ABuildingData
 
     [SchemaField(null)]
     public string[] servedNeeds;
+
+    [SchemaField(null)]
+    public HelperMethods.BuildingLevelData[] levels;
 }

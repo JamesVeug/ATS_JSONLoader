@@ -34,6 +34,8 @@ public class ExtractorBuildingLoader : ABuildingLoader<ExtractorModel, Extractor
         ImportExportUtils.ApplyLocaText(ref model.displayName, ref data.displayName, (a,b)=>builder.SetDisplayName(a,b), toModel, "displayName");
         ImportExportUtils.ApplyLocaText(ref model.description, ref data.description, (a,b)=>builder.SetDescription(a,b), toModel, "description");
         
+        ImportExportUtils.ApplyValueNoNull(ref model.levels, ref data.levels, toModel, Category, "levels");
+        
         ImportExportUtils.ApplyValueNoNull(ref model.producedAmount, ref data.producedAmount, toModel, Category, "producedAmount");
         ImportExportUtils.ApplyValueNoNull(ref model.productionTime, ref data.productionTime, toModel, Category, "productionTime");
         ImportExportUtils.ApplyValueNoNull(ref model.baseTankCapacity, ref data.baseTankCapacity, toModel, Category, "baseTankCapacity");
@@ -56,12 +58,9 @@ public class ExtractorBuildingData : ABuildingData
     
     [SchemaEnum<ProfessionTypes>(ProfessionTypes.Alchemist, "Which races are good in this building.")]
     public string profession;
-    
+
     [SchemaField(null)]
-    public string[] recipes;
-    
-    [SchemaField(null)]
-    public HelperMethods.WorkPlaceData[] workplaces;
+    public HelperMethods.BuildingLevelData[] levels;
 }
 
 public class ExtractorBuildingBuilder : BuildingBuilder<ExtractorModel, ExtractorData>

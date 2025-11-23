@@ -51,6 +51,32 @@ public class HelperMethods
         }
     }
 
+    public class BuildingLevelData : JSONSerializer<BuildingLevelModel, BuildingLevelData>, JSONSerializer<BuildingLevelData, BuildingLevelModel>
+    {
+        [SchemaField(null)]
+        public GoodSetData[] requiredGoods;
+        
+        [SchemaEnum<BuildingPerkTypes>(BuildingPerkTypes.Arch_Inst_Extra_Production, "")] 
+        public string[] options;
+        
+        public BuildingLevelModel Convert(BuildingLevelData data)
+        {
+            BuildingLevelModel workplaceModel = new BuildingLevelModel();
+            workplaceModel.requiredGoods = data.requiredGoods.Select(a=>a.Convert(a)).ToArray();
+            workplaceModel.options = data.options.ToBuildingPerkModelArrayNoNulls();
+            
+            return workplaceModel;
+        }
+
+        public BuildingLevelData Convert(BuildingLevelModel value)
+        {
+            BuildingLevelData workPlaceData = new BuildingLevelData();
+            workPlaceData.requiredGoods = value.requiredGoods.Select(a=> new GoodSetData().Convert(a)).ToArray();
+            workPlaceData.options = value.options.Select(a => a.name).ToArray();
+            return workPlaceData;
+        }
+    }
+
     public class NeedData : JSONSerializer<string, NeedModel>, JSONSerializer<NeedModel, string>
     {
         public NeedModel Convert(string name)
