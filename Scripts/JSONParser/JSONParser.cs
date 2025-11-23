@@ -542,7 +542,7 @@ namespace TinyJson
 
         private static void LogError(Exception exception)
         {
-            Plugin.Log.LogError($"[{LogPrefix}] {exception}");
+            Plugin.Log.LogError($"[{LogPrefix}] {exception.Message}\n{exception.StackTrace}");
         }
 
         private static string[] FindSimilarFields(string key, Dictionary<string,FieldInfo> nameToField, Dictionary<string,PropertyInfo> nameToProperty)
