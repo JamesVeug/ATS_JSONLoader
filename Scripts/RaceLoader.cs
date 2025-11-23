@@ -170,7 +170,7 @@ public class RaceLoader
 
             Apply(goodModel, data, false, goodModel.name);
 
-            string file = Path.Combine(Plugin.ExportDirectory, "races", goodModel.name + fileExtension);
+            string file = Path.Combine(Plugin.ExportDirectory, "Races", goodModel.name + fileExtension);
             if(Directory.Exists(Path.GetDirectoryName(file)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(file));

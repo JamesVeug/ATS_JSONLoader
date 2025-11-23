@@ -307,7 +307,7 @@ public class GoodsLoader
             
             Apply(goodModel, data, false, goodModel.name, false);
             
-            string file = Path.Combine(Plugin.ExportDirectory, "goods", goodModel.name + fileExtension);
+            string file = Path.Combine(Plugin.ExportDirectory, "Goods", goodModel.name + fileExtension);
             if(Directory.Exists(Path.GetDirectoryName(file)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(file));

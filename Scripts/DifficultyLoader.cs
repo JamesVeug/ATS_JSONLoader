@@ -179,7 +179,7 @@ public class DifficultyLoader
             
             Apply(model, data, false, model.name, isNewDifficulty);
             
-            string file = Path.Combine(Plugin.ExportDirectory, "difficulties", model.name + fileExtension);
+            string file = Path.Combine(Plugin.ExportDirectory, "Difficulties", model.name + fileExtension);
             if(Directory.Exists(Path.GetDirectoryName(file)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(file));

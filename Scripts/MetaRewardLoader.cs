@@ -188,7 +188,7 @@ public class MetaRewardLoader
             }
             Apply(data, false, model.name, isNewMetaReward, builder);
             
-            string file = Path.Combine(Plugin.ExportDirectory, "metaRewards", model.name + fileExtension);
+            string file = Path.Combine(Plugin.ExportDirectory, "MetaRewards", model.name + fileExtension);
             if(Directory.Exists(Path.GetDirectoryName(file)) == false)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(file));
