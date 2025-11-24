@@ -1,9 +1,19 @@
+# 0.9.0
+- Added editing only support for
+  - Mine buildings
+  - Farm buildings
+  - Extractor buildings (Gas Geysers)
+- Added support to change upgrades for all buildings
+- Fixed some export folders starting with a lower case letter
+- Fixed exception logs not showing full stack trace
+- Updated readme on how to use schemas with an online json editor for easier mod creation
+
 # 0.8.0
 - Added editing only support for
-  - Fishing hut
-  - Gatherer hut
-  - Camp (Wood cutters camp)
-  - Hearth
+  - Fishing hut buildings
+  - Gatherer hut buildings
+  - Camp buildings (Wood cutters camp)
+  - Hearth buildings
 - File names are no longer case-sensitive (_GoOd.JsOn is now valid)
 - Verbose Minor logging changes
 

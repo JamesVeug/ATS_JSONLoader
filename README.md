@@ -12,46 +12,41 @@ Example: `Meatlovers_good.json`
 `_good` defines the type of content you are adding/modifying.
 
 
-## Schemas
+## Exporting
 
-![alt text](https://github.com/JamesVeug/ATS_JSONLoader/blob/master/Github/SchemaExample.png?raw=true "Schema Example")
+JSONLoader allows you to export all supported data of the game to your computer so you can copy+paste, compare or edit as you need.
+Any images related to the game such as race profile pictures or building icons will be saved as `.png` files.
+Any data such as buildings with all their info such as what recipes they can craft will be saved as `.json` files.
+Any sound related files will be saved as `.wav` files.
 
-Below are online forms that will allow you to create/edit the JSON files and save it as a file to your computer to avoid accidentally writing .json files incorrectly.    
+To trigger an Export:
+- Open the game
+- Options -> Mods -> JSONLoader
+- Change `Export On Game Load` to `true`
+- Restart the game. 
+> NOTE: The game starts it will freeze for a LONG time until its finished saving files to your PC
+> 
+> At the time of v1.9.3 the export folder is roughly 28mb
 
-General
-- Goods: https://tinyurl.com/yvez6x6e
-- Difficulties: https://tinyurl.com/muahb5z4
-- MetaRewards: https://tinyurl.com/bdfm4tjm
-- Races (excluding sounds): https://tinyurl.com/mrmmbjae
- 
-Recipes:
-- WorkshopRecipe: https://tinyurl.com/tpsy6khx
-- CampRecipe: https://tinyurl.com/3tz89mv4
-- CollectorRecipe: https://tinyurl.com/zzdbzset
-- FarmRecipe: https://tinyurl.com/yyeek2wj
-- FishingHutRecipe: https://tinyurl.com/49avjxn4
-- GathererHutRecipe: https://tinyurl.com/uzrj6atb
-- InstitutionRecipe: https://tinyurl.com/4ar88jdc
-- RainCatcherRecipe: https://tinyurl.com/54k5hasp
+The exported files will be in the `%userprofile%\AppData\LocalLow\Eremite Games\Against the Storm\JSONLoader\Exported` folder.
 
-Buildings
-- HouseBuilding: https://tinyurl.com/9bmhuezr
-- InstitutionBuilding: https://tinyurl.com/yc3pm7bm
-- DecorationBuilding: https://tinyurl.com/36p4abwz
-- WorkshopBuilding: https://tinyurl.com/57awubuy
+### Schemas
 
-NOTE: Raw JSON files can be found in the `Schemas` folder of this repository.
+The export folder contains a `Schemas` folder that will contain a `.json` file for all data types supported by JSONLoader.
 
+These are helpful for you to use an online form to fill out .json files and save them instead of manually writing them which can be quite tedious.
 
-### How to use the forms
-
-1. Click the link to the form you want to use.
-2. Fill in the form with as much data as you can
-3. Select all the .json under `Update Form` and copy it.
-4. Open a text editor like Notepad or Notepad++ and paste the data.
-5. Save the file with the name you want and the extension `.json` Example: `MyGood_good.json`
-6. Place the file in the plugins folder of BepInEx. See #Importing for more information.
-
+How to use them:
+1. Open a `.json` file from the Schemas folder that you want to create a change for. Example: `GoodsData.json`
+2. Copy all the text inside it with ctrl+a and ctrl+c
+3. Open this url: https://json-editor.github.io/json-editor/
+4. Scroll to the bottom where it says `Schema`
+5. Paste the text inside the text box
+6. Press `Update Schema`
+7. The form will now be filled out with information about goods.
+8. Make your changes
+9. When you're done making changes copy the text under `JSON Output`.
+10. Make a new .json file with the correct extension name and paste the text inside it: eg: `mynewgood_good.json`
 
 ## Importing
 
@@ -63,19 +58,7 @@ When you start the game the files will be loaded and any errors will show in con
 
 To reload while in game press `F5` and the game will reload the files, or you can modify this in the key bindings tab of Against the Storms options menu.
 
-- Note: Removing a .json file will not update the game but changing the .json file and images it references will update in the game. 
-
-
-## Exporting
-
-JSONLoader allows you to export all supported data of the game to your computer as images and `.json` files so you can copy+paste, compare or edit as you need.
-
-To trigger an Export:
-- Using Thunderstore go into the configs tab and change `Export` to `true` then restart the game.
-- Using API go into the games mod menu and change `Export` to `true` then restart the game.
-- Manually go into the BepInEx/configs folder, find JSONLoader and change `Export` to `true` then restart the game.
-
-The exported files will be in the `%userprofile%\AppData\LocalLow\Eremite Games\Against the Storm\JSONLoader\Exported` folder.
+- Note: Removing a .json file will not update the game but changing the .json file and images it references will update in the game.
 
 
 ## Goods
