@@ -139,6 +139,32 @@ public class HelperMethods
         }
     }
 
+    public class MineRecipeModelData : JSONSerializer<string, MineRecipeModel>, JSONSerializer<MineRecipeModel, string>
+    {
+        public MineRecipeModel Convert(string name)
+        {
+            return name.ToMineRecipeModel();
+        }
+
+        public string Convert(MineRecipeModel value)
+        {
+            return value.name;
+        }
+    }
+
+    public class FarmRecipeModelData : JSONSerializer<string, FarmRecipeModel>, JSONSerializer<FarmRecipeModel, string>
+    {
+        public FarmRecipeModel Convert(string name)
+        {
+            return name.ToFarmRecipeModel();
+        }
+
+        public string Convert(FarmRecipeModel value)
+        {
+            return value.name;
+        }
+    }
+
     public class InstitutionRecipeModelData : JSONSerializer<string, InstitutionRecipeModel>, JSONSerializer<InstitutionRecipeModel, string>
     {
         public InstitutionRecipeModel Convert(string name)
